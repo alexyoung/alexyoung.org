@@ -1,0 +1,12 @@
+---
+layout: post
+title: "MoloPix"
+categories: 
+- photography
+- iphone
+- apps
+---
+
+"Alan Bradburne":http://alanbradburne.com/, a fellow Rails and iPhone developer who I've worked with, has released his first iPhone app: "MoloPix":http://molopix.com/.  It takes multiple photos and combines them into one image, and has an integrated website so you can share them straight from the iPhone.
+
+I wrote a review for it on "Quite Useful":http://quiteuseful.co.uk/post/76738117/review-molopix.

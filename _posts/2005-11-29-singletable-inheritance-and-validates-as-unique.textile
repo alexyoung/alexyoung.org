@@ -1,0 +1,44 @@
+---
+layout: post
+title: "Single-table Inheritance and validates_as_unique"
+categories: 
+- snippets
+- code
+- programming
+- rails
+---
+
+I had a User class, which then had a Moderator class.  I was using the "type" field in my database to denote whether a user was a User or a Moderator.  However, my validations weren't working as I expected:
+
+{% highlight ruby %}
+validates_as_unique :name, :email
+{% endhighlight %}
+
+Users could have the same email address as Moderators.  Obviously sometimes this kind of scoping makes sense for STI classes, but it doesn't here.  I ended up writing this:
+
+{% highlight ruby %}
+module ActiveRecord
+  module Validations
+    module ClassMethods
+      # Intended for use with STI tables, helps ignore the type field
+      def validates_overall_uniqueness_of(*attr_names)
+        configuration = { :message => "must be unique" }
+        configuration.update(attr_names.pop) if attr_names.last.is_a?(Hash)
+
+        validates_each(attr_names, configuration) do |record, attr_name, value|
+          records = self.find(:all, :conditions=> ["#{attr_name} = ?", value])
+          record.errors.add(attr_name, configuration[:message]) if records.size > 0 and records[0].id != record.id
+        end
+      end
+    end
+  end
+end
+{% endhighlight %}
+
+This hastily named validation keyword allows you to specify fields you want to be considered unique across the entire table, whether they be Users, Moderators, Admins or MagicalPixies.  Now I just use:
+
+{% highlight ruby %}
+validates_overall_uniqueness_of :name, :email
+{% endhighlight %}
+
+and my Users can't assume the identity of Moderators and piss everyone off!

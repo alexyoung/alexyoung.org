@@ -1,0 +1,81 @@
+---
+layout: post
+title: "Quickly Load Rails Projects"
+categories: 
+- ruby
+- rails
+- tips
+- productivity
+---
+
+Here's a huge *Rails productivity tip*.  It's a shell command that does the following:
+
+* Changes directory to a Rails project
+* Opens <code>$EDITOR</code> (set this as TextMate, MacVim, etc.)
+* Opens a tab for <code>script/console</code>
+* Opens a tab for logs
+* Names the tabs so switching between them is easier
+* Gives your Rails projects tab completion
+
+It doesn't start <code>script/server</code> because I use "Passenger Preferences Pane":http://www.fngtps.com/passenger-preference-pane -- this is another excellent productivity-increasing Rails-oriented secret.
+
+h3. Usage
+
+Type <code>r projectname</code>.
+
+h3. Installation
+
+I've designed this to be used with "CDargs":http://www.skamphausen.de/cgi-bin/ska/CDargs -- there are macports and debian packages for it, so installation should be easy (<code>port install cdargs</code>).
+
+CDargs makes it easy to bookmark directories.  This sounds stupid but saves loads of time, especially as CDargs adds tab completion.  Make sure you dig out <code>cdargs-bash.sh</code> from the CDargs source and add it to <code>.bashrc</code>.
+
+Source this in <code>~/.bashrc</code> or just paste it in:
+
+{% highlight sh %}
+alias ss='./script/server'                          # script/server
+alias sc='./script/console'                         # script/console
+ 
+# Opens a new tab with the cwd
+function tab {
+  osascript -e "
+    tell application \"System Events\" to tell process \"Terminal\" to keystroke \"t\" using command down
+    tell application \"Terminal\" to do script \"cd $PWD\" in selected tab of the front window
+  " > /dev/null 2>&1
+}
+ 
+function as_terminal_cmd {
+  osascript -e "tell application \"Terminal\" to do script \"$1\" in selected tab of the front window" 
+}
+ 
+function terminal_title {
+  if [[ $# -eq 1 && -n "$@" ]];
+  then
+    printf "\e]0;${@}\a";
+  fi
+}
+ 
+# cd into a rails dir, start mvim and rails console
+function r {
+  cv $1
+  as_terminal_cmd "terminal_title Log"
+  as_terminal_cmd "tail -f log/development.log"
+  tab
+  as_terminal_cmd "terminal_title Console"
+  as_terminal_cmd "sc"
+  tab
+  $EDITOR &
+}
+
+if [ -e "$DOTFILES/lib/cdargs-bash.sh" ]; then
+  . "$DOTFILES/lib/cdargs-bash.sh"
+  # Use the completion from cdargs for my "r" alias
+  complete $nospace -S / -X '*/' -F _cdargs_aliases r
+fi
+{% endhighlight %}
+
+I have a <code>$DOTFILES</code> shell variable for loading <code>cdargs-bash.sh</code>.  That's just where I dump my settings so moving them to other computers is quicker.  Replace this or set it with the path to <code>cdargs-bash.sh</code>.  You can remove that section if you don't want to use CDargs.
+
+"See Gist 159680 for updates and notes":http://gist.github.com/159680
+
+This has been designed for use with Mac OS.  If you make a version for your OS post it in the comments and I'll add links here.
+

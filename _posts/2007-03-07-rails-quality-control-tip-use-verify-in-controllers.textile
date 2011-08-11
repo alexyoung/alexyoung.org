@@ -1,0 +1,24 @@
+---
+layout: post
+title: "Rails Quality Control Tip: Use Verify in Controllers"
+categories: 
+- ruby
+- rails
+- tips
+- programming
+---
+
+<img src="/images/verify.png" alt="Verify used in my code" />
+
+Have you found that any of your Rails projects get hits to controller methods that expect parameters?  A neat way of handling this is the <a href="http://rails.rubyonrails.org/classes/ActionController/Verification/ClassMethods.html">ActionController::Verification module</a>.
+
+By adding calls to verify in your controller, you can elegantly catch all kinds of unexpected but reasonable uses of your system: from mistyped URLs and browser history auto-complete to web crawlers blindly following links.  This way, you can redirect people somewhere logical instead of flashing them with an error message.
+
+You can even insert a message into the flash:
+
+{% highlight ruby %}
+verify :params => "user",
+       :only => :update_password,
+       :add_flash => { "alert" => "Updating your password was not possible without the required information" },
+       :redirect_to => :config_url
+{% endhighlight %}

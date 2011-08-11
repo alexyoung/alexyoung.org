@@ -1,0 +1,27 @@
+---
+layout: post
+title: "Rails Speed Tip: link_tag Caching"
+categories: 
+- rails
+- programming
+- tips
+---
+
+Have you ever tried concatenating your JavaScript and CSS files for performance improvements?  The idea is that latency is a bigger issue than file size when loading web pages, so stuffing all your JavaScript into a monolithic file for deployment should improve performance.
+
+I wrote a rake task to do this for some of my applications (such as <a href="http://tiktrac.com">tiktrac</a>). This is slightly more cumbersome than a feature I spied in the ActionPack changelog:
+
+<blockquote>
+Added caching option to AssetTagHelper#stylesheet_link_tag and 
+AssetTagHelper#javascript_include_tag [DHH]. Examples:
+
+{% highlight ruby %}
+stylesheet_link_tag :all, :cache => true # when ActionController::Base.perform_caching is false =>
+stylesheet_link_tag :all, :cache => true # when ActionController::Base.perform_caching is true =>
+{% endhighlight %}
+
+...when caching is on, all.css is the concatenation of style1.css, styleB.css,
+and styleX2.css.  Same deal for JavaScripts.
+</blockquote>
+
+Read more in the <a href="http://dev.rubyonrails.org/browser/trunk/actionpack/lib/action_view/helpers/asset_tag_helper.rb">asset_tag_helper.rb source.</a>

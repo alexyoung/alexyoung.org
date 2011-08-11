@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Internationalisation with XSLT"
+categories: 
+- xslt
+- php
+- internationalisation
+---
+
+I've found two approaches to this:
+
+* "Re: internationalization / localization of XSLT output":http://sources.redhat.com/ml/xsl-list/2000-08/msg01318.html
+* "An XSLT style sheet and an XML dictionary approach to internationalization":http://www-106.ibm.com/developerworks/library/wa-xslt/
+
+I think the second method looks like the best.  I like the idea of using a general XSLT template to add in generic functionality too.

@@ -1,0 +1,91 @@
+---
+layout: post
+title: "Making Thinking Sphinx Fast in Development Mode"
+categories: 
+- programming
+- rails
+- sphinx
+---
+
+I use "Sphinx":http://www.sphinxsearch.com/ and the "Thinking Sphinx":http://freelancing-god.github.com/ts/en/ Rails plugin for a few clients.  I originally started using Sphinx itself because one client has hundreds of thousands of fairly large articles, and Sphinx could index them the fastest (in something like 10 minutes on the hardware we use).
+
+The major downside is Thinking Sphinx, which appeared to make Rails incredibly slow in development mode.  It was unusably slow, even on fast multicore machines.  I thought the problem was mine for a long time (I've been using this for nearly 2 years), but I studiously kept Sphinx up to date and occasionally peered at the internals.  I added a flag to allow me to turn off Sphinx when I didn't need it to speed up development mode, after I tried running the project without Sphinx (not loading the gem and stubbing <code>define_index</code>).
+
+After looking through the source, I found the <code>load_models</code> which appeared to reload every single model.  This happens on every request in development mode.  The reason it does this is to find models that need Sphinx, then handle them appropriately.
+
+This is one of those cases where too much Ruby magic is a bad thing.  I would have been fine with creating configuration statements to declare the models I use -- I can cope with extra configuration, but not unusably slow development mode requests.
+
+I created a <code>config/initializers/sphinx.rb</code> file and overrode <code>load_models</code>:
+
+{% highlight ruby %}
+module ThinkingSphinx
+  class Context
+    def load_models
+      Article
+      BlogPost
+      Document
+      User
+    end
+  end
+end
+{% endhighlight %}
+
+Specifying the models by hand instead of loading every single one made requests on this project take around 2 seconds instead of 10 seconds.
+
+After searching for references to this, I found "issue 90: Slow model load in development mode":http://github.com/freelancing-god/thinking-sphinx/issues/closed#issue/90.  Pat Allan responded to the issue and said the plugin will get configuration options for models in <code>sphinx.yml</code> for 1.3.18 or 1.4.0.
+
+h3. Hidden Start Up Time
+
+Many Rails performance tools were actually saying this project is fast, because they miss the Rails boot up time.  Database queries, view code, controller code, models -- all more or less benchmarked and iterated on at some point.  Rails start up time -- invisible.  That's when you need perftools, DTrace or similar.
+
+h3. Why Slow?
+
+I ran "perftools":http://code.google.com/p/google-perftools/ and looked at the graphs to figure out why loading all the models made it so slow.  It's obvious loading over 100 models wouldn't help with performance, but why such a dramatic performance drop?
+
+{% highlight sh %}
+# You might need perftools for Ruby
+gem install perftools.rb
+
+# From the project's Rails directory:
+CPUPROFILE=/tmp/rre RUBYOPT="-r`gem which perftools | tail -1`" ruby script/server
+
+# Run apache bench in a new shell
+ab -c 10 -n 50 http://0.0.0.0:3000/
+
+# Generate a report
+pprof.rb --text --ignore=Gem /tmp/rre
+pprof.rb --gif /tmp/rre > ~/Desktop/rre.gif
+{% endhighlight %}
+
+I originally got this method from "Profiling Ruby With Google's Perftools":http://www.igvita.com/2009/06/13/profiling-ruby-with-googles-perftools/.  You'll need graphviz installed if you want to generate graphs.
+
+Looking over the graph, I could see the following performance hogs:
+
+* <code>garbage_collector</code>
+* <code>Module#load_file</code>
+* <code>Module#search_for_file</code>
+* <code>Module#define_method</code>
+* <code>Object#load_without_new_constant_marking</code>
+
+I compared it to a graph of the project without Thinking Sphinx, and these dropped significantly.  It seems like simply loading all of the models is hard work because loading files is IO bound.  But the biggest difference is the garbage collector, which goes from 23% to 53% when using Thinking Sphinx.  Loading all of these models, parsing them, then not doing anything with them forces the garbage collector (in this version of MRI) to do more work.
+
+With Thinking Sphinx:
+
+!/images/with_sphinx.gif!
+
+Without:
+
+!/images/no_sphinx.gif!
+
+h3. Ruby Performance: You're Holding it Wrong
+
+A lot of people think Ruby is slow, but to my knowledge most dynamic languages have similar performance problems.  JavaScript has benefited from running in every browser on the planet, and the subsequent speed wars between browser builders, and it's also a fundamentally easier language to parse.  But as the performance of Ruby 1.9, jRuby, and MacRuby all start to creep up on competing languages, it seems clear that if something is slow, it's probably your software's fault somewhere.
+
+If your Rails project is slow, try looking at the source of your third-party code, and use performance tools where possible.  Don't just assume Ruby is slow because you've heard "Node":http://nodejs.org/ is hot (although it is hot).  In fact, Ruby and performance reminds me of Apple and the iPhone 4 antenna.
+
+h3. References
+
+* "Performance Testing Rails Applications":http://guides.rubyonrails.org/performance_testing.html by Pratik Naik
+* "Profiling Ruby With Google's Perftools":http://www.igvita.com/2009/06/13/profiling-ruby-with-googles-perftools/ by Ilya Grigorik
+* "Thinking Sphinx":http://freelancing-god.github.com/ts/en/ by Pat Allan
+

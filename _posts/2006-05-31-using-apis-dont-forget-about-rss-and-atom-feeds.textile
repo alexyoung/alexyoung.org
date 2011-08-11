@@ -1,0 +1,25 @@
+---
+layout: post
+title: "Using APIs: Don't Forget About RSS and Atom Feeds"
+categories: 
+- programming
+- api
+- rss
+- atom
+---
+
+<img src="/images/bcm_1.png" alt="Screenshot from Basecamp Mobile" />
+
+Sometimes you need to display collated data on a page.  For example, <a href="http://www.basecamphq.com">Basecamp</a> has a useful dashboard which displays all the latest activity  across all your projects.  I've been working on an application that provides <a href="http://blog.helicoid.net/articles/2006/05/27/basecamp-mobile-away">Basecamp access to mobile devices</a>, and I realised that reproducing this dashboard would be far too API-intensive to be usable.
+
+It can take anything from 20-1000ms to complete a request using the API, depending on the number of hops the request goes through over the network and how fast the application at the other end responds.  So if you want to gather the data Basecamp displays on its dashboard, you'd need to:
+
+# Collect all the projects
+# For each project, collect all the message summaries
+# For each project, collect all the late milestones
+
+Let's say you've got 10 projects in your Basecamp account.  This could easily result in 21 requests to the API.  On a good day this is going to take 5 seconds to complete.  These numbers aren't made up, they're rounded off from what I experienced when using the API.  Someone who's helping me test Basecamp Mobile has 40 projects, and my application was just giving up before it could even load his data.
+
+So how did I overcome this?  Well, Basecamp produces another summary of the data I required, in an even more friendly way: an RSS feed.  I used the existing methods for accessing the API to make a request using the user's authentication details and fetch the RSS feed for their projects.  This is far faster than any strategy I could think of when using the API, and turning XML into data my application could use was as simple as using the API.
+
+I learnt an important lesson here.  When writing applications that use web-based APIs, make best use of their existing data feeds.  They can be fast and less resource intensive than lots of API calls!

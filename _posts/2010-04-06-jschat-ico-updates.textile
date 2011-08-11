@@ -1,0 +1,42 @@
+---
+layout: post
+title: "JsChat and Ico Updates"
+categories: 
+- jschat
+- ico
+- opensource
+---
+
+I've updated both "JsChat":http://jschat.org and "Ico":http://github.com/alexyoung/ico with major changes recently, as a result of some healthy Easter weekend open source hacking.
+
+h3. JsChat: Mongo, Twitter Auth
+
+JsChat can now be configured to work with Mongo and Twitter authentication:
+
+* The web interface now has tabs
+* The server now has a config file in <code>/etc/jschat/config.json</code>
+* The config file can be used to set up Twitter auth and Mongo
+* Logging in with Twitter will save the user's session (including tabs) until _Quit_ is pressed or <code>/quit</code> is entered
+
+Read more on "blog.jschat.org":http://blog.jschat.org: "Twitter Auth, Mongo Logging and Tabs":http://blog.jschat.org/post/486260335/twitter-auth-mongo-logging-and-tabs
+
+h3. Ico
+
+I've removed the Prototype dependency from Ico, so it only depends on the core "Raphael":http://raphaeljs.com/ library.  I used jslint to help tidy up the code as well.
+
+I'm using "SVG paths":http://www.w3.org/TR/SVG/paths.html#PathData for drawing Ico's graphs.  They're quite easy to build because they're simple strings:
+
+{% highlight javascript %}
+// Move to 0,0, draw a line to 10,10
+'M0,0 L10,10'
+{% endhighlight %}
+
+Raphael's calls can be chained, so the resulting code is concise:
+
+{% highlight javascript %}
+// Move to 0,0, draw a line to 10,10, then apply a stroke
+paper.path('M0,0 L10,10').attr({ 'stroke': colour });
+{% endhighlight %}
+
+The old API is still available through a plugin called <code>raphael.path.methods.js</code>, but despite initially being put off by SVG paths I now prefer them.
+

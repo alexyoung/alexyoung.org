@@ -1,0 +1,59 @@
+---
+layout: post
+title: "Sherlock and Attention to Detail"
+categories: 
+- thoughts
+- essays
+---
+
+bq. "And in practice again, I observe."
+
+I've seen a lot of crime dramas over the last few years.  As a Sherlock Holmes fan, it's easy to spot the homages to Conan Doyle's influential character.  One of the qualities espoused by modern TV crime drama is _attention to detail_.  A famous example, and perhaps the origin of this character trope, is Holmes' beyond-autistic ability to read deductions from mundane facts.
+
+In this scene, Watson is surprised that Holmes knew he had recently been walking through the rain, even though it was days ago:
+
+bq. "It is simplicity itself," said he; "my eyes tell me that on the inside of your left shoe, just where the firelight strikes it, the leather is scored by six almost parallel cuts. Obviously they have been caused by someone who has very carelessly scraped round the edges of the sole in order to remove crusted mud from it. Hence, you see, my double deduction that you had been out in vile weather, and that you had a particularly malignant boot-slitting specimen of the London slavey. As to your practice, if a gentleman walks into my rooms smelling of iodoform, with a black mark of nitrate of silver upon his right forefinger, and a bulge on the right side of his top-hat to show where he has secreted his stethoscope, I must be dull, indeed, if I do not pronounce him to be an active member of the medical profession."
+
+h3. "My dear Holmes, this is too much!"
+
+In _CSI_, Grissom also offers several keen insights that warrant the surprise of his own colleagues.  In his line of work, attention to detail isn't just beneficial, it's critical.
+
+But what does attention to detail _really_ mean?  Does it mean we should keenly observe everything around us at all times?  We can't possibly mentally record the minutiae of everything we experience.
+
+h3. Attention to Detail is not Everything
+
+Attention to detail is not *everything*.  It sometimes feels that way -- when I start a new project I have all the good intentions in the world.  I promise myself that _this_ project will be perfect, and I'll do everything right from the start.
+
+Even so, that doesn't tell me what attention to detail means in the context of what I do.  It seems like something that should be useful; and a positive attribute for potential hires or collaborators.  Grissom tries to trip up new employees with riddles, he knows what qualities he's looking for in a colleague.
+
+h3. New Project Syndrome
+
+Most of us start new projects with a level of excitement that isn't sustained through the life of the project.  At first the possibilities seem endless, but as the project evolves doors start to close.  This is caused by clients or our own solutions to technical or design problems.  As the excitement wanes, so does the quality of the work.
+
+Being aware of the level of attention to detail applied to a given project helps flag up when projects are starting to fatigue.  But that still doesn't explain what attention to detail means.
+
+h3. "This is indeed a mystery," I remarked. "What do you imagine that it means?"
+
+Holmes replies:
+
+bq. "I have no data yet. It is a capital mistake to theorise before one has data. Insensibly one begins to twist facts to suit theories, instead of theories to suit facts."
+
+Where can we find _data_ about attention to detail?  As a source of inspiration, I looked through some "commit logs":https://github.com/alexyoung/wingman/commits/master/ of an open source project I'm working on.  It made me realise how many small commits I've had to make to fix obscure bugs or add very minor features that greatly improve the usability of the application.
+
+I was reflecting on this when I thought, "the attention to detail required to build such a simple application is ridiculous."
+
+It wasn't just a question of building the application, it was a question of _building it well_.  Anyone can build these things, but it takes a lot of thought and care to get the keen insights required to make it _good_, let alone great.
+
+The next time you put off tiny changes, in search of bigger bugs and major features, ask yourself this: are these the tiny changes really the attention to detail that will take this project from being good to great?  Context is everything -- only you can know the difference between wheat and chaff when it comes to your own projects.
+
+It was easy for me to generate lists of changes for the aforementioned open source project because I use it daily.  If you're not in a position to generate these observations, they may come from healthy client relationships.  I like to stay in touch with clients and talk to them regularly.  Another approach is to set yourself a goal of regular updates -- try to make small improvements to a project every day rather than bunching up marathons of work.
+
+As Holmes says:
+
+bq. It is my business to know things. Perhaps I have trained myself to see what others overlook.
+
+h3. References
+
+* "The Adventures of Sherlock Holmes by Sir Arthur Conan Doyle":http://www.gutenberg.org/ebooks/1661 - Freely available through Project Gutenberg
+* "Gil Grissom":http://en.wikipedia.org/wiki/Gil_Grissom
+

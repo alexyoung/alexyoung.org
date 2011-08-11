@@ -1,0 +1,18 @@
+---
+layout: post
+title: "Start Using Test Driven Development Today"
+categories: 
+- programming
+- testing
+---
+
+"Start using Test Driven Development today":http://blog.helicoid.net/2008/01/18/protip-start-using-test-driven-development-today is a post I wrote over on my company's blog.  It covers how TDD has improved my work since I started "Helicoid Limited":http://helicoid.net, and how you can start using TDD right now.
+
+# Learn how to write basic tests in your chosen language – don’t worry about fully learning the test framework, start by copying examples
+# When adding a new feature, start by creating tests first. Write code to satisfy these tests
+# Refactor old code to work well with automated tests
+# Write test data carefully and patiently, using this as a design technique for exploring the quality of your data modelling
+# Find a mocking library so you can write encapsulated tests that don’t require external resources
+# Find a tool for producing coverage reports in your chosen language
+# Investigate automated testing triggered when deploying/releasing code
+

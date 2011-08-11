@@ -1,0 +1,18 @@
+---
+layout: post
+title: "Dashboard Widgets are Great with Prototype"
+categories: 
+- prototype
+- javascript
+- programming
+---
+
+One of my commercial projects this year was to build an online ticket sales system for a large bar and venue company in London.  The run up to Christmas was the big live test of the system, so they needed statistics on ticket sales. 
+
+ Just for fun, I decided to make a Dashboard widget that used curl to fetch the current data from a script on their server.  But you know what made this task 100% less painful?  My old friend <a href="http://prototype.conio.net/">Prototype.js</a>.
+
+Using Prototype allowed me to build the widget in literally minutes, since it was a simple case of displaying the result of a system call run with PeriodicalExecuter.  Most of the time was spent looking up how to enable system commands in the documentation: AllowSystem must be added to your plist file, which takes a boolean value.  I haven't yet noticed PeriodicalExecuter doing anything strange when the widget isn't visible, and it didn't have any CPU-draining side-effects.
+
+By the way, I've written 14163 lines of code in the last year, across 9 projects that I work on outside of my day job.  I can't easily produce a count for my day job code.  So, I hope no one will mind if I disappear for a week and sleep?
+
+

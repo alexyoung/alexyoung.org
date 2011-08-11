@@ -1,0 +1,136 @@
+---
+layout: post
+title: "Rails Plugin Testing Guide"
+categories: 
+- ruby
+- rails
+- programming
+- testing
+- plugins
+---
+
+This article is an introduction to testing Rails plugins.  It's a relatively lengthy post, so if you're reading this in an RSS reader flag it and come back when you're not too busy.  It follows the "taxonomy" style of my previous plugin article, "A taxonomy of Rails plugins":http://alexyoung.org/articles/show/40/a_taxonomy_of_rails_plugins, where examples are used from open source software.
+
+Knowledge of both unit and functional testing is assumed.  The following topics are covered:
+
+* Testing plugins outside Rails applications
+* Creating models and fixtures to test with ActiveRecord plugins
+* Managing a test database schema
+* Testing ActionPack plugins
+* Automating with Rake
+
+h2. Testing Plugins Outside Rails Applications
+
+Testing plugins that are tied to a Rails application is straightforward, and it's tempting to leave things this way.  If you need to distribute your plugin to developers working outside your project, or wish to open source it, you may have to do a little bit of work to create a miniature Rails environment to test in.  The upside of this extra effort is that it also forces you to think about the plugin in generic terms, often resulting in better design and cleaner encapsulation.
+
+h2. Test directory layout
+
+Most plugins use a test directory layout that is similar to Rails:
+
+{% highlight sh %}
+test/
+  fixtures/
+  functional/
+  lib/
+  unit/
+  test_helper.rb
+  Rakefile
+{% endhighlight %}
+
+Many plugins use <code>fixtures/</code> for both test data and test ActiveRecord models.  Some plugins drop <code>unit/</code> and <code>functional/</code>.
+
+h2. Testing ActiveRecord plugins
+
+If your plugin extends ActiveRecord, you need to create a suitable environment:
+
+* Require the ActiveRecord gem (and it the fixtures library)
+* Setup an ActiveRecord connection.  Using in-memory or sqlite databases can minimise configuration requirements
+* Load the schema
+* Load the fixtures
+
+Each unit test that requires ActiveRecord will have to do each of these things, so it's probably best to wrap them all in a class.  "will_paginate":http://rock.errtheblog.com/will_paginate does this by having <code>test/lib/activerecord_test_case.rb</code> (this mocks Rails' unit test behaviour) and <code>test/lib/activerecord_test_connector.rb</code> (this manages ActiveRecord).  Tests that need ActiveRecord functionality then require <code>test/lib/activerecord_test_case.rb</code>.
+
+Another option is to try "Plugin Test Helper":http://wiki.pluginaweek.org/Plugin_test_helper, but be sure to carefully read the API before using it: it expects your plugin's tests to be laid out in a specific way.
+
+h3. Bringing up ActiveRecord
+
+Getting access to a database with <code>ActiveRecord::Base.establish_connection</code> is simple:
+
+{% highlight ruby %}
+require 'rubygems'
+require 'active_record'
+
+ActiveRecord::Base.establish_connection({
+  :adapter => 'sqlite3',
+  :dbfile => 'test.db'
+})
+{% endhighlight %}
+
+It may be advisable to loop through a few database adapter types, seeing as people will have different libraries available in their development environments.   Good candidates are: sqlite3, sqlite and memory.
+
+h3. Schema magagement
+
+The easiest and most portable way to define your test database schema is by using <code>ActiveRecord::Schema</code>.  For example:
+
+{% highlight ruby %}
+ActiveRecord::Schema.define do
+  create_table "users", :force => true do |t|
+    t.column "name",  :text
+    t.column "email", :text
+  end
+end
+{% endhighlight %}
+
+A good place to put this is <code>test/fixtures/schema.rb</code>.  This file can be opened with <code>load</code> in a suitable schema loading method called before running tests that require ActiveRecord.
+
+h3. Fixtures
+
+Seeing as most plugins will only require a few models, it's acceptable to load all of the fixtures before testing.  <code>Fixtures.create_fixtures</code> can be called like this:
+
+{% highlight ruby %}
+require 'active_record'
+require 'active_record/fixtures'
+
+Fixtures.create_fixtures('your test fixture path', ActiveRecord::Base.connection.tables)
+{% endhighlight %}
+
+h2. Testing ActionPack plugins
+
+Testing controllers and helpers is easier than ActiveRecord.  To test a controller:
+
+* require action_controller and action_controller/test_process
+* Create some routes
+* Create a unit test class
+* Create a controller class
+* Write the tests in the same style as Rails functional tests
+
+To test helpers,  the most obvious approach is to <code>include</code> your plugin's helper class inside a unit test, and test each helper method.  Since some helpers might expect models you might need to bring up ActiveRecord too, but you could create mock objects with a library like "mocha":http://mocha.rubyforge.org/ or in some cases by creating suitable <code>OpenStruct</code> objects.
+
+h2. Automation with Rake
+
+Most plugins that provide tests also include a Rakefile to automate running their test suite and generating documentation.  Here's a perfectly valid example from a plugin I picked at random, "restful_authentication":http://svn.techno-weenie.net/projects/plugins/restful_authentication/.
+
+{% highlight ruby %}
+require 'rake'
+require 'rake/testtask'
+require 'rake/rdoctask'
+
+desc 'Default: run unit tests.'
+task :default => :test
+
+desc 'Test the restful_authentication plugin.'
+Rake::TestTask.new(:test) do |t|
+  t.libs << 'lib'
+  t.pattern = 'test/**/*_test.rb'
+  t.verbose = true
+end
+
+desc 'Generate documentation for the restful_authentication plugin.'
+Rake::RDocTask.new(:rdoc) do |rdoc|
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title    = 'RestfulAuthentication'
+  rdoc.options << '--line-numbers' << '--inline-source'
+  rdoc.rdoc_files.include('README')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+end
+{% endhighlight %}

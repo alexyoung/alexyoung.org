@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Hpricot Google Search Snippet"
+categories: 
+- hpricot
+- ruby
+- programming
+- snippets
+---
+
+With "hpricot":http://code.whytheluckystiff.net/hpricot/ you can do anything!
+
+{% highlight ruby %}
+puts ((Hpricot(open(URI.escape("http://www.google.com/search?q=#{term}"))))/"a.l").collect { |link| "#{link.innerHTML}: #{link.attributes['href']}" }.join("\n")
+{% endhighlight %}

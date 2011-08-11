@@ -1,0 +1,13 @@
+---
+layout: post
+title: "DailyJS"
+categories: 
+- javascript
+- programming
+---
+
+Back in November I started a new JavaScript programming blog called "DailyJS":http://dailyjs.com, with help from "Ric Roberts":http://ricroberts.com/ and "Justin Knowlden":http://gusg.us/.  I post almost every day about interesting developments in JavaScript -- techniques, tips and library/tool reviews.  
+
+I recently toiled over a lengthy review of "JavaScript Performance Rocks!":http://dailyjs.com/2010/01/19/javascript-performance-rocks/ by Amy Hoy and Thomas Fuchs -- a book that has taught me a lot despite my years of JavaScript experience.
+
+DailyJS has quickly gained popularity (unlike every other blog I've ever started), so if you're serious about JavaScript check it out!

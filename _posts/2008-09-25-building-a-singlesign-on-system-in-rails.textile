@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Building a Single-Sign-On System in Rails"
+categories: 
+- rails
+- programming
+---
+
+I've just finished writing an article about how I built a single-sign on server in Rails:
+
+"Building our centralised authentication system":http://blog.helicoid.net/2008/09/25/building-our-centralised-authentication-system
+
+It was actually an incredibly rewarding experience.  I've written up design notes, rationale and provided tips on avoiding problems.

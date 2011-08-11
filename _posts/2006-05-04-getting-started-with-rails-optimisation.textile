@@ -1,0 +1,52 @@
+---
+layout: post
+title: "Getting Started with Rails Optimisation"
+categories: 
+- rails
+- performance
+- optimisation
+- programming
+---
+
+I've been working hard to improve the performance of <a href="http://tiktrac.com">Tiktrac</a>, just because it's been in beta for a few months and I'm really sharpening it up to finally stump up the cash for some serious hardware to run it (and other) applications on.
+
+When I need to improve performance in a rails app, I start off with a few basic questions:
+
+# How many queries are being generated on complex pages?
+# What pages are the slowest?
+# What partials are the slowest?
+
+At this point, I start loading slow pages and watching the logs.  The logs will show you interesting data like this:
+
+<code>Rendered sheet/_sheet_list (1.30900)</code>
+
+That's quite a slow partial right there!  Why is it slow?  Well, in the code I was looping through a hierarchy of objects.  Every object that needed to display related objects was generating queries.  And sometimes if there were a lot of objects, this would generate hundreds of queries.
+
+I improved the situation by adding eager loading where possible. If you're not sure what this means, take a look at: <a href="http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html">Eager loading of associations</a> in the rails API docs.  I added a few :include => :relationship and :relationships here and there where my models required it.
+
+Things got a bit faster, there were visibly less queries.  I also found a few ruby one-liners I'd written to sum and count things.   I'd written them out using some zany ruby because I like that sort of thing, but ultimately using rails as it was designed was nicer (duh!).  In many situations forcing the database to do SUM() and COUNT() is faster, so I used sum() and count() - these are class methods from <a href="http://api.rubyonrails.org/classes/ActiveRecord/Calculations/ClassMethods.html">ActiveRecord::Calculations</a>.
+
+This pruning started to get addictive, and I replaced a lot of loops and many-layered calls down the trees of my relationships with simplified methods or eager loading.  For instance, I found something that wanted the 10 most recent objects to draw sparklines of their data.  However, examining the related models showed every single related object was loaded just to do this, so on the live system this would have been pulling out 100s of items for some users, then using only 10 with a range appended onto the model call in the view.  This was clearly quite bad form, so I added a default value to the parameters in the related model's method, along with a :limit.  Remember your :limits!  You'd never forget them in SQL, would you?
+
+Something else you'd never forget to add in your SQL is indexes.  If you're commonly searching on fields, make sure you have the correct indexes set up.  If you're not so hot with SQL, your database admin tool should show you a table's indexes.  If you're wondering when to use them, think about what the database is usually searching on: do you have a users table?  Do users login with an email address or username?  You could try indexing these and see if you get a performance improvement.  
+
+If you want to try and figure out why queries are slow, have a look at <a href="http://www.postgresql.org/docs/7.4/interactive/performance-tips.html">explain (postgres)</a> or <a href="http://dev.mysql.com/doc/refman/5.0/en/explain.html">explain (mysql)</a>.  This will help you track down issues with JOINs, INDEXes (or where you should be using them) and so on.  The rails logs even tell you what the situation is by showing how much time the database used:
+
+<code>Completed in 1.01600 (0 reqs/sec) | Rendering: 0.56400 (55%) | DB: 0.37400 (36%) | 200 OK [http://testcorp.localhost/]</code>
+
+And don't forget, if you don't like the queries rails is generating, just slip in your own!  Have a look at <a href="http://api.rubyonrails.org/classes/ActiveRecord/Base.html#M000870">count_by_sql and find_by_sql</a>.
+
+Last, but not least (because this is an endless topic of headaches and enlightenment), are any models fundamentally slow?  Check out the scripts rails kindly gave you in your scripts directory!
+
+The updated checklist looks something like this:
+
+# Load pages and watch the logs, in development mode
+# How many queries are being generated on complex pages?
+# What pages are the slowest?
+# What partials are the slowest?
+# Have I added eager loading to reduce database effort?
+# Have I made the database work where it should, with <a href="http://api.rubyonrails.org/classes/ActiveRecord/Calculations/ClassMethods.html">ActiveRecord::Calculations</a>?
+# Have I added indexes to help out the database?
+# Do I need to add any LIMITs?
+# Have I checked the queries rails is generating with <a href="http://www.postgresql.org/docs/7.4/interactive/performance-tips.html">explain (postgres)</a> or <a href="http://dev.mysql.com/doc/refman/5.0/en/explain.html">explain (mysql)</a>? Can these be improved?
+# Are there more fundamental problems with my models, demonstrated by the benchmarker and profiler in the scripts directory?

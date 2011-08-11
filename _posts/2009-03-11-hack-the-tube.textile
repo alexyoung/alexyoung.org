@@ -1,0 +1,10 @@
+---
+layout: post
+title: "Hack the Tube"
+categories: 
+- programming
+---
+
+By Tube I mean the London Underground.  I just finished writing this over at Quite Useful: "Hack the Tube":http://quiteuseful.co.uk/post/85487010/hack-the-tube
+
+The article features Ruby and JavaScript examples of using "Tube Updates":http://tubeupdates.com/ by "Ben Dodson":http://bendodson.com/ to get Tube status updates.

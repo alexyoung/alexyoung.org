@@ -1,0 +1,46 @@
+---
+layout: post
+title: "Ico: SVG Graphs with Prototype and Raphael"
+categories: 
+- graphs
+- programming
+- javascript
+---
+
+!/images/good_graph.png!
+
+I'm making a graph library in JavaScript using "Raphael":http://raphaeljs.com/ called "Ico":http://github.com/alexyoung/ico/tree/master.  I'm targeting Firefox, Safari, IE, Opera and Chrome.  The library isn't just about making graphs though, it's about making readable and useful graphs.
+
+To this end I've taken inspiration and guidance by Stephen Few's books:
+
+* Show Me the Numbers: Designing Tables and Graphs to Enlighten
+* Information Dashboard Design
+
+These books effectively boil down Edward Tufte's work as well as other sources into something a programmer like me can follow.
+
+h3. Design goals
+
+My design goals are:
+
+* Clarity: Use of white-space to help lend clarity to graphs, nominal scale vs. ordinal scale
+* Simplicity: Minimal use of decorations and lines, reliance on the Gestalt principle of closure
+* Conciseness: Avoidance of graph types that don't efficiently present data (pie charts, radar maps)
+
+You won't find any gaudy gradients, unreadable 3D graphs or ambiguous pie charts in this library.  Instead there are lots of small features that improve the readability of data:
+
+* Control "plot padding" around plotted lines/bars (a little bit of lead-in white space can make charts less dense and more readable)
+* Add "mean lines" (a single line that displays the mean line of the data)
+* Add "acceptable value" backgrounds and highlight values in sparklines: !/images/spark.png!
+
+h3. Plans
+
+I've only been working on this for a week, so it needs loads of attention:
+
+* IE support isn't quite there, Raphael makes this easy but I'm getting font spacing issues right now
+* Improve the "zooming" code - Ico tries to zoom into data ranges when starting at 0 doesn't make sense, but this isn't 100% reliable yet
+* I might make it framework agnostic (i.e., transparently support Prototype and jQuery.)  I like Prototype's enumerators so I used this initially to make the maths simple
+* Find some folks to help with code quality and reuse (I want the library to be able to work packed and I want it as small and fast as possible)
+
+If you want to help contact me on Github and I'll add you as a contributor.  Cheers!
+
+"Download Ico from Github":http://github.com/alexyoung/ico/tree/master

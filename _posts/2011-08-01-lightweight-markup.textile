@@ -1,0 +1,96 @@
+---
+layout: post
+title: "Lessons From Two Lightweight Markup Parsers"
+categories: 
+- textile
+- projects
+- parsing
+---
+
+h3. stextile
+
+"stextile":https://github.com/alexyoung/stextile (License: _MIT_, npm: _stextile_) is a "Textile":http://www.textism.com/tools/textile/ parser for JavaScript.  The lack of a good Textile implementation held me back from developing "Pop":http://popjs.com/.  While researching the project I found some amazing Textile implementations.  Possibly my favourite is "RedCloth":http://redcloth.org/, which I remember from back when _why rewrote it with "Ragel":http://www.complang.org/ragel/.
+
+As I was desperate for something that would parse my articles, I created a straightforward parser using regular expressions.  I wrote tests as I went so it wasn't too painful.
+
+This project made me aware of a few interesting uses of <code>replace</code> in JavaScript that I hadn't really thought about before.
+
+Early versions of stextile used callbacks with <code>replace</code>:
+
+{% highlight javascript %}
+string.replace(/expression/, function(match) {
+  return match; // Alter the match in some way then return it
+});
+{% endhighlight %}
+
+This form is extremely useful when additional operations are required before replacing values.
+
+I settled on this pattern for replacing links:
+
+{% highlight javascript %}
+var re = /expression/
+  , m
+  , result;
+
+while ((m = re.exec(text)) !== null) {
+  // Process each link
+}
+{% endhighlight %}
+
+This is ideal for conditional matching and replacement.  Iterating over each result until every item has been matched makes it easier to deal with things like turning off matching inside pre-formatted tags.
+
+h3. Jadedown
+
+I made "Jadedown":https://github.com/alexyoung/jadedown (License: _MIT_, npm: _jadedown_) purely for fun.  I was desperately trying to learn Bison, Flex, and "Jison":http://zaach.github.com/jison/ to build a better Textile parser, but then I realised I never really liked the syntax anyway.  I'm increasingly using "Jade":http://jade-lang.com/ for open source and commercial work, so I thought it would be interesting to reuse the selector-based syntax for a lightweight markup language.
+
+"Markdown":http://daringfireball.net/projects/markdown/ makes certain things very convenient for programmers: raw files read like simple text files, code tags can be inserted with backticks; and the syntax is consistent and easy to parse.
+
+To understand what I mean by _easy to parse_, consider this Textile markup:
+
+{% highlight text %}
+"Markdown":http://daringfireball.net/projects/markdown/ is clean and easy to learn.
+
+"Jadedown":https://github.com/alexyoung/jadedown, although versatile, is currently purely experimental.
+
+It's worth learning "Jade":http://jade-lang.com/.
+{% endhighlight %}
+
+A simple regular expression is all that's required for the first example.  Things start to get harder when a comma or full stop follows the link.  Markdown makes the author's intent much clearer by surrounding the link text and URL with brackets -- a bonus is these brackets don't usually occur in links.
+
+h4. Generic Tags
+
+I believe lightweight markup languages should offer a convenient, but generic, tag representation.  By using Jade's syntax, I came up with this:
+
+{% highlight text %}
+This is some a(href="https://github.com/alexyoung/jadedown")[Jadedown], it's easy to learn and parse!
+{% endhighlight %}
+
+Tags take the form <code>tagName#id.class1.class2(attributes)[innerHTML]</code>.  In a sense it's how tags look from a JavaScript developer's perspective.
+
+h4. Shorthand
+
+Of course, I use links and a few other bits of markup all the time, so I introduced a handful of useful shorthand operators.  Links can be written in the form <code>(http://example.com)[Example 1]</code>, asterisks and underscores can use used for strong and em, starting a line with an asterisk or hash will generate a list; and backticks are used for code.
+
+Like Jade, starting a line with a recognised tag makes a block-level element.  This part of the parser is currently the most underdeveloped.  I'd like to add whitespace indentation for code like Markdown, but I haven't considered the implications of combining that with Jade's use of whitespace for handling nested tags.
+
+h4. Jison
+
+Although this is intended as a toy language for now, it's written with "Jison":http://zaach.github.com/jison/.  I got a big kick out of writing a "Flex-style lexer":https://github.com/alexyoung/jadedown/blob/master/lib/lexer.l, and a "Bison-inspired parser":https://github.com/alexyoung/jadedown/blob/master/lib/grammar.y -- I've even included a test suite.
+
+An issue I struck early on was I wanted to use capturing groups in the lexer's regexes, but it seemed like accessing the matches in the grammar file was impossible.  I didn't want to use regular expressions twice -- why match text in the lexer and then use a similar regular expression later to extract groups?  However, after reading through several Jison projects I discovered this lexer pattern:
+
+{% highlight text %}
+<p,b,ol,li>\(([^)]*)\)\[([^\]]*)\] %{
+  yytext = {
+      tag: 'a'
+    , attr: 'href="' + yy.lexer.matches[1] + '"'
+    , html: yy.lexer.matches[2]
+  }
+  return 'LINK';
+%}
+{% endhighlight %}
+
+The regex here uses groups, then the code that gets run by the lexer splits the matches into a structured form that can be used by the parser.  Unlocking this pattern drove development of Jadedown from a scrap on my harddrive to a fully-fledged parser.
+
+The discussion that led to the development of Jadedown was from a "gist":https://gist.github.com/82c32f0e742505e90d2a I posted to Twitter about my ideas for a lightweight markup language.  I like the idea of using CSS selectors across the entire stack of a project; working with Jade, Stylus, and jQuery makes it feel like everything revolves around them.  Maybe Jadedown or something like it can extend this theme into content too?
+

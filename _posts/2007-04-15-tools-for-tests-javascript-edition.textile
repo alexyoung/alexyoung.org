@@ -1,0 +1,33 @@
+---
+layout: post
+title: "Tools for Tests (JavaScript Edition)"
+categories: 
+- javascript
+- testing
+- programming
+---
+
+In my previous article <a href="http://alexyoung.org/articles/show/36/tools_for_tests">Tools for tests</a>, I discussed tools designed to help write better quality tests.  This article expands on the topic by exploring several tools and libraries that help test JavaScript.
+
+Testing JavaScript seems unnatural on the surface, because it's difficult to see how it can be automated.  Tests require a full implementation of the DOM, so it's hard to imagine how anything but browser-based tests could be useful.  Luckily, most operating systems provide some way of accessing applications in a scriptable fashion -- AppleScript in Mac OS is the most obvious example.  So before you start using alert() to print values and debug code consider this: automating JavaScript testing _is definitely possible_ and you have no excuse for not doing it.
+
+h3. Code design
+
+Well-designed code is often easy to test.  If you write JavaScript inline with your HTML you're going to have a hard time testing it.
+
+The first step beyond inlining JavaScript is to use classes to bundle functionality, then using simple inline hooks to trigger them.  This is generally how the <a href="http://www.rubyonrails.org">Ruby on Rails</a> JavaScript helpers work with <a href="http://script.aculo.us">scriptaculous</a>.  Have a look at the <a href="http://prototypejs.org/">Prototype</a> API documentation to see how to construct classes if you haven't done this before.
+
+I prefer a less intrusive approach.  I use classes to model things that have the potential get reused in different instances, and <code>Object</code> to group methods that trigger these "models."
+
+* "Static" concepts that get reused make good classes -- anything generic that can appear in different places
+* Code used to instantiate classes can be grouped together by topic in a hash or <cocde>Object</code>
+* $$() is useful for iterating over elements with a particular CSS selector and applying events to them
+
+JavaScript architectural approaches could take up another article.  Just remember that if your JavaScript isn't easy to test, it might need work.
+
+* "JSUnit":http://www.jsunit.net/
+* unittest.js from "scriptaculous":http://scripty2.com/
+* "Firebug":http://www.getfirebug.com/
+* "JSLint":http://www.jslint.com/
+* "Rhino":http://www.mozilla.org/rhino/
+

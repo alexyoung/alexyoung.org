@@ -1,0 +1,66 @@
+---
+layout: post
+title: "LittleBigPlanet Level Design Tips"
+categories: 
+- games
+- littlebigplanet
+- design
+---
+
+I recently shared my first LittleBigPlanet level (PSN: ambalek, level name: Saturn 5) and I kept notes as I was making it.  It turns out that even though it's easy to make cool stuff, it's actually quite hard to make levels that players can understand and play through successfully.
+
+h3. Design tips
+
+* Think of a solid theme for your level
+* Do some research on your level (I was all over Wikipedia researching Saturn 5 and the Solar System for mine)
+* Make a blueprint with a *pencil on paper* (it doesn't matter if you can't draw)
+* *Research other levels* to see how to achieve your idea -- it's sometimes hard to create seemingly simple things without a bit of research
+* Use the different *grid* sizes to quickly lay out materials for the overall structure of the level (press Start for grid options)
+* *Get a feel for the camera*.  I started off creating huge scenes that weren't visible with the in-game camera (press start for camera options, you can also press down on the d-pad to stop flying)
+* Undo keeps its history even if you switch to play mode, which means you can switch to play mode as much as you like
+* Move the level's entrance gate to test parts deep within your level
+* Think about who will play your level: I included some education tidbits about the Solar System in mine because I thought kids would like it
+
+h3. Navigation
+
+* *If the player backtracks they should always be able to progress again*.  It's easy to create puzzles that can trap the player if they backtrack.
+* *Most MediaMolecule levels have a single path*, with extra areas for multi-player puzzles and bonuses.  It's probably worth following this scheme so people understand your levels and so they're easier to test.
+
+h3. Design language and usability
+
+* *Colour code objects the player can grab* (default sponge colour)
+* *Colour code moving platforms that are part of a puzzle* (Mirror's Edge red object style)
+* Know when to *imitate* the design language used by *MediaMolecule* so players can quickly understand your level
+* *Clearly mark puzzles that require multiple players*
+* *Show your working*: if you leave buttons visible it makes it easier for the community to learn from you
+
+h3. Building and Complexity
+
+* *Make complex shapes by connecting simple ones*: try not to cut complex shapes out of huge blocks (else you can get shape errors).
+* *Try to use materials that are close to your desired colour scheme*.  Using stickers on large objects sometimes causes glitches, and stickers are less vibrant.
+* *Using lots of stickers and decorations* is a good way to add interest to a scene without raising the level's complexity too much.
+* Try adding stickers to similar shaped objects, and try over-sizing the sticker so it wraps around the edges of the material.  For example, adding the Earth sticker to a circle creates depth.
+* *Lifts*: Anything that moves needs  to come back.  Don't take a player somewhere in a lift that doesn't return if they fall off!
+
+h3. Lighting
+
+* *Use lighting to create depth* and visual interest, but also to direct the player
+* In a dark level you can *use lights to give hints to the player*
+
+h3. Physics
+
+Carefully test and adjust mechanical objects to ensure they don't move too fast or strongly.  Strong, fast moving objects can kill the player.
+
+h3. Centrepiece Events
+
+* Use centrepiece events to tell a story: characters that give hints and "plot" to the player are used a lot in MediaMolecule's levels
+* Make sure centrepiece events don't create backtracking headaches
+
+h3. Bonuses
+
+Common techniques for hiding bonuses are:
+
+* Add a bonus off the screen at the starting area in the opposite direction to which the player runs
+* Exploit the third dimension to hide passages that lead to bonus rooms
+* Triggered doors, panels and platforms can drop items when the player triggers them
+

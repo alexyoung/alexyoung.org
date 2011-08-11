@@ -1,0 +1,123 @@
+---
+layout: post
+title: "Your Boss/Client's Guide to iPhone Interfaces"
+categories: 
+- iphone
+- programming
+- design
+---
+
+Apple's iPhone SDK provides a set of building blocks for creating interfaces.  There are broadly two groups: _controllers_ and low-level widgets like buttons.  When designing your app's interface, even at the speculative stage, you should be aware of what's possible in terms of controllers.
+
+By using controllers as they're intended, and in the right combination, you can create an app that's consistent with other well-designed apps, and is therefore easy to use.
+
+h3. What are Controllers?
+
+Controllers group low-level interface items.  They are used for navigation or presenting data.  Even though the term sounds technical, anyone can understand when to use them.
+
+Controllers can be used in various combinations, and this is where you should plan ahead.  Some combinations go against the grain of what Apple intended, and will cause development and usability grief.
+
+When working on big web projects, you sometimes use an _Internet Architect_ to design the overall structure of a site.  iPhone apps need a similar stage of design.  When initially planning an iPhone app, all parties should be aware of the available view controllers and how they should be used.
+
+
+h3. Navigation Controller
+
+The _Navigation Controller_ displays a bar at the top of the screen with a title.  Selecting an item on the screen will slide another view across the screen, and then display a back button at the top-left of the screen.
+
+This is a standard navigation controller, with the back button visible:
+
+!/images/iphone_nav_bar.png!
+
+Most apps use this controller because it helps limit the number of options on screen, and uses big buttons that are easy to press to navigate around.  Navigation is usually through things in the main part of the screen, like a table.
+
+h4. Limitations
+
+* Colours: Standard blue, opaque black, transparent black, or a colour tint
+* Custom backgrounds are possible, but this requires extra programmer time and makes the app look less consistent
+* The back button appears automatically.  You can't add your own back button with that triangle effect unless you make a graphic
+* You can only realistically have three things on the navigation bar: left, middle, right
+
+h4. Options
+
+* The title item can actually be anything: I've put a search bar in there before, and images instead of text
+* You can set the navigation bar to any colour (with the gradients and shine) by setting the tint colour
+
+h4. Tips
+
+* When using interactive elements in place of a title, remember that people might hit the left/right buttons by mistake
+* Make sure you remember that using buttons on the left-hand side might not make sense unless on the top view.
+
+h3. Table Controller
+
+The _Table Controller_ is incredibly popular because it's easy to present large amounts of data quickly and easily in a table.  Tables can also be used for navigation: Mail and iPod are good examples of this.
+
+h4. Limitations
+
+* Bulk editing and swipe to delete aren't very customisable.  If you want buttons to appear on swipe (especially if you want something like Tweetie), it will take a fair bit of extra work
+
+h4. Options
+
+* Tables can have sections
+* Tables have a bulk edit mode and swipe to delete.  Mail is the best example of this
+* Items can be grouped, appearing against a blue lined background (like Settings)
+* Just about anything can be used in a table cell, and it's easy to create views in Interface Builder rather than programming them
+* Search
+
+h4. Tips
+
+* Table controllers are often used for navigation in a navigation controller
+* Searching tables is easy
+
+h3. Tab Bar Controller
+
+You know those cool black bars with icons that appear at the bottom of the screen?  That's a _Tab Bar_.  The _Tab Bar Controller_ makes it easy to create apps that use tab bars.
+
+!/images/tab_bar_controller.png!
+
+h4. Limitations
+
+* Lots of apps on the App Store combine a tab bar with a navigation bar.  This can actually be more difficult than it seems, and it wastes a lot of screen space.  Think carefully before using this approach
+* The icons can only be black and white --  the highlight and shading are added automatically
+* Tab bars flip between views, they don't "open" views on top of everything else... Don't try to use a tab bar with a modal controller
+
+h4. Options
+
+* You can use custom icon images
+
+h4. Tips
+
+* The icons should be 24bit PNG
+* Sometimes it's easier to use a tab bar without the controller and handle tab changes programatically
+* Have you noticed that most of Apple's apps don't use tab bars?  They generally seem to use a toolbar instead, or simplify extra options away
+
+h3. Modal Controller
+
+A _Modal Controller_ appears on top of everything else.  It's commonly used with transition animations, like a vertical spin, to display settings.  The Weather app is a good example of this.
+
+h4. Limitations
+
+* There are only three transition animation styles: vertical and horizontal flip, and cross dissolve.  Most people use the vertical flip (the default)
+
+h4. Options
+
+* You can use a modal controller that uses its own navigation controller for a multistage process like web app registration or a complex settings screen
+
+h4. Tips
+
+* Modal controllers work well in a navigation controller-based app, if used appropriately 
+* Examples for use are: settings, login, registration
+
+h3. Conclusion
+
+These are the basic architectural controllers in the iPhone SDK.  There are others, but these are the ones you should be aware of and think about when designing your app.
+
+If you want to read more, try "View Controller Programming Guide for iPhone OS":http://developer.apple.com/iphone/library/featuredarticles/ViewControllerPGforiPhoneOS/Introduction/Introduction.html.  It's technical but it does explain when each controller should be used.
+
+h4. Developers
+
+If you present these facts to your client or boss upfront, it might save you questions like the following:
+
+* Can I have a colour icon in the tab bar?
+* Can I have a tab bar that opens a modal controller?
+* Can I have a navigation bar with a custom background? (yes, but it will cost more)
+* Can I have a tab bar that contains some navigation controllers which sometimes hide the tab bar? (Well... maybe we should rethink your app's structure first?)

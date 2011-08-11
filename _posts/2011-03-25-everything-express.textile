@@ -1,0 +1,16 @@
+---
+layout: post
+title: "Everything Express"
+categories: 
+- talks
+- events
+---
+
+!/images/everything_express.png!
+
+I did a talk entitled "Everything Express":http://asyncjs.com/express/ at the "Async JavaScript meetup":http://asyncjs.com/ in Brighton.  I covered almost everything required to get a real "Express":http://expressjs.com/ web app off the ground and deployed.  
+
+The slides can be downloaded from "bit.ly/everythingexpress":http://bit.ly/everythingexpress.
+
+The meetup itself has a great bunch of people and is held in a perfect location.  If you're a budding JavaScript hacker I recommend it.
+

@@ -1,0 +1,18 @@
+---
+layout: post
+title: "Open Map Technology"
+categories: 
+- maps
+- geolocation
+- geocoding
+---
+
+I've been doing a lot of work with maps lately.  Mainly Google Maps.  Apparently, Google's ToS isn't as straightforward as I thought, and certain very reasonable situations render usage outside Google's terms.
+
+I'm not saying I don't like Google Maps though, I've come back to it many times for dozens of projects over the years; it's indispensable.  However, there are open alternatives.  I researched the open alternatives for a series of "Quite Useful":http://quiteuseful.co.uk posts (my other blog):
+
+* "Open Map Technology":http://quiteuseful.co.uk/post/91193356/open-map-technology
+* "Introduction to OpenStreetMap":http://quiteuseful.co.uk/post/91537132/introduction-to-building-apps-with-openstreetmap
+* "Introduction to OpenLayers":http://quiteuseful.co.uk/post/91861336/introduction-to-openlayers
+
+It's incredible to see what people are with open source technology in this area.

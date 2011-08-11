@@ -1,0 +1,106 @@
+---
+layout: post
+title: "Future of Web Design Notes"
+categories: 
+- events
+- design
+---
+
+I <em>almost</em> survived "Future of Web Design":http://events.carsonified.com/fowd unscathed.  I say almost because I still have a slightly dull head, thanks to the after party and free drinks.  I can't quite remember why, but at one point I thought ordering a load of sambuca shots would be a great idea.
+
+"Carsonified's":http://www.carsonified.com/ events have so far been a rare chance for me to meet up with fellow web designers and developers.  This FOWD had a particularly friendly atmosphere, and I met lots of interesting people.  The Carsonified team were professional and friendly, keeping the event ticking along smoothly.
+
+Web design is a diverse subject.  There's a continuum between design as ergonomics/usability and visual design.  Add standards to the mix and web design suddenly looks more like engineering.  The talks moved back and forth along this continuum throughout the day.
+
+I don't think web design currently knows whether it's design, engineering or science, but combining all the required disciplines keeps enough people interested and inspired to make events like this both fascinating and productive.
+
+h3. Danny Somekh
+
+The first talk was an off the bill presentation by "Danny Somekh":http://dannysomekh.wordpress.com/ about a concept he calls Agile Branding.  I'm sure he'll elaborate on the concept at his blog, but a few things stuck with me:
+
+* During meetings, only involve people who can add to the creative process
+* Use visual exploration early on
+* Involve users/customers
+* Try to create an environment that fosters co-creation
+
+As a Rails developer and big "PragProg":http://pragprog.com/ fan, I find the idea of agile branding/design fascinating.  I found it hard to see how it would be implemented, but so many designers work with such rigid constraints that it could be a big thing in the future.
+
+h3. Jim Coudal
+
+I've got a "Coudal":http://www.coudal.com/ sticker on my netbook, so I felt like a bit of a fanboy during Jim's keynote.  I'm not really, but I do like their Field Notes books.
+
+He agreed with some of Danny's points -- some early _agile design_ endorsement perhaps?  He went on to talk about "Booking Bands":http://www.coudal.com/bookingbands.php and the relationship between having a short attention span and the creative process.  I liked Jin's positive analysis of short attention spans, and how switching to new projects/technologies/tools can yield unexpected rewards.
+
+h3. Meagan Fisher
+
+Meagan, from "SimpleBits":http://simplebits.com/, talked about building mobile web interfaces.  Her experiences and design decisions closely follow what I've done at "Helicoid":http://helicoid.net/ -- I launch all my apps with mobile interfaces like the ones she described, and blog occasionally about the process at "mmm":http://mmm.helicoid.net/.
+
+She really demystified mobile web design for people who were unfamiliar with it, and gave some great book recommendations, like "Cameron Moll's Mobile Web Book":http://mobilewebbook.com/.  I've read it, it's just about all you need to get going in the mobile web.
+
+h3. Brett Welch
+
+Brett from "GoodBarry":http://goodbarry.com/ gave a talk about design and business, with advice on how designers can maintain confidence and relationships with their clients despite market trends.
+
+His talk centred around establishing yourself as an expert, communicating value to clients in ways they can understand, understanding your clients and their strategies.  He even gave practical advice on how to conduct meetings with clients:
+
+* When starting a meeting, always talk about the client's business first.  Try to establish the business context
+* Get a feel for their business and set a tone for helping them to become successful
+* Understand what they want to achieve and manage their expectations
+* Websites need marketing plans, and ongoing attention
+* Set business targets: avoid talking about traffic early on
+* Talk about tools, timeline, what happens after the site has been built
+
+I learned a lot from Brett's talk, it was useful to hear business advice aimed at us.
+
+h3. Mark Boulton
+
+"Mark's":http://www.markboulton.co.uk/ talk was about typography.  He discussed the basics, type as interface, the controversial topic of font embedding, and helping Drupal.
+
+I think his work on Drupal sounds like something that could be applied to many open source projects:
+
+* Wherever possible, help people make good design decisions
+* Provide smart defaults: don't offer every font, just let them choose from two good ones
+* Styles vs. lots of options: reduce choice
+* Authors want to be creative, which is why they'll always experiment with the design options.  Create a system that empowers them
+* Try to make choices higher up the "cascade"
+
+h3. Robin Christpherson
+
+"Robin's":http://www.abilitynet.org.uk/webteam#robin talk was about designing for accessibility.  He used screen reading software to demonstrate how the web feels for the blind and visually impaired.
+
+* Well-structured documents and headings make documents easier to navigate
+* Documents structured with a logical reading order helps a lot (I think most designers do this anyway since the CSS/standards revolution, but some of his example sites were still hard to navigate)
+* Consider the amount of info on each page: he brought up a list of the links on a page to navigate, but most of the pages had hundreds of links
+* Captcha accessibility is generally poor
+* Sifr/flash: despite attempts at accessibility, more than 4 of these objects on a page can make the reader very slow
+* Drop down boxes can be skipped entirely so he didn't have to read each option, unlike lists of links
+* "Live regions" and screen reader support
+* Mobile versions of sites are easier because they're so simple and quick to navigate
+
+h3. Mike Kus
+
+"Mike":http://www.thethingswemake.co.uk/ discussed design from the perspective of someone with an extensive background in graphic design.  He suggested that we should break trends: designers usually research and draw on a wide range of influences for their work, discovering new combinations, and we should do the same.
+
+His slides were beautiful, and he had a 3 minute video at the end showing how he made them: I expected a video will be posted of his talk at some point, it'll be worth finding to see this part.
+
+h3. Sabrina Dent
+
+Sabrina talked about "Stalinist web design".  Her presentation was full of humour, but it also had some useful tips:
+
+* Learn to say "no"
+* Eliminate choices: Why give clients 3 mockups?  Why not give them your best mockup -- you're the expert, design choices are yours to make
+* Just do it: Rather than asking a client about possible improvements, just do them
+* Caveat: You better be good
+
+h3. Folkert Gorter
+
+Folkert's slides are on a big HTML page here: "cargo.superfamous.com/972":http://cargo.superfamous.com/972.  He drew parallels between his early work on CDROM design and modern social web applications.
+
+h3. Simon Sankarayya
+
+"Simon Sankarayya's":http://www.allofus.com/ talk reminded me heavily of "A Smile in the Mind":http://www.amazon.co.uk/Smile-Mind-Thinking-Graphic-Design/dp/0714838128.  He also related his experience from the days of CDROM and Director to the modern web.  He mentioned "Naoto Fukasawa":http://en.wikipedia.org/wiki/Naoto_Fukasawa as an influence.
+
+h3. Molly Holzschlag
+
+"Molly's":http://molly.com/ talk concerned the future of web standards, and had some healthy Microsoft bashing.  I noticed she said the next IE will support SVG which is cool, but why couldn't that have gone into 8?
+

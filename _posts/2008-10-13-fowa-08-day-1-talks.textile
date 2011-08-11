@@ -1,0 +1,69 @@
+---
+layout: post
+title: "FOWA 08: Day 1 Talks"
+categories: 
+- fowa
+---
+
+I visited the "Future of Web Apps":http://www.futureofwebapps.com/ conference last Thursday and Friday in London.  The talks were by large excellent, and the speakers were personable and gave detailed answers to questions.  Talks were split into _Business_ and _Developer_, which made choosing difficult for me because I'm involved in both.  Videos of all the talks are here: "All FOWA 08 Videos":http://events.carsonified.com/fowa/2008/london/content
+
+h3. "The Future of News - Kevin Rose, digg":http://events.carsonified.com/fowa/2008/london/videos/kevin-rose/
+
+Kevin's talk was given in a more formal way than you might expect from his Diggnation presenting style.  He gave details on how Digg's looking at bringing in new tools to improve the quality of recommendation and conversation on the site.
+
+h3. "Web apps are dead, long live web apps... - Edwin Aoki":http://events.carsonified.com/fowa/2008/london/videos/edwin-aoki/
+
+Edwin drew parallels between web apps and the current financial crisis.  He discussed different revenue sources for software, claiming that developers aren't motivated by money.
+
+h3. "Languages don't scale - Blaine Cook &amp; Joe Stump":http://events.carsonified.com/fowa/2008/london/highlights/blaine-cook-joe-stump/
+
+Blaine was one of the "rock star" developers at the conference, as evident by the amount of young technically-minded Twitter fans who came to see this talk.  He explained why scaling issues are rarely related to languages, showing how Ruby and PHP's performance is generally equivalent (IO-bound).  They then showed that the real scaling issues facing web apps are largely due to network and IO performance.
+
+Blaine explained how he's used caches and queues to scale -- basically anything that can be background processed (i.e., scaling image uploads, caching updates to RSS feeds.)
+
+When they mentioned the huge amount of data they've amassed at Twitter I asked how they perform backups.  It seems like they rely on multiple setups, geographically distributed, in a multi-homed fashion.
+
+h3. It's made of mesages - Matt Biddulph
+
+Matt's talk discussed how he's used asynchronous messaging to scale Dopplr.  It was actually similar to Blaine's talk, just focussed on messaging.  One particularly interesting idea was using lightweight messages through ActiveMQ to log system data.  Rather than logging into multiple servers and trying to merge logs, they simply send log messages to a central server.  He even gave examples of live data, and it was fascinating to see which activities on the web app were slow.
+
+h3. "The future of interface design - Alvin Woon":http://events.carsonified.com/fowa/2008/london/highlights/alvin-woon/
+
+Alvin discussed the challenges presented by building adaptive user experiences and multi-lingual interfaces, based on his experiences at Plurk.
+
+He explained many issues relating to multi-lingual interfaces:
+
+* Designs that rely on widths and fonts rendered as images are problematic because text in different languages scale wildly
+* If your interface relies on the order words appear some languages won't work correctly (Japanese has verbs at the end, which broke Plurk's design)
+* Using the community to translate your interface can be incredibly effective
+
+Alvin also mentioned the dangers of adaptive interfaces: consider Amazon's "customers also purchased..." feature and the embarrassing things it can show.
+
+h3. Colliding Worlds: Using Jabber to make awesome web sites - Blaine Cook
+
+This talk was presented with a history of the development of web technology.  Blaine demonstrated how technology evolved, and argued how it's evolving to asynchronous messaging.  He showed how XMPP and PubSub can be used to create scalable services, and encouraged everyone to try it despite the scary specs.
+
+h3. How to take your community to the next level - Ben Huh
+
+Ben Huh from icanhascheezburger.com talked about how to grow online communities whilst staying resilient from a business perspective.  He showed how they've added community features to the site and the impact they've had, and how to encourage regular visitors to become fans.
+
+I thought this would be a more relaxed and humorous talk than the others I'd been to, but it really did have some great ideas.
+
+h3. How to take your web app mobile - Tony Fish
+
+Everyone (British) loved hearing that Tony Fish was Michael Fish's son.  His talk was mainly attempting to demonstrate that mobile software relies too much on screens and keyboard-style input schemes.  He suggested that things could simply happen based on location, or by minimal user interaction.
+
+h3. TechCrunch Pitch! @ FOWA - Mike Butcher
+
+5 companies pitched their products to a panel in front of almost the entire conference.  Pitchers:
+
+* Winner: "E-Republik":http://www.erepublik.com/ - Online browser multiplayer game
+* "iPlatform":http://theiplatform.com/ - Commercial service for deploying social marketing to multiple social sites
+* "PhoneFromHere":http://PhoneFromHere.com/ - Click-to-call a site owner, from any website
+* "RaffleIt":http://raffleit.com/ - Ebay/raffle mashup
+* "Diary.com":http://Diary.com/ - Social diaries
+
+The most important things I learned watching these pitches was:
+
+* Show your product rather than slides
+* Show stats demonstrating interest in your product

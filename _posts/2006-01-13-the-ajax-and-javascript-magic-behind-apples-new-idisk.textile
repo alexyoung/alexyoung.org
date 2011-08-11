@@ -1,0 +1,47 @@
+---
+layout: post
+title: "The Ajax and JavaScript Magic Behind Apple's New iDisk"
+categories: 
+- apple
+- javascript
+- analysis
+- mac
+---
+
+Apple's iDisk is part of the .Mac service.  There's always been a simple way to add files through the web interface (at <a href="http://www.mac.com">http://www.mac.com</a>), but Apple have recently improved it.
+
+Once you click on an icon from your .Mac page, a window appears in which you can view your iDisk:
+
+<img src="/images/idisk_overview.png" />
+
+This allows you to:
+
+* Navigate folders in a similar way to Finder
+* Create and remove folders
+* Upload and delete files
+
+Most of this makes use of Ajax and clever DOM magic, rather than the simple web interface they used before or Flash.  It actually feels a little bit like a Flash interface, and if you look at the code, the reliance on Ajax is quite minimal.
+
+What I really like, though, is their JavaScript library for communicating with DAV shares.  I've used webdav before for clients who want to access files and collaborate over the Internet, in cases where they require a simple interface with optional browser support.  The issue, however, is representing this interface with a web version, for instances in which clients can't set up a webdav share in their OS.  Apple's solution of using JavaScript to communicate with the webdav share works very nicely.
+
+Take a look at this file:
+
+http://idisk.mac.com/js/web/DavUtil.js
+
+DavDirector is a class for browsing DAV shares with XMLHttpRequest, since webdav is really just a layer on top of HTTP, this is a natural thing to do.  The method:
+
+{% highlight javascript %}
+AbstractDavMethod.prototype.execute = function()
+{% endhighlight %}
+
+contains the usual Ajax stuff you find in many toolkits and libraries, with some code to add GET parameters for 'webdav-method'.  You'll notice a reference to SAFARI_HACKS in this method and elsewhere; let's ignore this for now.  Although there are exceptions for nearly every major browser in the .Mac JavaScript (including Firefox).
+
+AbstractDavMethod defines methods for setting the types of headers, so after creating the basic AbstractDavMethod class with the Ajax magic, the author then extends it with each important part of the webdav protocol.  For example, DeleteMethod(), MoveMethod() and PropfindMethod().
+
+Really, this code is no more complicated than any of the basic webdav classes you may have seen before if you've worked with webdav, but the fact they're making the browser do the work rather than the server, with XMLHttpRequest, is quite fascinating.
+
+And then there's the code for the web version of the Finder, FrankenFinder:
+
+http://idisk.mac.com/js/web/View.js
+
+This does most of work to help the browser recreate a web facsimile of the OS X Finder, and looks like it was quite a headache to write.  If I was developing this, I'd try and use all the juicy helper functions in Rails for <a href="http://script.aculo.us">script.aculo.us</a>.  My advice is: relying on your favourite framework or toolkit to drive filesystem-style widgets would be preferrable to creating a big collection of your own DOM hacks.

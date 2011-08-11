@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Load Your .vimrc with Helipad"
+categories: 
+- helipad
+- vim
+---
+
+<a href="http://pad.helicoid.net">Helipad</a> is a little web notepad I wrote to throw to-do lists, notes, ideas and bits of code at.  My idea was to make the perfect partner for my actual physical notepad.
+
+Like everything I do, it has an API, and that allowed me to do something that I've found amazingly useful: <a href="http://pad.helicoid.net/document/public/ac40252b">load my vimrc remotely</a>.
+
+I know there's a million other ways to do this, but I think it illustrates something unexpected and interesting that you can do with web application APIs.  And, on the same topic, <a href="http://ambientclock.com/">the AmbientClock</a> uses your Google Calendar to change its colour according to how busy you are.
+
+I'd love to hear about anyone else using web APIs for fun stuff.  Just <a href="http://alexyoung.org/contact/">drop me a line!</a>

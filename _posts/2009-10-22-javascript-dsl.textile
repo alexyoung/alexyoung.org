@@ -1,0 +1,242 @@
+---
+layout: post
+title: "Fear and Loathing in JavaScript DSLs"
+categories: 
+- javascript
+- DSL
+---
+
+I wanted to create an API in JavaScript that behaved like a DSL.  The aim was to cut down on unnecessary syntax in the client code.  I explored a few techniques which I will present below.  In my opinion the best technique is the final one, which my friend "Annealer":http://annealer.org/ came up with.  He intimated that I co-created it, but he was just being nice so don't believe him.
+
+These examples use a fictional DSL object called <code>DSLRunner</code> that is capable of executing the DSL.
+
+*Download the examples* here: "javascript-dsl-examples":http://github.com/alexyoung/javascript-dsl-examples
+
+h3. Prefixed Property Names
+
+This technique is similar to how <code>Test::Unit</code> works in Ruby, and it's also how "script.aculo.us":http://script.aculo.us unit tests work.  Each method is prefixed with a significant name and presented to the DSL object as a list.
+
+In the following example, <code>first</code> and <code>last</code> will be executed before and after the set of the methods prefixed with <code>bake</code>.
+
+{% highlight javascript %}
+if (typeof print === 'undefined') {
+  print = alert;
+}
+
+var DSLRunner = {
+  run: function(methods) {
+    this.ingredients = [];
+    this.methods     = methods;
+
+    this.executeAndRemove('first');
+
+    for (var key in this.methods) {
+      if (key !== 'last' && key.match(/^bake/)) {
+        this.executeAndRemove(key);
+      }
+    }
+
+    this.executeAndRemove('last');
+  },
+
+  addIngredient: function(ingredient) {
+    this.ingredients.push(ingredient);
+  },
+
+  executeAndRemove: function(methodName) {
+    var output = this.methods[methodName]();
+    delete(this.methods[methodName]);
+    return output;
+  }
+};
+
+DSLRunner.run({
+  first: function() {
+    print("I happen first");
+  },
+
+  bakeCake: function() {
+    print("Commencing cake baking");
+  },
+
+  bakeBread: function() {
+    print("Baking bread");
+  }
+});
+{% endhighlight %}
+
+The problem with this example is what we've always found with <code>Test::Unit</code> -- the method names become unwieldy.  It would be nicer to be able to just <code>bake()</code>.
+
+h3. DSL Methods as Arguments to Closures
+
+Instead of a property list, a function can be used to store the body of the code.  Passing this function methods for the DSL makes the DSL calls more readable.  Each of the DSL calls is really a method that adds callbacks to a list then executes them later.
+
+{% highlight javascript %}
+if (typeof print === 'undefined') {
+  print = alert;
+}
+
+var DSLRunner = {
+  methodQueue: [],
+
+  run: function(definition) {
+    definition.call(this, this.bake, this.first, this.last);
+
+    if (typeof this.firstMethod !== 'undefined') {
+      this.firstMethod();
+    }
+
+    for (var i = 0; i < this.methodQueue.length; i++) {
+      this.methodQueue[i]();
+    }
+
+    if (typeof this.lastMethod !== 'undefined') {
+      this.lastMethod();
+    }
+  },
+
+  bake: function(callback) {
+    DSLRunner.methodQueue.push(callback);
+  },
+
+  first: function(callback) {
+    DSLRunner.firstMethod = callback;
+  },
+
+  last: function(callback) {
+    DSLRunner.lastMethod = callback;
+  }
+};
+
+DSLRunner.run(function(bake, first, last) {
+  first(function() {
+    print("I happen first");
+  });
+
+  bake(function() {
+    print("Baking bread");
+  });
+
+  bake(function() {
+    print("Baking a cake");
+  });
+});
+{% endhighlight %}
+
+The implementation here can be very simple, and the DSL itself is more expressive than before.  The downside, however, is the client code has to comply to the top-level function signature (but not necessarily arity thanks to JavaScript).  Connascence of position, as Jim Weirich might say.
+
+h3. DSL Methods Bound Using Closures and with()
+
+This technique binds the body against the DSL library.  It's not enough to wrap the execution of the callback inside a <code>with</code>, metaprogramming is required.
+
+If you'd like to reproduce this trick, remember that:
+
+* The function body either needs to be extracted or executed within a closure
+* You'll need to eval() the resulting code
+
+{% highlight javascript %}
+if (typeof print === 'undefined') {
+  print = alert;
+}
+
+var DSLRunner = {
+  ingredients: [],
+
+  prepareFunctionBody: function(fn) {
+    return '(' + fn.toString().replace(/\s+$/, '') + ')()';
+  },
+
+  withThis: function(callback) {
+    var body = this.prepareFunctionBody(callback),
+        that = this;
+    return function() { return eval('with(that) { ' + body + ' } '); };
+  },
+
+  run: function(definition) {
+    this.withThis(definition)();
+    print("Your specified ingredients included: " + this.ingredients.join(', '));
+  },
+
+  bake: function(callback) {
+    callback.call(this);
+  },
+
+  addIngredient: function(ingredient) {
+    this.ingredients.push(ingredient);
+  },
+
+  last: function(callback) {
+    callback.call(this);
+  }
+};
+
+DSLRunner.run(function() {
+  bake(function() {
+    addIngredient('flour');
+    addIngredient('yeast');
+    addIngredient('water');
+
+    print("Baking bread");
+  });
+
+  bake(function() {
+    print("Baking a cake");
+  });
+});
+{% endhighlight %}
+
+The magic here is <code>withThis</code>.  It modifies the client's top-level function to make it automatically execute.  Another technique that can be used is to remove the function definition -- this requires a more complicated regex.
+
+Next, <code>withThis</code> retains a reference to the executing class using a closure, and uses <code>with</code> to make references to the DSL methods implicit, and calls <code>eval</code> when ready.
+
+The <code>addIngredient</code> method calls could be executed within a <code>Bake</code> class that <code>withThis</code> binds to instead.  In my real code I had <code>withThat</code> which takes a parameter instead of using <code>this</code>.
+
+h3. A Closure and Injected DSL Methods
+
+This technique is the one I settled on for my library.  It's a combination of the previous two techniques, without the <code>with()</code>.
+
+The function body is prepared and placed in a closure, and then it's evaluated inside a function with the DSL methods passed as arguments.  In my code I call it <code>withDSL</code>:
+
+{% highlight javascript %}
+withDSL: function(fn) {
+  var body = this.functionBody(fn);
+  body = "(function(bake, addIngredient) { " + body + " })";
+  return function() {
+    var args = [
+      DSLRunner.bake,
+      DSLRunner.addIngredient
+    ];
+    eval(body).apply(DSLRunner, args);
+  };
+}
+{% endhighlight %}
+
+My real code uses an optional second parameter which refers to an object that has context-sensitive methods.  This could be used to bind <code>addIngredient</code> calls to a <code>Bake</code> object -- the top-level <code>bake</code> method would return these objects and they'd include the <code>addIngredient</code> method.
+
+h3. Injected DSL Methods Using Function Constructors
+
+In this case, an alternative to <code>eval</code> is <code>new Function</code>:
+
+{% highlight javascript %}
+  withDSL: function(callback) {
+    var body = this.prepareFunctionBody(callback),
+        f    = new Function('bake', 'addIngredient', body),
+        args = [this.bake, this.addIngredient];
+    return function() { f.apply(this, args); };
+  }
+{% endhighlight %}
+
+This ends up relying more on arrays and less on strings, so it uses less code than the previous method.
+
+h3. Phew
+
+Making client-friendly JavaScript DSLs isn't impossible.  You might look at <code>with</code> or <code>eval</code> and decide these techniques aren't for you, but even meta-programming in Ruby can require a dose of analogous methods.
+
+During the evolution of my library I was constantly benchmarking, and for casual use none of these techniques added overheads (I had 1-3 millisecond drifts).
+
+Here's a tip: get Rhino set up when you're exploring JavaScript.  "Get the Jars":http://www.mozilla.org/rhino/ and put them in your class path and add a nice alias:
+
+{% highlight sh %}
+alias js='java org.mozilla.javascript.tools.shell.Main'
+{% endhighlight %}
+

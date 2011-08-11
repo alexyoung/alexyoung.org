@@ -1,0 +1,94 @@
+---
+layout: post
+title: "dConstruct 2010"
+categories: 
+- events
+- design
+---
+
+I attended the "dConstruct":http://2010.dconstruct.org/ conference on Friday 3rd September.  I've never been to one before, but one of my open source and commercial collaborators ("@sstarr":http://twitter.com/sstarr) saw John Gruber on the lineup and demanded we go.  I don't really know much about Gruber, other than he's an Apple blogger, so my excuse was after party shenanigans.
+
+h3. Marty Neumeier: The Designful Company
+
+!/images/dconstruct/marty.png!
+
+Neumeier's talk was about using design to differentiate companies, products, and further their potential.  He highlighted the unexpected way products that test poorly go on to succeed, and gave examples of products that failed because they were _different and bad_, or succeeded because they were _different but good_.
+
+h3. Brendan Dawes: Boil, Simmer, Reduce
+
+!/images/dconstruct/dawes.png!
+
+I've seen Dawes speak a few times, so I thought I might be about to see the same talk again.  But fortunately this one was pretty fresh.  He used his trademark interactive slides to illustrate some points, and drew on recent work.  A great example of this was his "MoviePeg":http://movie-peg.com/ project.  I've seen this project before but I didn't realise he started it.  It came from one of those serendipitous moments when he was on a train trying to prop up his iPhone to watch a movie.
+
+What really fascinated me was Dawes' assertion that building physical products now has an incredibly low barrier to entry.  In the case of MoviePeg, they worked with an industrial design company who sent them CAD files they couldn't even open, but they found ways around that and managed to get a solid prototype created.  He mentioned "Ponoko":http://www.ponoko.com/, which is a service that helps you create amazing things yourself.  I was also reminded of "Sugru":http://sugru.com/, which I've been dying to order to create something similar to MoviePeg (I want a way of hanging my mobile phone on the wall to make it a better alarm clock.)
+
+h3. David McCandless: Information is Beautiful
+
+!/images/dconstruct/david.png!
+
+McCandless demonstrated how he communicates difficult concepts through infographics, and explored the relationships of data and how to make data _usable_.  He also explained how he comes up with ideas, and how he creates his infographics through tools like Google Insights.
+
+He said one of the biggest failures of designers is losing a sense of play.  I feel like this is true for programmers as well.  I think the question of _how to play_ as a developer is an interesting one, and probably isn't best answered with "StarCraft II".
+
+bq. Negative feelings are good sources of inspiration (boredom, ignorance, frustration, bewilderment)
+
+"McCandless' Flickr account":http://www.flickr.com/photos/25541021@N00/ has tonnes of great examples of his work.  He also said he did a "TED talk":http://www.ted.com/speakers/david_mccandless.html that was very similar to his dConstruct talk.
+
+h3. Samantha Warren: The Power and Beauty of Typography
+
+!/images/dconstruct/warren.png!
+
+Typography doesn't mystify me, even though I'm typically a developer, but I actually learned something useful in this talk.  Warren didn't discuss anything particularly deep technically, but instead connected emotion and fashion to choices in typography.
+
+This was a good lesson for me, because I always choose typefaces based on a technical reason -- this type will reproduce well in a small size which suits this project.  But Warren said we should see letters in a different way, and consider the emotional value of our choices to try to evoke an emotional reaction.  This might sound pretty abstract to an application developer like me, but even the applications we build have marketing sites and possibly even associated printed material.
+
+h3. John Gruber: The Auteur Theory of Design
+
+!/images/dconstruct/gruber.png!
+
+I didn't know what to expect from Gruber.  I was really hoping the Apple references would be minimal, just because I wanted to see what else he had to say.  His talk was about "auteur directors":http://en.wikipedia.org/wiki/Auteur_theory, and their place and value in the world of cinema.
+
+It was insightful that Gruber referenced auteur directors to explain why certain technology products and companies are successful.  This was clearly inspired by Steve Jobs, but the talk was thoughtfully presented and well-researched.  It had more of an academic tone than I expected.
+
+h3. James Bridle: The Value of Ruins
+
+!/images/dconstruct/bridle.png!
+
+Bridle walks backwards and forward a lot when he speaks.  You have no idea how hard that photo was to take.  Regardless of his animated stage presence, his talk had a good balance of humour and more serious subjects.  He started by discussing his "home town" -- the place of his major coming-of-age experiences -- which turned out to be GeoCities.  It was a great opening gambit which drew uproarious laughter from the audience.
+
+His talk was really about the loss and history of information.  At some stages of human history entire cultures have been lost through carelessness or on purpose.  In contrast, projects like Wikipedia track every single change in a document, a level of tracking that hasn't happened before.
+
+h3. Hannah Donovan: What Improvisation Can Teach Us About Design
+
+!/images/dconstruct/hannah.png!
+
+Donovan's talk began with a live jam session.  It was unexpected and came at the perfect time during the day -- just as people had started to fatigue it felt refreshing.  In a previous life I was a musician, so her talk resonated with me.
+
+h3. Tom Coates: Everything the Network Touches
+
+!/images/dconstruct/coates.png!
+
+This was the talk that I took the most notes on.  Coates covered "transformative infrastructures" -- from ancient history, through the industrial revolution, to the future.
+
+He explored the importance of making real-world objects identifiable by services, and how open web standards might be important, but an open standard for identifying objects would be far more useful.  This example was backed up by examples of current projects, like a car parking system in San Fransisco that optimises parking using sensors.  "Spimes":http://en.wikipedia.org/wiki/Spime were mentioned, a concept proposed by author Bruce Sterling.
+
+In particular I liked this slide:
+
+!/images/dconstruct/death.png!
+
+It might seem fashionable to deride the semantic web, but there's a reason why I agreed with Coates.  I have a good friend who worked for the better part of the last 10 years on semantic web technology, and he more than anyone would agree with that slide.
+
+h3. Merlin Mann - Kerning, Organisms, and Those Goddamned Japanese Toothpicks
+
+!/images/dconstruct/mann.png!
+
+I don't believe Mann was trying to insult Japanese toothpicks, it's an obscure reference that takes a bit of explaining.  It was a metaphor about nerds, and how we're all nerds in some way, and this is important to the perception of design, designers, and the things they make.
+
+Mann presented his talk with no slides, in a way that was clearly intended to evoke stand-up comedy.  At times he sounded aggressive, but his punchlines and arguments were always just right.
+
+h3. Conclusion
+
+2010's dConstruct felt like the connoisseur's choice of web conferences.  The scheduling was perfect, particularly the musical interlude and Mann as the last talk.  It attracted a good audience too -- a balance of geeks and designers.
+
+The after-party was great fun, and some of us somehow kept the party going until the first train back to London (I fell asleep and nearly missed my stop).  I managed to have an interesting discussion with Ryan Carson about hats and tweed, so I'm now looking forward to the Future of Web Hats.
+

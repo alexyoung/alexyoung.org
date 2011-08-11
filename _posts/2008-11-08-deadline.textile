@@ -1,0 +1,31 @@
+---
+layout: post
+title: "Deadline"
+categories: 
+- projects
+- apps
+---
+
+Here's a personal project I've been working on for a while: "Deadline":http://deadlineapp.com/
+
+!http://deadlineapp.com/images/home/screenshots/interface.png!
+
+I find calendars hard to use but I like writing, so I wanted to create a calendar that uses natural language parsing to make sense of text.  You can search for words or dates, so typing "next week" shows you all your events for next week.
+
+When I designed the interface I threw away all the typical web app stuff.  There's barely any navigation, no footer, no extra links for "account", etc.  When you hover the logo minimal navigation appears, and editing is all inline.  I really wanted to make something that looked graphical, almost like an album cover: big helvetica fonts, bold colours, with an emphasis on your data over application chrome.
+
+It works with Jabber/Gtalk: it sends reminders and also allows you to delete, delay and hide events through your IM client.
+
+It also accepts and sends email.  That means if your mobile phone supports email or MMS you can get and set reminders anywhere.  There's also a mobile interface too just like the rest of Helicoid's projects.
+
+If it can't understand the date and time you've typed in, it'll prompt you to enter one with a form like this:
+
+!http://deadlineapp.com/images/home/screenshots/manual.png!
+
+It's the second app to use "Helicoid":http://helicoid.net's auth server, which means if you have a "Helipad":http://pad.helicoid.net it's single sign-on!
+
+Since it uses natural language parsing it can only cope with English.  I could technically support more languages, but I'm going to wait and see if the idea makes sense to other people first.  I love using it and I've come to rely on it, especially through the IM interface.
+
+Anyway, check it out!  Accounts are free and sign up is quick.  If you'd like to know about the technical stuff, or upcoming API details, post a comment and I'll get back to you.
+
+There's also more details here: "Deadline beta":http://pad.helicoid.net/document/public/93f5a1ce

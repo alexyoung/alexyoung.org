@@ -1,0 +1,35 @@
+---
+layout: post
+title: "Cargo Cult"
+categories: 
+- essays
+---
+
+I don't like the term _cargo cult_.
+
+Calling something a cargo cult isn't usually intelligent or useful.  It says "I know best and I don't care about your opinions".
+
+It's a charge with no proof; a sycophantian shot across the bows of a particular belief or community.  The irony of this notion of _cargo cults_ is that the very people using the term are often themselves demonstrably guilty of creating and promoting their own cult followings.
+
+This is merely an iteration on flame wars -- we could argue on a trivial level, or we could discuss _circumstances_ where these tools are uniquely useful.
+
+Circumstance is something often missing from these discussions, and in technical writing in general.  I can easily read documentation, but I can't easily learn about deeper problems unless people reveal real-world experiences.
+
+One reason we're so easily seduced into these debates, and the reason phrases like cargo cult get thrown around, is simply due to the amount of time or money that we invest in technology.  If you spent a lot of money on an iPhone and it works for you, it's likely that you're going to advocate iPhones over the competitors.
+
+Not many of us are in a position to spend much time with a broad range of the competition, so we start to defend our choice and in some cases actively look for faults in other products.  Similarly, if someone invests time in learning a programming language or library, they're more likely to advocate it.
+
+No matter what we do, a passive-aggressive loudmouth with an axe to grind is going to use their influence to shape the community.  Rather than being patient and genuinely interested in alternative solutions, they become defensive.
+
+h3. Sober Reading
+
+There may be a "tendency towards nastiness":http://www.paulgraham.com/trolls.html, but there are people out there who write soberly about our craft.  I remember "_why":http://en.wikipedia.org/wiki/Why_the_lucky_stiff sparring with the Python community, but rather than calling them names he wrote things like unHoly: a Ruby-bytecode-to-Python-bytecode converter.  It seemed to me that he had a genuinely unbound enthusiasm for our field that is sadly surprisingly rare.
+
+Another pillar of sanity is "Paul Graham":http://www.paulgraham.com/.  His essays are highly influential, but when he advocates the languages he's particularly interested in he doesn't needlessly insult other languages or communities.
+
+As Paul Arden says in "It's Not How Good You Are, It's How Good You Want To Be":http://www.amazon.co.uk/Its-Not-How-Good-Want/dp/0714843377:
+
+bq. ENERGY. It's 75% of the job. If you haven't got it, be nice.
+
+Don't sit around posting to Twitter about how everyone else is wrong.
+

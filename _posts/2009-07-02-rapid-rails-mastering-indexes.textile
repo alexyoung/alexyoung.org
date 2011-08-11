@@ -1,0 +1,100 @@
+---
+layout: post
+title: "Rapid Rails: Mastering Indexes"
+categories: 
+- rapidrails
+- rails
+- optimisation
+---
+
+I wrote a series last year called "Rapid Rails".  It was all about making your Rails app and development process faster.  I've been analysing the performance of some mature Rails projects recently, so rapid rails is back.
+
+If I'm tasked with improving an application's performance, the first thing I look at is indexes.  Indexes are something you're told are important when you learn about relational databases, but the effort of domain modeling usually makes most people forget all about them.  That means you'll often come across a slow project that can be improved just by adding indexes.
+
+Rails lets you add these in a migration with <code>add_index :table, :row</code> or even <code>add_index :table, [:row1, :row2]</code>.  Most of you probably already know this.  What you might not know is your RDBMS might be ignoring your indexes anyway!
+
+The following steps will help you detect and avoid this.
+
+h3. #1: Identify a slow query to attack
+
+Look at your Rails development logs to find queries.  MySQL has a slow query log as well.
+
+Look at what fields the query joins on, and look at what it sorts on too.  Add the index.
+
+h3. #2: Determine if the index is being used
+
+Run <code>script/dbconsole</code> and enter your database's password to get into a database shell.
+
+If you're using MySQL or Postgres, <code>EXPLAIN</code> will help identify what indexes are used.  Just call a query with it:
+
+{% highlight sql %}
+EXPLAIN SELECT * FROM `articles`
+WHERE
+  (articles.published = 1 AND headline = 0 )
+  AND ( (`articles`.`type` = 'EquitiesStory' ) )
+ORDER BY created_on
+DESC LIMIT 1000, 40
+{% endhighlight %}
+
+This query took up to 5 seconds on some fast hardware with lots of memory.  It was really getting on my nerves.  Of course, STI wasn't helping with the application's large data sets, but it was a case of DRY vs. fully normalised data models.
+
+In this case I added a fat index: <code>index_articles_on_type_and_published_and_headline_and_created_on</code>.  However, MySQL said it wasn't even using my giant index.  <code>EXPLAIN</code> said it used:
+
+{% highlight sql %}
+Using intersect(index_articles_on_published,index_articles_on_headline,index_articles_on_type)
+{% endhighlight %}
+
+h3. #3: ANALYZE, OPTIMIZE
+
+MySQL store statistics on the way your tables are used.  It's not as fancy as it sounds.  If you'd like to rebuild these, check out <code>ANALYZE</code> and <code>OPTIMIZE</code>.
+
+h3. #4: USE INDEX
+
+If you suspect MySQL's optimiser is letting you down, try running the query with <code>USE INDEX</code>:
+
+{% highlight sql %}
+SELECT * FROM `articles`
+USE INDEX
+  (index_articles_on_type_and_published_and_headline_and_created_on)
+WHERE
+  (articles.published = 1 AND headline = 0 )
+  AND ( (`articles`.`type` = 'EquitiesStory' ) )
+ORDER BY created_on
+DESC LIMIT 1040, 40;
+{% endhighlight %}
+
+Even if this runs faster MySQL might have cached your previous tests.  That's why I have those LIMITs, I'm trying to get results that haven't been cached.  And <code>EXPLAIN</code> told me that this query uses the index I want.
+
+It would be possible to construct a <code>find</code> in Rails that uses <code>USE INDEX</code>, but I don't want to.  I like keeping things database agnostic if possible.  If MySQL's optimiser is failing to use the right index, what else can we do?
+
+h3. #5: Trick the optimiser
+
+This is bad advice.  MySQL's optimiser changes between versions, so I'm telling you to do something naughty here.  After repeated experiments, I found changing my query slightly made the optimiser work harder to find the best index:
+
+{% highlight sql %}
+SELECT * FROM `articles`
+USE INDEX
+  (index_articles_on_type_and_published_and_headline_and_created_on)
+WHERE
+  (articles.published = 1 AND headline != 1 )
+  AND ( (`articles`.`type` = 'EquitiesStory' ) )
+ORDER BY created_on DESC LIMIT 1080, 40;
+{% endhighlight %}
+
+Notice the <code>headline != 1</code>?  That somehow resulted in MySQL using the index I wanted.  This ridiculous modification has resulted in a massive performance gain and a happy client.
+
+h3. #6: Filesort
+
+If you see filesort appear in your <code>EXPLAIN</code>, it's likely that this will reduce performance.  It'll be caused by an <code>ORDER BY</code>.  I found simply forcing MySQL to use my created_on index improved performance for the previous queries, because it went from <code>Using where, filesort</code> to just <code>Using where</code>.
+
+bq. Filesort, as the name implies, is used to sort records when there is an ORDER BY clause in the query. The reason it has the prefix "file" is because temporary files may be used to store intermediate results.
+
+From: "Improving Filesort performance in MySQL":http://blogs.sun.com/realneel/entry/improving_filesort_performance_in_mysql
+
+h3. #7: Take a break
+
+Don't be rushing around adding indexes to live apps, and take some time out to surf YouTube.
+
+<object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/UWRyj5cHIQA&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/UWRyj5cHIQA&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="425" height="344"></embed></object>
+
+

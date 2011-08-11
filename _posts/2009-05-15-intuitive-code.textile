@@ -1,0 +1,46 @@
+---
+layout: post
+title: "Intuitive Code"
+categories: 
+- programming
+- thoughts
+---
+
+I've read a lot of game reviews where the _intuitiveness_ of a game is described: the control scheme and menu system can be rated by how intuitive they feel.  Intuition is a useful concept, and means more than "easy to use" -- it imparts a sense of instinct; mental processes found in the subconscious.
+
+Code can be intuitive too.  Not intuitive to write, but to read.  If this seems confusing just think about pseudo-code: beginners are immediately comfortable with pseudo-code but put off by the arcane constructs and symbols of a real programming language.  Some languages appear more like pseudo-code: Ruby can be written clearly with little hand-holding for the interpreter.  A few conventions must be learned: symbols and blocks usually confuse beginners, but once the basics are second nature code comprehension edges closer to instinct.
+
+I've always argued *verbosity* over needless truncation: write <code>recurring_reminders</code> not <code>rcrr_rmdrs</code> or just <code>r</code>.  Concise code is important but is not created by shortening variable or method names.  Verbose names are not enough, however.  There are more ways to create intuitive code.
+
+Another more fundamental technique is to *follow the conventions of your language*.  Ruby programmers commonly use two-letter spacing, lower-case names for variables, <code>do ... end</code> blocks rather than curly brackets (unless the code fits on one line), symbols for options (rather than string constants), exclamation marks and question marks where appropriate.  Stick to your language's conventions so other people can follow your code (I learned this the hard way with JavaScript).
+
+Short methods are another good technique: method names more accurately describe a short amount of code, and it's easier to consider a short amount of code as one chunk, and therefore compose more complex methods.
+
+Tests should also be intuitive, they should follow the same stylistic guidelines.  There's an argument for single assertion tests, which logically follows short method names, but I find this is too restrictive.  Here's an example of one of my tests:
+
+{% highlight ruby %}
+def test_contains_repeater?
+  assert Deadline.contains_repeater?("Kev's birthday every April 9th")
+  assert Deadline.contains_repeater?("Simon's birthday each May 9th")
+  assert !Deadline.contains_repeater?("Buy every Star Trek DVD on June 9th")
+end
+{% endhighlight %}
+
+This code is simple and easy to follow, but it doesn't help the reader understand what a "repeater" is.  Rather than adding a comment, a clearer method name would help: <code>Deadline.contains_recurring_event?</code>.  I find that TDD or BDD helps me write clear method names from the outset.
+
+On the subject of method naming: I like the concept of "Intention Not Algorithm":http://c2.com/cgi/wiki?IntentionNotAlgorithm.  Methods should be named after what they accomplish, rather than how they work.  This could be applied to the test method name above:
+
+{% highlight ruby %}
+def test_phrases_that_contain_recurring_events
+  assert Deadline.contains_recurring_event?("Kev's birthday every April 9th")
+  assert Deadline.contains_recurring_event?("Simon's birthday each May 9th")
+end
+
+def test_phrases_that_do_not_contain_recurring_events
+  assert !Deadline.contains_recurring_event?("Buy every biscuit on June 9th")
+end
+{% endhighlight %}
+
+Without moving on to the obvious question of why <code>contains_recurring_event?</code> is a class method, I hope you can see that considering how intuitive code is for the reader can yield some interesting insights into readability and structure.
+
+It would be great to look at common design patterns to see how intuitive they are in implementation.  How many people are quickly confused by code that uses deep-OO jargon to describe simple patterns like Prototype, Decorator and Factories?

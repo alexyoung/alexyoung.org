@@ -1,0 +1,55 @@
+---
+layout: post
+title: "Easy Mac Applications with Camping"
+categories: 
+- ruby
+- camping
+- programming
+- mac
+---
+
+<img src="/images/Camping.gif" border="0" height="150" width="150" alt="Camping.gif" align="" />
+
+Imagine your own little mac os app written with the <a href="http://camping.rubyforge.org/files/README.html">Camping framework</a>, that you can easily share with other mac-weilding friends.  It's all possible with next to no ridiculous hacking at all!
+
+All you need is <a href="http://www.sveinbjorn.org/platypus">Platypus</a>.  Set it up to create a ruby app that outputs to a text window.  Click on "advanced" and select "remain running after completion", then create the app.  Take a look inside the application folder at the script it creates at the script:
+
+<code>YourApp/Contents/Resources/script</code>.
+
+<img src="/images/yourapp.png" border="0" height="559" width="646" alt="yourapp.png" align="" />
+
+Coaxing the old version of ruby supplied with mac os into running Camping and its required gems takes a little work.  It's basically a case of installing gems within the Resources directory:
+
+{% highlight ruby %}
+#!/usr/bin/ruby
+export GEM_HOME=./
+curl http://code.whytheluckystiff.net/sources/rubyforge-0.0.1.gem > rubyforge-0.0.1.gem
+gem install rubyforge-0.0.1.gem
+rm rubyforge-0.0.1.gem
+gem install camping
+{% endhighlight %}
+
+Answer yes to everything.  Now all you need is to edit the script.  Mine looks like this:
+
+{% highlight ruby %}
+#!/usr/bin/ruby
+
+# Wrapper script for gems and camping
+
+Dir.chdir(File.dirname(__FILE__))
+require 'rubygems'
+Gem.use_paths('gems/')
+require_gem 'camping'
+
+ARGV[0] = 'your_app.rb'
+
+load 'camping'
+{% endhighlight %}
+
+Make sure you copy rubygems and rubygems.rb into the Resources directory.  I have gems installed on my mac, so I just used /usr/lib/ruby/site_ruby/1.8/rubygems*.  You could set up camping and your camping application in there, but I decided to keep it as a separate script called <code>your_app.rb</code>.
+
+After that, double-clicking YourApp.app should run your camping application.  I did this because a friend wanted a little application to control iTunes from his Sony PSP and Nintendo DS (they have web browsers), or maybe he wanted to start playing music when he's at work and his wife's at home.  The possibilities are endless!  Anyway, he didn't see why he should have to install a load of ruby stuff to make it work.  So perhaps this solved that problem.
+
+<img src="/images/yourappicon.png" border="0" height="90" width="91" alt="yourappicon.png" align="" />
+
+Perhaps this new found friendship between Platypus and Camping will lead to all manner of wonderful mac programs!

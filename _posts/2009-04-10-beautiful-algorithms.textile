@@ -1,0 +1,18 @@
+---
+layout: post
+title: "Beautiful Algorithms"
+categories: 
+- programming
+- ruby
+---
+
+I'm starting a new series on Quite Useful called "beautiful algorithms":http://quiteuseful.co.uk/post/94808348/beautiful-algorithms.  I'm going to talk about the algorithms behind graphical effects, especially those from the demo scene back in the 90s.
+
+!/images/burn_baby.png!
+
+I've posted some examples to my GitHub account if you want to check out what I've been researching so far.  They use "Ruby Processing":http://wiki.github.com/jashkenas/ruby-processing/, which is a pretty accessible way to try out ideas.
+
+* "Fire effect":http://github.com/alexyoung/fire-p5r/tree/master
+* "Tunnel effect":http://github.com/alexyoung/tunnel-p5r/tree/master
+
+Please contribute improvements to these and I'll include them.  Imagine what the demo scene would have been like if people shared code on GitHub!

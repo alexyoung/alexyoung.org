@@ -1,0 +1,17 @@
+---
+layout: post
+title: "Server-Sent Events in Opera"
+categories: 
+- browsers
+- standards
+- ajax
+- javascript
+---
+
+Apparently, <a href="http://labs.opera.com/news/2006/09/01/">Opera 9 supports Server-Sent Events</a> which you can read about in the <a href="http://whatwg.org/specs/web-apps/current-work/#scs-server-sent">WHATWG Web Applications 1.0 specification</a>.  Their demo application is a little chat program, which is a very obvious example of the technology.
+
+There's many times when I've wanted to add this to my applications: in <a href="http://bugtagger.com">Bugtagger</a> I have to ask the service if a new message from a customer has been posted to a bug, every <em>n</em> seconds.  It would be far more efficient for the serve to send a message using this technology.
+
+And, since Opera's so popular on embedded and mobile platforms, if this makes its way to mobile phones you're going to see some seriously interesting mobile web activity.
+
+Chat and messaging are one thing, but couple this with feeds from news sites, calendars and other web services and any mobile device suddenly becomes a persistent tether to the web.  Receiving a message on a phone is very natural, but browsing to services can be very awkward for things that are naturally real-time.

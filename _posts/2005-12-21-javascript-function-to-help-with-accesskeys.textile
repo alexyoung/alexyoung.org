@@ -1,0 +1,36 @@
+---
+layout: post
+title: "JavaScript Function to Help with Accesskeys"
+categories: 
+- javascript
+- code
+- snippets
+- programming
+---
+
+There's a few little touches I like on sites I frequent: sensible tabindexes for forms, accesskeys and so on.  Once I learn the accesskeys, I can fly around the main sections of a site.  I apply these things to the sites I build, and the other day I realised adding accesskeys and supporting markup was no fun at all.
+
+I wrote this JavaScript function to search for all your accesskeys and add some friendly markup.  It even detects if the user is running Windows or Mac OS, to tell them to use 'alt' or 'ctrl':
+
+{% highlight javascript %}
+function underline_accesskeys() {
+  var links = document.getElementsByTagName('a');
+  if (navigator.platform.match(/win/i)) {
+    key = 'alt';
+  }
+  else if (navigator.platform.match(/mac/i)) {
+    key = 'ctrl';
+  }
+  else {
+    key = 'ctrl or alt';
+  }
+
+  for (var i=0; i< links.length; i++) {
+    if (links[i].accessKey.length > 0)  {
+      re = new RegExp(links[i].accessKey, 'i');
+      match = links[i].innerHTML.match(re);
+      links[i].innerHTML = links[i].innerHTML.replace(re, '<span style="text-decoration: underline" title="Press ' + key + '-' + String(match).toLowerCase() + ' to access this link using the keyboard">' + match + '</span>');
+    }
+  }
+}
+{% endhighlight %}

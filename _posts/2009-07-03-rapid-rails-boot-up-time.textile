@@ -1,0 +1,107 @@
+---
+layout: post
+title: "Rapid Rails: Boot Up Time"
+categories: 
+- rails
+- rapidrails
+- ruby
+- performance
+---
+
+Rails boot up time really starts to drag when you're working in a TDD or BDD style.  There's projects out there that create long running distributed processes to ease this, but it's interesting to look at exactly why Rails might boot up slowly.
+
+I have a project that isn't massively complicated, but it has suffered from "just add" culture.  I've been told to "just add" Excel support, PDF generation, and a lot more features that require complex libraries.  This naturally increases the memory footprint of my application, and it also increases boot time.
+
+Before I started my analysis, the boot time averaged at 11.6 seconds.  After my improvements the boot time is 7 seconds.  By comparison, the code for "Deadline":http://deadlineapp.com boots in 4 seconds, but it has few dependencies (it's a joy to work on by the way).
+
+Before continuing this technical and possibly dull article, I've mined my internet meme library to add a soundtrack.  Replace all instances of _on a boat_ with _on Rails_:
+
+<object width="560" height="340"><param name="movie" value="http://www.youtube.com/v/R7yfISlGLNU&hl=en&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/R7yfISlGLNU&hl=en&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="560" height="340"></embed></object>
+
+And I don't think we even get SNL in the UK!
+
+h3. Analysing boot up time
+
+Boot up time shouldn't be related to the number of models and controllers you have.  Rails dependency loading should require these files when they're first referenced -- unless you use a plugin like ThinkingSphinx that intentionally loads models on start up.
+
+To prove this, add this to the first line of a model file: <code>puts "I've been required"</code>, then start <code>script/console</code>.  Unless something is including the model, you shouldn't see the message until you type the model's class name and press return.
+
+So what's increasing my app's carbon footprint if it's not my own code?  To find out, I wrapped up each major block of code in environment.rb in Benchmark.measure blocks.  I found that my library <code>requires</code> were using most of the time.  Also, this code took over a second:
+
+{% highlight ruby %}
+ActiveSupport::Inflector.inflections do |inflect|
+  inflect.irregular 'cookie', 'cookies'
+end
+{% endhighlight %}
+
+I have that code because even though Rails correctly pluralises it gets the relationship wrong in a <code>has_many</code> (it looks for <code>LoginCooky</code>).  But why would that take a second?  I have no idea.  Seeing as I technically shouldn't need this definition I ignored it for now.
+
+h3. Requires
+
+The gem <code>requires</code> in <code>environment.rb</code> were the real culprit.  If you think about what Ruby does here it's obvious: the amount of code evaluated for some libraries will be huge.
+
+This project is old and wasn't using <code>config.gem</code>, so I added calls to that in the <code>Rails::Initializer.run</code> block instead of plain old <code>require</code>.  This is cool because Rails will prompt missing library installation, but it's also cool because of this:
+
+{% highlight ruby %}
+config.gem 'scruffy', :lib => false
+{% endhighlight %}
+
+Setting the lib to false will make Rails aware you want the library, but not require it.  This library is only used in one place, there's a GraphController that manages dynamic graph generation.  I added a <code>require 'scruffy'</code> to that file instead.
+
+This doesn't always make sense of course: there might be calls all over your code to a particular library.  That's fine, just require it at boot.  The amount of times that wasn't the case, however, reduced my boot time by 4 seconds.
+
+h3. Forensics
+
+I'm not exactly Grissom or Horatio, but I did write a little script to "watch the require time":http://gist.github.com/140012 of every require in the project.  I <code>required</code> it in <code>environment.rb</code> and watched to see which libraries seemed slow.  I've left my commented out bits where I was trying to figure out how to only measure "top level" requires in <code>environment.rb</code> -- I never fully figured this out, does anyone know how to do it?
+
+{% highlight ruby %}
+require 'benchmark'
+ 
+module Kernel
+  alias old_require require
+ 
+  def require(path)
+    #unless caller.find { |caller_line| caller_line.match /dependencies\.rb/ }
+    #  return old_require(path)
+    #end
+ 
+    output = nil
+    @required_files ||= []
+ 
+    benchmark = Benchmark.measure do
+      output = old_require path
+    end
+ 
+    @required_files << [path, benchmark]
+ 
+    puts path
+    caller.each do |caller_line|
+      puts "\t#{caller_line}"
+    end
+    puts ""
+ 
+    #puts "#{path}:"
+    #puts loading_benchmark
+ 
+    output
+  end
+ 
+  def print_require_benchmark_stats
+    puts "Printing benchmark stats:"
+    @required_files ||= []
+    @required_files.sort! { |a, b| b[1].real <=> a[1].real }
+    @required_files.each do |path, benchmark|
+      puts path
+      puts benchmark
+    end
+  end
+end
+ 
+at_exit { print_require_benchmark_stats }
+{% endhighlight %}
+
+h3. Lessons
+
+It's interesting what you learn by looking at older Rails projects.  I always used to just require my libraries in the environment file so other developers would see the app break if they hadn't installed them.  The newer way, <code>config.gem</code>, provides a better solution and lets us require files when we actually need them.
+
+

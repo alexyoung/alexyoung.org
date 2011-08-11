@@ -1,0 +1,59 @@
+---
+layout: post
+title: "Future of Web Design Notes"
+categories: 
+- events
+- design
+---
+
+This year "Future of Web Design":http://futureofwebdesign.com/ got a lot of things right.  The venue was excellent, and the provided food was too -- no more hunting for lunch!  Overall, the event was more focused and enjoyable.
+
+It seemed like there were too many people covering CSS3 and HTML5.  They were really the hot technical topics of this event, which is fine but I'd like to have seem more JavaScript and mobile talks.  It might have been confusing for non-technical designers as well -- "Molly Holzschlag":http://molly.com/ said not to use CSS3 in production sites yet, whereas everyone else didn't seem to care.
+
+h3. Announcements
+
+Ryan Carson announced "Think Vitamin Memberships":http://membership.thinkvitamin.com/, which is a programme similar to "PeepCode":http://peepcode.com/.  I liked the fact the video uses _Justice Phantom pt.2_, and they had Kid Robot giveaways for early registrations, so I caved.
+
+h3. Talks
+
+!/images/fowd2010/sarah.png!
+
+One talk I enjoyed in particular was by "Sarah Parmenter":http://www.youknowwhodesign.com/ who discussed iPhone interface design.  She covered the basics, but actually delved into some real app design issues.  Until now, I've never really fully appreciated how important the fingertip target sizes are.  I can think of a few apps that I've built where certain buttons and fields are too close together.
+
+!/images/fowd2010/simon.png!
+
+"Simon Collison's":http://colly.com/ talk was entitled "What will Web Design Look Like in Two Years?" but avoided making any real predictions.  He did draw on examples like his homepage redesign, which gave the discussion some concrete grounding which I often feel lacks in design talks.
+
+!/images/fowd2010/elliot.png!
+
+"Elliot Jay Stocks":http://elliotjaystocks.com/ talked about promoting yourself.  Except he didn't really, most of his talk was about running a small business.  What he discussed was immediately recognisable to me, as a freelancer/contractor/consultant.  He made some recommendations that really stuck in my head:
+
+* Treat money as a bi-product
+* Find success without being driven by money
+* Make things people care about rather than impressions/hits
+
+It reminded me of "Kathy Sierra's":http://headrush.typepad.com/ ideas about making useful things, whether they're software or blog posts, to gain respect and success.
+
+!/images/fowd2010/anna.png!
+
+"Anna Debenham":http://maban.co.uk/ also talked about life as a freelancer.  Unlike several speakers, she had tonnes of meaty examples to back up her talk.  She also had beautiful and original handmade slides.  Ryan Carson said she was part of their initiative to find new speakers, but I think she must have put the fear of god into the older speakers.
+
+Brett Welch's talk, "Rethinking your Job", covered similar business topics, but was equally applicable to agencies.  His main idea was to treat yourself as if you're a subscription.  Rather than focusing on launching things, try to stick with clients and improve products over time.  This fits in well with what "37signals":http://www.37signals.com/ often say about launching early.
+
+!/images/fowd2010/strange.png!
+
+"Gavin Strange":http://news.jam-factory.com/ talked about his life as a web designer, skateboarder, t-shirt designer, photographer, and toy creator.  His entire career is based around trying things out, without obsessing about techniques.
+
+h3. Clinics
+
+I attended one of the design clinics.  These were a means of getting one-to-one with the speakers.  I enjoyed being able to do this, and I hope Carsonified include this at future events.
+
+h3. Arcades
+
+!/images/fowd2010/qix.png!
+
+The break room had arcades on freeplay.  I played tonnes of Qix,  I forgot how much I like that game!  The cabinets were nice Atari ones as well, not generic pub cabinets with MAME.
+
+h3. Insert Credit to Continue?
+
+I've heard FOWA is going to be at the same venue, which is a good thing.  I was initially disappointed by FOWA's lineup, and I've seen 80% of the speakers before so it's a hard sell.  If you're thinking about going and haven't been to many Carsonified events before, you should have a great time.

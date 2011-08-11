@@ -1,0 +1,146 @@
+---
+layout: post
+title: "Rapid Rails Part 1: Command Line Mastery"
+categories: 
+- rails
+- productivity
+- programming
+- rapidrails
+---
+
+!http://www.box.net/shared/static/p0kuthy8g8.gif!
+
+_Rapid Rails_ is a series of articles containing succinct tips to increase your productivity when working with "Ruby on Rails":http://rubyonrails.org/.  This is the first part, and shows you how to make the most of the command-line tools that come with Rails.
+
+h2. Quickly generate migrations
+
+The Rails generator script (found inside an application's directory at <code>script/generate</code>) allows you to quickly create templates for anything you need within Rails.  As well as models and controllers, you can also use it to write entire migrations:
+
+{% highlight sh %}
+script/generate migration AddIPAddressToUsers ip_address:string
+{% endhighlight %}
+
+The field definition is specified as <code>field_name:type</code>, and you can type in as many as you need for each migration.  To read Rails' help on this feature, type:
+
+{% highlight sh %}
+script/generate migration
+{% endhighlight %}
+
+This cuts down the hassle of changing database schemas around, and should be the nail in the coffin for lazy database schema manipulation with GUI tools.
+
+h3. Get more generators
+
+People have written generators to create templates for sophisticated applications, providing a great way of rapidly prototyping an application: "Rails wiki generator list":http://wiki.rubyonrails.org/rails/pages/AvailableGenerators.
+
+h2. What was I doing last week?
+
+The Rakefile that comes with Rails contains a handy way of searching for comments with phrases including TODO and FIXME:
+
+{% highlight sh %}
+rake notes
+rake notes:fixme
+rake notes:optimize
+rake notes:todo
+{% endhighlight %}
+
+An additional benefit of this is it can increase your understanding of recent code changes, especially when combined with version control logs.
+
+h3. More Rake house-keeping tools
+
+To list all of the rake tasks, type <code>rake --tasks</code>.  A few tasks I often use are:
+
+{% highlight sh %}
+rake tmp:cache:clear
+rake log:clear
+rake routes
+rake db:sessions:create # Creates a migration for ActiveRecord sessions
+{% endhighlight %}
+
+h2. Get help (and how to cheat)
+
+Getting ruby library help in the command-line is usually <code>ri</code>'s job:
+
+{% highlight sh %}
+ri FileUtils#cp
+{% endhighlight %}
+
+The all-round maverick genius Mauricio Fernandez decided ri was too slow, and built "FastRI":http://eigenclass.org/hiki.rb?making+ruby+ri+faster.  Not only is it faster than RI, but it can also work in a distributed fashion with Rinda.  It's easy to install and use:
+
+{% highlight sh %}
+sudo gem install fastri
+fastri-server &
+fri FileUtils#cp
+{% endhighlight %}
+
+If this isn't enough help, why not use cheat sheets from the command-line?
+
+{% highlight sh %}
+sudo gem install cheat
+cheat rails_console
+{% endhighlight %}
+
+These Ruby-focussed cheat sheets are intuitive, with plenty of tips for those things you can't be blamed for forgetting.
+
+h2. Testing and command-line flags
+
+If you're running a unit test and there's a problem with one test, just run a single test with <code>-n</code>:
+
+{% highlight sh %}
+ruby test/unit/user_test.rb -n test_authenticate
+{% endhighlight %}
+
+There's more flags too, just run a test with -h:
+
+{% highlight sh %}
+ruby test/unit/user_test.rb -h
+{% endhighlight %}
+
+h2. Debugging
+
+If you're really stuck, you can breakpoint and trace to your heart's content by installing ruby-debug:
+
+{% highlight sh %}
+sudo gem install ruby-debug
+{% endhighlight %}
+
+ruby-debug is a more pleasant with <code>autoeval</code> set, so create a text file called .rdebugrc in your home directory and add:
+
+{% highlight ruby %}
+set autolist
+set autoeval
+set autoreload
+{% endhighlight %}
+
+Now, run rdebug with a ruby script:
+
+{% highlight sh %}
+rdebug script/server
+{% endhighlight %}
+
+Add a breakpoint (obviously set this to something meaningful within your application) and continue execution:
+
+{% highlight sh %}
+b app/controllers/application.rb:10
+{% endhighlight %}
+
+The script should now halt at your breakpoint.  To read more, check out "rdebug's home":http://www.datanoise.com/ruby-debug/ and a handy "rdebug cheat sheet":http://cheat.errtheblog.com/s/rdebug/ (or type cheat rdebug).
+
+h2. Reduce password entries during development
+
+If your application uses a version control system on a remote server over SSH, consider creating SSH keys to cut down password entries.  To do this securely, use ssh-agent.  Read more here: "SSH with Keys HOWTO":http://www.sshkeychain.org/mirrors/SSH-with-Keys-HOWTO/
+
+h2. Speed up your development server: Mongrel and Thin
+
+Mongrel and Thin are great alternatives to the built in Rails web server, and are both faster.  To install use <code>sudo gem install mongrel</code> or <code>sudo gem install thin</code> (they're both fast, thin appears to be slightly faster.)  Then run one of the following commands from your application's directory:
+
+{% highlight sh %} 
+mongrel_rails start
+{% endhighlight %}
+
+Or:
+
+{% highlight sh %} 
+thin start
+{% endhighlight %}
+
+Rails now automatically runs mongrel with <code>script/server</code>.

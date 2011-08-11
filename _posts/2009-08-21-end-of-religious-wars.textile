@@ -1,0 +1,107 @@
+---
+layout: post
+title: "The End of Religious Wars"
+categories: 
+- programming
+- productivity
+---
+
+Are you tired of rockstar drama queens declaring war on languages, burning all their bridges and filling up "Hacker News":http://news.ycombinator.com/ with boring articles?
+
+Over the last few years Python and Ruby programmers have had a quiet, seething war.  It's equally as ridiculous as Nintendo vs. Sega was back in school.  Conventional wisdom in the gaming community is that these wars start because kids can only afford one of the consoles, so they inevitably take sides.
+
+This largely accounts for the programming language and editor wars.  After all, time is the greatest currency -- it can take months or years to master a programming language.  The basics are easy to pick up, but fluency takes real effort, which makes people want to defend their investment.
+
+h3. The Optimist
+
+Reg Braithwaite's talk entitled "Learned Optimism":http://github.com/raganwald/homoiconic/blob/master/2009-05-01/optimism.md is about a self-improvement technique created by Dr. Martin Seligman.  In the talk, he says:
+
+bq. Optimists explain good things as being personal, general, and permanent, and explain away bad things as being impersonal, specific, and temporary.
+
+We need to start thinking about our skills as *permanent* and *general*.  Learning C++ doesn't mean you need to take sides, you're free to learn Ruby, Lisp or anything else.  This won't make you any less of a C++ programmer.
+
+h3. The Superhero's Cape
+
+!/images/cape.png!
+
+I've been dabbling with Ruby since around 2000, and working professionally with it since 2006.  Ruby is my superhero cape.  When I sit down with an editor or <code>irb</code>, I know exactly what's going on.
+
+The problem with capes is they get caught on things.  We either get stuck or simply dragged down into bone-crunching machinery.
+
+And I'd be stuck too if I didn't have a bizarre fascination with Lisp and Objective-C.  Mac and iPhone development dragged me kicking and screaming away from Ruby, and you can put Lisp down to latent British genetic eccentricity.
+
+h3. The Novice
+
+!/images/amigac.png!
+
+When I was a kid, I loved videogames.  According to my dad, it's what got me into programming in the first place.  So when I started out for real, these questions plagued my mind:
+
+* What programming language do games use?
+* How quickly can I learn enough to make games?
+* What tools do "real" developers use?
+
+I went out and got an Amiga C book and started learning C.  This was difficult at a young age, and I kept finding myself messing around in a BASIC environment called Amos (and later Blitz Basic).  I could make cool stuff in Amos and Blitz, but I could only make rudimentary Amiga OS applications in C.
+
+Reminiscing about this made me realise that when people are starting out, nobody gives them straightforward answers:
+
+* The language books claim to teach their language without previous experience, so they're marketed to beginners
+* It's hard to find good general programming books suited to beginners
+* It's hard to find mentors
+* Online communities can be caustic
+* Nobody makes it clear that languages are just tools -- just because you want to make games doesn't mean you should learn C++ straight away
+
+Novices are often impatient, but nobody caters for this.  Nobody says "you'll learn a lot of languages in your time, so let's start with something fun".  There are projects attempting to reach young people using custom environments, but I think people are put off by wanting to learn "the real thing".
+
+This early struggle to achieve results is perhaps the most interesting part of a programmer's career.  The novice will happily experiment with *everything* until they gain traction.  If this attitude could be fostered at a later stage in a programmer's career, we'd waste a lot less time being defensive and start to enjoy our jobs again.
+
+h3. The Scientist vs. The Artist
+
+!/images/sand_traveler.png!
+
+_"The Sand Traveler":http://www.complexification.net/gallery/machines/sandTraveler/index.php: 1,000 traveling particles, each in pursuit of another._
+
+Programmers "build on the shoulders of giants" -- it's essential to what we do.  Relativity got us to the moon, C got us to widely available Unix.  Programming has a deep relationship with science; it wouldn't exist without research in information theory and physics.
+
+Certain areas of our work need to be evaluated with valid experiments -- benchmarks and optimisation, compiler and interpreter design.  However, this doesn't mean programming is a science.  It's equally an art.  Aesthetics are important despite being subjective.
+
+Be wary of people ranting about the right and wrong ways of solving problems.  Try to balance established best practices with your own opinions, ideas and *take time to experiment*.  An artist doesn't use the same techniques throughout their career, they balance the practical and technical aspects of their work with healthy experimentation.  They actively seek out influences and inspiration.
+
+h3. Heroes and Villains
+
+!/images/zxspectrum_48k.jpg!
+
+Do a Twitter search for "dhh":http://search.twitter.com/search?q=dhh and see how many people openly mock "David Heinemeier Hansson":http://www.loudthinking.com/, and how many people say "wow thanks for Rails DHH!"
+
+How many people talked about how important "_why":http://en.wikipedia.org/wiki/Why_the_lucky_stiff was to the Ruby community *before* he disappeared?
+
+I've worked with enough programmers to know that we're generally insecure.  We're quick to complain, and rarely give out praise.  But it's difficult to know what good programming is when people don't talk about who the good programmers and technologists are.  We need to properly pay respect to our Jimi Hendrix and Kurt Cobains.
+
+For example, I love my job but probably wouldn't have it if it wasn't for Clive Sinclair.  It's OK to have heroes!
+
+h3. The Effect of Inertia
+
+!/images/algol.png!
+
+Find some ALGOL online.  I actually have an ancient ALGOL manual which talks about punch cards and everything.  The reason I collect these old programming books isn't nostalgia, it's because we're still drawing on work from the 50s and 60s.  Looking at ALGOL reveals how much things have changed, but at the same time makes us realise the fundamentals haven't moved on (for imperative languages).
+
+Ruby took a lot of ideas from languages that came before it, and the clarity of its syntax still impresses people today.  This perceived evolution creates "inertia" -- people are swept along in the wake of change.
+
+Don't let this sweep you away from other things though.  You don't need to throw away work and switch alliances, just add new languages to your utility belt and enjoy playing with them.
+
+h3. The End of Religious Wars
+
+We could end religious programming wars by learning to *teach* programming properly.  Learning programming isn't just about covering imperative, functional and object-oriented patterns.  It's about culture, tools, engineering, art and science.
+
+Have you ever seen a programming book that used examples from different languages?  It would be completely possible to create such a book in a new and exciting way.  Imagine a _Why's Poignant Guide To Programming_.
+
+Anything that allows novices to quickly get up to speed will encourage cross-language experimentation and experience.
+
+* _Free books_ encourage people to learn: all languages should have a quality free book available 
+* _Try ruby_ allowed people to try out a Ruby interpreter online.  This was great for novices or newcomers to the language -- all languages need projects like this
+* _Easy installation_ is key to letting people dabble.  How many Windows users downloaded "Instant Rails":http://instantrails.rubyforge.org to quickly try out Rails?
+* _Quick results_ are great for impatient beginners, and all languages should have *awesome game examples* instead of dull examples about databases and business software
+* _Co-operation between languages_ might encourage people to work together more -- jruby has had positive effects on ruby
+* _Experienced programmers_ would do well to share their influences and pay respect to truly great programmers.  They need to blog about their heroes before they vanish
+* _Experienced programmers_ should stop fearing what they haven't yet learned.  CSS/regexes/SQL aren't evil, spend some time learning them properly!
+
+Naysayers will say "jack of all trades, master of none".  The projects and jobs you decide to work on will inevitably lead you to become more experienced in one language.  I'm not saying you shouldn't master a limited subset of things: we should encourage people to experiment and enjoy their work.

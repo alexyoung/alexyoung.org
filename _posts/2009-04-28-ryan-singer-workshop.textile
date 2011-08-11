@@ -1,0 +1,122 @@
+---
+layout: post
+title: "Ryan Singer Workshop"
+categories: 
+- design
+- events
+---
+
+I went to the Ryan Singer Carsonified workshop yesterday.  The title of the workshop was "How to design amazing web app user interfaces".  Ryan discussed his influences and processes behind "37signal's":http://37signals.com/ interfaces.
+
+Ryan's workshop covered:
+
+* Least effective difference
+* Copy
+* Workflow: Highrise example
+* Flow
+* Validation
+* Rails advice
+* How MVC helps organise designers and developers
+
+As a web application developer and designer who uses Rails, I found his insights fascinating.  Here are my notes from the workshop.  I haven't managed to capture everything we talked about -- these are the things that made an impression on me.
+
+h2. Least effective difference
+
+I think one thing most of the attendees will take away from that workshop will be the concept of _least effective difference_.  Ryan cited Edward Tufte for this concept.
+
+Contrast should be used purposefully.  For example: adding borders to a table may increase the contrast between the page and the table, making the table's data less prominent.  Certain things cause "vibration", attracting the eye to things that aren't important.
+
+Ryan suggested that HTML should have a <code>weak</code> tag.  After all, it has <code>strong</code>, so why not?  After all, music has piano, mezzo-piano, mezzo-forte, and forte.
+
+h2. Copy
+
+One of Ryan's major points was the importance of copy in web applications.  Generating good quality text is part of his design process.  He discussed the following steps, using "Highrise's":http://highrisehq.com/ sidebar as an example:
+
+# Write out a list of things the sidebar should do: Add New Person, Add New Company, etc.
+# Work on the copy without worrying about graphics, buttons, colours -- anyone should be able to understand the functionality from the text alone
+# Start with verbose text
+# Slowly tighten the language
+# Iterate this process to refine
+
+I noticed that Ryan seemed to pull out active verbs, strip passive verbs and impersonal pronouns, and try to start the text with verbs.  For example:
+
+* Would you like to *add* a person?
+* You can *create* a person here
+* *Add* a new person
+
+h2. Workflow: Highrise example
+
+Ryan addressed the visual design decisions for a particular Highrise sidebar.   At this stage the design was a simple list of links.  These are the questions a designer should ask themselves:
+
+# Why change the list of links?  Does this design do the job?
+# Links are equally weighted: does this reflect use case?
+# As a designer, think about why someone is seeing the list, and think about where they want to go next
+
+A daily operation in running a business is  "got a new contact, need to add it to Highrise".  That means the "Add new person"  link would need to be the most prominent.  Ryan evolved the design, applying the least effective difference principle, making certain options grey, others bold and larger, with some spacing and suitable headers.
+
+Ryan also suggested that links generally mean "go somewhere", whereas buttons represent functionality.
+
+h3. 1: List things the feature requires
+
+<div style="background-color: #ffc"><pre>
+Add another person to Highrise
+Add another company to Highrise
+Import contact from vCard, Excel, Basecamp, Outlook
+Export data to vCard, Excel
+</pre></div>
+
+h3. 2: Refine the copy
+
+<div style="background-color: #ffc"><pre>
+Add a new person
+Add a new company
+Import (vCard, Excel, Basecamp, Outlook...) 
+Export (vCard, Excel) 
+</pre></div>
+
+h3. 3: Refine design
+
+# Decide what matters
+# Make that pop out
+# Make everything else fade back
+
+h3. 4: Consider other visual elements
+
+!/images/highrise.png!
+
+h2. Flow
+
+*Always be ready for the next user input or action.*
+
+Ryan explained the difference between database-like applications, and ones that consider flow.  He also gave examples of web applications that don't consider user flow.
+
+He explained 37signal's thinking behind taking the user from the _add contact_ page to the _show contact_ page, rather than back to the list of contacts.
+
+I found this interesting, because it's sometimes hard to see where the next action should be in a web application.  It's not always clear.  In Highrise, people commonly need to append related info to contacts after adding them, so it makes more sense to redirect to the _show contact_ page rather than the list of contacts.
+
+h2. Validation
+
+Rather than being quick to rely on Rails validation errors, Ryan's designs attempt to accept any user input.
+
+* Submitting an empty form could just show the form again, as submitting and showing an 'add page' might be more confusing
+* In Backpack, adding a page with no title will create the page and just name it 'No title'
+* Try and avoid states where the user can make a mistake
+
+h2. Rails advice
+
+* JavaScript and stylesheets follow Rails controller names
+* "Body classes" used to manage this
+* Rarely use helpers to render blocks of HTML, preferring lots of templates instead
+* Even rjs should use HTML partials
+
+h2. Book recommendations
+
+* Edward Tufte: The Visual Display of Quantitative Information
+* Kent Beck: Smalltalk Best Practice Patterns
+* Modeling: *Christopher Alexander*'s notes on synthesis form, *Eric Evans* domain driven design
+
+h2. Conclusions
+
+If read my blog, you'll know that my background is programming.  As a web developer for the last 10 years I've had to learn design as a matter of course, and I've taken it more seriously since starting my own consultancy and web application company.  The way Ryan works is very similar to me, so yesterday's workshop galvanised my confidence.
+
+Also, I'd love to work with designers who are familiar with Kent Beck and Edward Tufte's books, so get reading!

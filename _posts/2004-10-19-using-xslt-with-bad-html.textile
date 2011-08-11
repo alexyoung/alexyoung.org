@@ -1,0 +1,19 @@
+---
+layout: post
+title: "Using XSLT with Bad HTML"
+categories: 
+- php
+- xslt
+- programming
+---
+
+We have a PHP CMS with a lot of poorly written HTML in the client-contributed content.  This kept causing my XSL template system to output XML errors.  I got around this problem by:
+
+# wrapping content in CDATA tags
+# Checking if the content is valid XML with <code>xml_parse()</code> in PHP, if not I add a CDATA tag and try again.
+# Strip out bad characters that may have crept in from Word
+# Process the XSL and XML using <code>xsl:value-of tags with disable-output-escaping="yes"</code>
+
+Using CDATA tags around unpredictable HTML helps prevent problems with the XML parser.  Without the final step, the resulting HTML contains the original HTML with HTML entities.
+
+In PHP, <code>mb_convert_encoding($string, 'ASCII')</code> has proven very useful for handling text users paste from applications like Word.  PHP has to be compiled with --enable-mbstring for this function to work.  It prevents strings with different encodings encodings to your XSL from confusing the XML parser (where the encoding is defined).

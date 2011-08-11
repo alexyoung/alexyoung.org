@@ -1,0 +1,23 @@
+---
+layout: post
+title: "RSI"
+categories: 
+- rsi
+- ergonomics
+---
+
+I've been working a lot recently.  And when I say a lot, I mean thousands of lines of Rails code across three projects, and thousands of lines of php across many projects.  I started to get concerned about RSI.  I've had vague work-related pain in my wrists in the past, and I think a big contributor to this was the fact that I once broke both my wrists.  I'd elaborate on this, but it's just way too embarrassing for me to slap <em>that</em> on my blog!
+
+Back to RSI. I've found these two apps really helped:
+
+h3. Windows: Workrave
+
+<a href="http://www.workrave.org/welcome/">Workrave</a> tells you when to take micro breaks, longer breaks, and what kinds of exercises to take.  Seriously! The breaks were enough to help me, though.
+
+h3. Mac: AntiRSI
+
+<img src="/images/antirsi.png" alt="Anti RSI screenshot" />
+
+<a href="http://tech.inhelsinki.nl/antirsi/">This is a slick little app</a> that allows you to configure micro breaks and longer breaks, a bit like Workrave, but simplified.  There's no advice on exercises, just 'get out of the office for God's sake!'
+
+As I said, these applications have had a marked effect on any work-related wrist pains.  I've got a lot of friends and colleagues to try them out, and they're were comfortable letting a piece of software be their master.  Now, with that in mind, I think I'll slightly edit the messages they see in Workrave, you never know what a subversive piece of software might get them to do!

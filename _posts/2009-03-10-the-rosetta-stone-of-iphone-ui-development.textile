@@ -1,0 +1,22 @@
+---
+layout: post
+title: "The Rosetta Stone of iPhone UI Development"
+categories: 
+- programming
+- iphone
+---
+
+I've been working on "Deadline":http://deadlineapp.com iPhone, and I got stuck trying to figure out how to create grouped form-like UI elements.  Apple's applications use them a lot, so I thought I'd be able to create them in Interface Builder.
+
+Here's what I wanted:
+
+!/images/deadline-iphone.gif!
+
+I figured out I needed to use a <code>UITableView</code> with <code>UITableViewStyleGrouped</code>, with a view controller set to be the <code>delegate</code> and <code>dataSource</code> for the table view.  I seemed to do a lot of table view programming in Helipad iPhone, so I was familiar with the concepts but still struggled.
+
+After searching Apple's documentation I found the "UICatalog":http://developer.apple.com/iphone/samples/index.action#UICatalog example.  This is the Rosetta Stone of iPhone development: it contains working code that explains how most of their apps interfaces work.
+
+!/images/ui_cat.gif! !/images/uicat2.gif! !/images/uicat3.gif!
+
+I seriously can't believe I've been doing iPhone development this long without this example.  It's taken a lot of the drudgery out of non-IB interface work.
+

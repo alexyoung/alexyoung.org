@@ -1,0 +1,85 @@
+---
+layout: post
+title: "Tools for Tests"
+categories: 
+- programming
+- tips
+- ruby
+- testing
+---
+
+Writing test code isn't easy at first, and writing _good_ test code is even harder.  I've reviewed several tools to help write better tests here, focussing on ruby.
+
+h3. Code Coverage
+
+"!/images/rcov_thumb.png!":/images/rcov.png
+
+Code coverage tools attempt to analyse how much of your code has been tested.  Reports are generated based on your test code, with columns expressing how much code has been tested. 
+
+Incentives for using code coverage tools are:
+
+* They easily allow you to hone in on code that needs more testing
+* If you're new to a project, code coverage tools can help you learn the code base
+* If you've left a project idle for some time, code coverage tools can get you back on your feet
+* Knowing how much test code has been written is a great motivator
+
+The inevitable downsides include:
+
+* Code coverage gets confused with code quality
+* Code coverage says nothing to help with testing your code's _behaviour_: what your customers, bug tracker and managers are saying should generally manifest in your tests
+* If your boss reviews coverage reports, you can't easily pretend you were testing when you were really watching youtube videos
+
+The most popular code coverage tool for ruby is "rcov":http://eigenclass.org/hiki/rcov.  rcov is a command line tool that you run on your tests.  It analyses your code based on the tests, then produces reports.  A good strategy is to use rcov with rake.
+
+As of version 0.8.0.2, the default "rcov":http://eigenclass.org/hiki/rcov report produces two metrics: _total coverage_ and _code coverage_.  You might be wondering what the difference between the two values is.  The API documentation (found in your gems/doc directory) explains:
+
+bq. Total coverage rate if comments are also considered "executable", given as a fraction, i.e. from 0 to 1.0. A comment is attached to the code following it (RDoc-style): it will be considered executed if the the next statement was executed.
+
+rcov's heuristics for determining coverage have evolved over time, to the point that it's now probably safe to use them as an argument for 100% coverage.  If you're having trouble getting to 100%, consider:
+
+* Adding mocks.  Don't add more mocks purely to increase code coverage, add them if they're not already there
+* Redesign code to work well with mocks.  Decrease your code's coupling with its external environment.  Sometimes it's best to allow methods to handle input from different sources if it's easy to do so
+* Design code using tests: it's often possible to write tests before the code itself, and this can lead to both higher coverage and cleaner design
+
+h3. Mutation Testing
+
+One of the criticisms of code coverage tools are that they don't necessarily help write _better_ tests.  There are, however, other ways of analysing code that can help improve test code quality.  Mutation testing is one approach.  It works by first modifying your code, and then running your tests.  If the tests succeed there's a good chance they're not good enough.
+
+The members of "Seattle.rb":http://seattlerb.rubyforge.org/ created "Heckle":https://rubyforge.org/frs/shownotes.php?group_id=1513&release_id=9699 to perform mutation tests in ruby.
+
+h3. Code Metrics
+
+Various metrics have been devised to express code complexity.  While their usefulness is debatable, they can form part of your testing toolkit simply as another perspective on your code.  Something deemed "complex" may indicate code code that requires more attention from tests.  It might even be possible to create a _test LOC_ over _method complexity_ ratio to determine if related tests are complete.
+
+"Saikuro":http://saikuro.rubyforge.org is a ruby tool that calculates the cyclomatic complexity of given input files.  It produces text and HTML reports, in a similar way to rcov.
+
+The way it estimates code complexity is simple: Each method starts with a complexity of one, because there should be at least one route through the code.  Then, each of the following increments the complexity counter by one:
+
+* Conditional or looping operators: <code>if, unless, while, until, for, elsif, when</code>
+* <code>when</code> in <code>case</code> statements
+* Exception handling: <code>rescue</code> statements
+* Blocks
+
+h3. Behaviour-Driven Development
+
+<abbr title="Behaviour-Driven Development">BDD</abbr> is conceptual iteration beyond unit test code.  If you've written a lot of test code over the years, and starting writing tests _before_ code, you've probably started to feel the need for something more dynamic or high level.  <abbr title="Behaviour-Driven Development">BDD</abbr> attempts to allow you to truly express the behaviour of your system, rather than simply punishing it until it behaves correctly.
+
+As "behaviour-driven.org":http://behaviour-driven.org/ explains:
+
+<blockquote>
+Behaviour-Driven Development (BDD) is an evolution in the thinking behind TestDrivenDevelopment and AcceptanceTestDrivenPlanning.
+
+Business and Technology should refer to the same system in the same way - It's all behaviour
+
+Any system should have an identified, verifiable value to the business - Where's the business value?
+
+Up-front analysis, design and planning all have a diminishing return - Enough is enough
+</blockquote>
+
+"RSpec":http://rspec.rubyforge.org/ is a set or ruby tools that forms a framework for <abbr title="Behaviour-Driven Development">BDD</abbr>.  RSpec includes a whole suite of tools in one:
+
+* The RSpec <abbr title="Domain Specific Language">DSL</abbr> for defining expected behaviour, with a command line tool for execution
+* Mock objects
+* Human-readable reports
+* rcov integration
+* Mutation testing

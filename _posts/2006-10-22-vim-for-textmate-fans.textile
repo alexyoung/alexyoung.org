@@ -1,0 +1,56 @@
+---
+layout: post
+title: "Vim for TextMate Fans"
+categories: 
+- textmate
+- vim
+- editors
+---
+
+A text editor is the programmer's lathe, but unlike traditional engineering we can have limitless tools.  The question is: how much time do you have to learn about them all?
+
+<img src="/images/vim.png" />
+
+I've used vim a lot over the years, mainly because I spent a long time using Linux and it was there so I used it.  The choice was obvious: vim or vi were on almost every machine I had access to, and worked excellently both locally and remotely.  Once I'd learnt the basics I was set, I knew enough to get my work done.
+
+Then I found <a href="http://macromates.com/">TextMate</a> for Mac OS.  The immediacy of TextMate made it easy to get started with, and it has many excellent features.  The problem is, I'm not always using a Mac.  But you know who'll follow me around to every platform I use?  Good old vim!  So I started thinking, how could I make vim feel more like TextMate?
+
+Like many programs on Macs, TextMate has a handy drawer that slides out.  This shows the files in your project.  It also has tabs for open files, a great "find in project" that works with regexes, find as you type, code completion, columnar editing and bundles.  
+
+These features translate to vim through plugins, settings, and a few moments in :help.  To see these features in vim, <a href="/files/vim/vim.html">view my screencast</a>.
+
+<h3>Project</h3>
+
+<a href="http://vim.sourceforge.net/scripts/script.php?script_id=69">The Project plugin</a> is great, and works nicely with the mouse if you're using gvim.  The idea is simple: recursively list files in a directory.  Searching for a file is easy, because you use the Project buffer like any other vim file, just type / to search.  Type \C to create a new project.  This will recursively find files for a specific directory.  Type \R to refresh, this is handy when you add or rename files.  Type \G to grep all the files in the project.
+
+This gives us a big chunk of those TextMate features mentioned above.  There's a problem with this: any informatin architect will tell you it's important not to let the user feel lost.  When you're using Project, you feel lost regularly, and using vim's standard buffer management commands becomes pretty painful.  To solve this problem, we need something like TextMate's tabs...
+
+<h3>MiniBufExplorer</h3>
+
+<a href="http://www.vim.org/scripts/script.php?script_id=159">MiniBufExplorer</a> will provide something very similar to TextMate's tabs: a small window is created that lists all the open files.  You can see which files are unsaved and remove files by moving the cursor over them and pressing d.
+
+MiniBufExplorer and Project work well together, even if you're not using a GUI.  Just make sure you're familiar with the window keyboard shortcuts!
+
+<h3>Code completion, find as you type</h3>
+
+The basic completion vim has available is very useful.  It matches text based on text it's seen before, and you press ctrl-p to do this.  In gvim7, the matches actually popup over the text so you can see them all quickly.
+
+Vim also allows find as you type: add <code>set incsearch</code> to your vimrc.
+
+<h3>Columnar editing</h3>
+
+This takes a bit of getting used to, but it works.  To work with columns, press ctrl-v.  This puts you in visual-block mode.  You can read the help on visual-block by typing :help visual-block if all this means nothing to you.
+
+To select a column to type new text into, use ctrl-v and make a selection.  Then press I (that's capital i), then type your text.  Press escape once you're done, and the text will appear on each line!
+
+<h3>SVN integration</h3>
+
+I made <a href="/files/vim/svnvim.html">another quick video</a> illustrating integration with version control systems.  There's a bit of a delay as it fetches my SVN info over SSH, but with a bit of customisation <a href="http://www.vim.org/scripts/script.php?script_id=90">vcscommand.vim</a> saves a lot of time.
+
+<h3>Conclusions</h3>
+
+Hopefully these features and plugins will encourage a few people to take the time to learn vim.  And, <a href="/files/vim/vim.html">view my screencast</a> to see these features in action.
+
+<h3>Updates</h3>
+
+Since I wrote this article I've had a few suggestions and tips sent through.  Rein Henrichs mentioned that Vim 7 supports tabs, try <code>:h tabnew</code>.  And using <code>:e</code> with wildcards allows you to edit any file under the current directory with tab completion.  Rein also pointed out that "rails.vim":http://www.vim.org/scripts/script.php?script_id=1567 can be very useful.

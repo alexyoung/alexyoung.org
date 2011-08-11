@@ -1,0 +1,123 @@
+---
+layout: post
+title: "Bulletproof Deployment: Put Down the Pickaxe"
+categories: 
+- programming
+- unix
+- sysadmin
+---
+
+I have an axe to grind with web app deployment.  I've never been totally happy with any solution, and almost everything I've tried has let me down repeatedly.
+
+This is where a programmer typically sees a problem and creates a project to solve it.  And this is where it all starts to go wrong.
+
+The need for scripted deployment comes when a combination of factors makes simply uploading files unworkable.  Modern applications depend on a complex environment of libraries, daemons, and database schema management.  Scripting this process should make it repeatable.
+
+The first tool I used regularly was "Capistrano":http://capify.org/ (back when it was SwitchTower).  It did the job fairly well for Rails projects, but there were a few things that concerned me.  It duplicated lots of functionality from Ruby's "Rake":http://rake.rubyforge.org/, and it relied on a Ruby SSH library rather than shelling out.  <code>Net::SSH</code> is an implementation of the SSH protocol in pure Ruby, and it wasn't particularly portable -- I couldn't deploy from Windows (I had to sometimes work in Windows 5 years ago), and it seemed to have issues communicating with one of the Solaris servers I was deploying to.
+
+Capistrano felt like thousands of lines of code that would be better served by Rake and SSH(1).  Then I found "Vlad the Deployer":http://rubyhitsquad.com/Vlad_the_Deployer.html.
+
+!/images/vlad.png!
+
+Vlad is a small project that builds on Rake and SSH(1).  It has some recipes that makes deploying to various environments fairly straightforward -- using it is a configuration problem more than scripting.  Like Capistrano, it uses symbolic links to the project's directory so rolling back a failed deploy should be simple.  However, in reality these "release checkpoints" are better served with tags in the project's version control system, and messing around with symbolic links feels awkward and can lead to unexpected problems.
+
+The biggest problem with Vlad is a failed command doesn't return a neat line of shell code; instead it spits out a huge block of several commands making debugging extremely difficult.  It can result in situations where the state of a failed deployment isn't clear.
+
+h3. Back to UNIX
+
+!/images/unix_plate.png!
+
+After many, many bad experiences with Vlad, I gave up.  However, I'm not just a lazy programmer, I'm also a lazy sysadmin, so I thought it was time to break out my vestigial UNIX skills and script the whole thing myself.
+
+I'm starting to get tired of seeing Rake everywhere.  What was wrong with Makefiles?  And why are we using version control systems to check out the latest version of a project?  Why can't I run <code>rsync</code> on the code that I'm looking at on my computer?
+
+One reason I get tired of everything being managed by Rake in Rails projects is booting the Rails environment.  I don't want to wait around for Rails to load when I'm doing something that isn't related to the application's environment.  This is UNIX country!
+
+And running migrations?  Seriously, is <code>ssh server cd /app/path && RAILS_ENV=production rake db:migrate</code> really that hard?  This stuff is better left to shell scripts!
+
+So I've given up on deployment scripts and embraced my UNIX heritage.  I sat down and wrote a shell script that uses <code>rsync</code>, <code>ssh</code>, and "Bundler":http://gembundler.com/ to deploy a client's app.  It took me about 30 minutes and worked first time.
+
+Here's the real script that I'm actually using for that project as a Gist: "deploy.sh":https://gist.github.com/976283.
+
+h3. Bonus Features
+
+This simple script actually gives me things I didn't have before -- <code>rsync</code> can be run in _dry run_ mode, which allows me to see what will happen before I commit to deploying.  I can tag each deploy in git if I want, then easily switch between versions.  It's also easy to see where a deployment fails, because I can see the line in the script and look at the command.
+
+Tools like Bundler make library management on the remote server much easier.  I also write <code>package.json</code> files for use with "npm":http://npmjs.org/ when deploying JavaScript projects.
+
+And "a friend pointed out":https://twitter.com/#!/regularfry/status/70106572650582017 that using "ssh master channels":http://www.debian-administration.org/articles/290 can help speed things up.  The easiest way to do this is through <code>.ssh/config</code>:
+
+{% highlight text %}
+Host *
+  ControlMaster auto
+  ControlPath /tmp/%r@%h:%p
+{% endhighlight %}
+
+h3. Test-Driven Deployment
+
+One of my static sites is deployed with <code>rsync</code>.  That means only changed files are updated each time, so publishing is extremely simple and stress free.  When I wrote the script I noticed there were a few things I could accidentally break, so I added a validation stage that could stop deployment:
+
+{% highlight ruby %}
+namespace :remote do
+  task :validate do
+    puts 'Validating _site/'
+
+    # These files may be lost in a completely new _site
+    unless File.exists? '_site/.htaccess'
+      puts "[WARN] Copying .htaccess file"
+      File.copy '.htaccess', '_site/.htaccess'
+    end
+
+    # The jekyll I first started using got this wrong
+    unless File.exists? '_site/atom.xml'
+      if File.exists? 'atom.xml'
+        File.copy 'atom.xml', '_site/atom.xml'
+      elsif File.exists? 'atom.html'
+        puts "[WARN] An atom.html file has been generated instead of .xml"
+        File.mv 'atom.html', 'atom.xml'
+        File.copy 'atom.xml', '_site/atom.xml'
+      end
+
+    end
+
+    File.copy '_site/atom.xml', '_site/feed.xml'
+    puts 'Done.'
+  end
+
+  task :deploy do
+    puts "Deploying..."
+    Rake::Task['tags:generate'].invoke
+    Rake::Task['remote:validate'].invoke
+    puts `rsync -avz "_site/" dailyjs.com:/var/www/dailyjs.com/`
+  end
+end
+{% endhighlight %}
+
+The validation here is just to patch behaviour that I didn't like in my static site generator.  It may have since fixed these issues.  However, the concept of validating deployment first stuck with me.
+
+h3. Script Your Own Deployments
+
+Rather than relying on programmers who don't know any better, let's just script our deployments.  Read about the features of <code>rsync</code>, <code>bash</code>, and <code>ssh</code> to find seriously powerful features, then exploit them instead of hitting the problem with a pickaxe.
+
+There are some simple updates I'd like to add to my bash deployment script:
+
+* Validation, perhaps checking things like file permissions before doing anything
+* Make it possible to run each function in isolation from an option
+* Configuration options per environment (for deploying to staging or production)
+
+I'll add these features when I need them!
+
+h3. Previously Ground Axes
+
+I wrote a script to compare Rails dependencies between a local machine and server: "depwhack":https://github.com/alexyoung/depwhack.  This is pretty pointless, since Bundler has largely solved gem management.
+
+"rsyncdiff":https://github.com/alexyoung/rsyncdiff uses the changes generated by <code>rsync</code> in dry run mode to show what files will change before a deploy.  It's basically a parser for <code>rsync</code>'s <code>--itemize-changes</code> output, which isn't human-readable (unless you're a wizard).
+
+h3. References
+
+* <code>man ssh</code>
+* <code>man rsync</code>
+* <code>man make</code>
+* "Advanced Bash-Scripting Guide":http://tldp.org/LDP/abs/html/
+* "deploy.sh":https://gist.github.com/976283
+

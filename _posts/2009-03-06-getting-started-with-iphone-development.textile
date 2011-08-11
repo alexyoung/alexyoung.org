@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Getting Started with iPhone Development"
+categories: 
+- iphone
+- programming
+---
+
+!/images/tools.png!
+
+I just published "Getting Started with iPhone Development":http://quiteuseful.co.uk/post/84047428/getting-started-with-iphone-development over at "Quite Useful":http://quiteuseful.co.uk.  It covers the basics and should help you decide if you really want to take the plunge:
+
+* Decide if iPhone development is right for you
+* Understand what skills are required
+* Learn about what Apple requires from you and how apps are deployed to phones for testing and the iTunes Store

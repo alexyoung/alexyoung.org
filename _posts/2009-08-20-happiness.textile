@@ -1,0 +1,38 @@
+---
+layout: post
+title: "What Makes You Happy?"
+categories:
+- life
+- productivity
+---
+
+"Track Your Happiness":https://www.trackyourhappiness.org/ is an entertaining experiment.  It's a site that periodically sends out links to surveys.  The surveys are designed to gather information on your general well-being and happiness.  The surveys work fine on iPhones too, so I was able to fill them out wherever I was.
+
+!/images/happiness.png!
+
+It focuses on a few main areas:
+
+* Activity
+* Focus
+* Productivity
+* Social interactions
+* Sleep time and sleep quality
+
+Before taking the tests I had these preconceptions:
+
+* Sleep doesn't bother me
+* Productivity and focus are proportional to happiness
+* I like working alone
+* I prefer reading and playing to working or watching TV
+
+After taking two or three weeks of tests I finally completed the "course" of surveys.  The results were contrary to my assumptions:
+
+* Sleep is strongly tied to my happiness
+* Productivity does not relate to my happiness
+* I prefer working with at least one person
+* Reading and watching TV make me more happy than any other activity
+* I'm happier outside
+
+All of these facts surprised me.  When I was a child I'd play outside all the time, but I still had weekend hacking sessions on the ZX Spectrum.  Also, as an entrepreneur and freelancer, I thought productivity made me happy.  It turns out that my workaholic nature has been compromising my overall well-being.
+
+Try signing up and sticking with Track Your Happiness throughout the course of surveys.  They can be annoying and repetitive, but you might be surprised by what you discover.

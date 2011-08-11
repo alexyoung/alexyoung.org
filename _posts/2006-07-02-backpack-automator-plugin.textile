@@ -1,0 +1,23 @@
+---
+layout: post
+title: "Backpack Automator Plugin"
+categories: 
+- backpack
+- automator
+---
+
+I have a public <a href="http://backpackit.com">Backpack</a> page where I upload images to show people.  So say I'm chatting to online, I can just cmd-click a file and upload it then paste them a URL to the image.  To make this quicker, I created an Automator workflow.
+
+When I want to share an image, I cmd-click it and select <strong>Upload to Backpack</strong>:
+
+<img src="/images/automator_menu.png" alt="Automator Finder menu" />
+
+The resulting URL is then added to the clipboard so I can easily paste it.
+
+If you want to be able to do this, download this workflow: <a href="/files/UploadtoBackpack.zip" title="">Upload to Backpack</a>
+
+Then configure it with your account's URL, the page ID where your images are going to go (you can see this in the page's URL), and your username and password:
+
+<img src="/images/automator_setup.png" alt="Automator setup" />
+
+Just "Save As Plugin" once you've set it up.

@@ -1,0 +1,75 @@
+---
+layout: post
+title: "Agile Deployment: Checklist"
+categories: 
+- ruby
+- rails
+- deployment
+- agiledeployment
+---
+
+Auditing your application is an important stage of deployment.  Mature Rails applications have a tendency to get complicated -- they typically require a host of libraries, background tasks and their own settings files.  To feel confident deploying it's important to be aware of these  dependencies. 
+
+Ideally, deployment should just work.  Deploying a tweak, bug fix or new feature should all be performed through a single command.  However, there's going to come a time when you or your colleagues haven't updated an application for a few weeks or months, and deploying suddenly feels daunting.  This type of document would help in that situation.  It will also help you plan deployment before starting up Vlad or Cap.
+
+Use the following checklist to build your own blueprint of your application's dependencies.  Keep it up to date but don't go overboard -- use Rails to enforce dependencies where possible -- <code>config.gem</code> with a specified library version can help.
+
+I've made PDF and Pages documents of a real world example:
+
+* Download the "PDF example":/files/deploy/deploy_audit.pdf
+* Download the "Pages example":/files/deploy/deploy_audit.zip
+
+h3. 1. File Handling
+
+Record details about the following:
+
+* Non-standard Rails folders in your project
+* Notes about production code generation, like "Sprockets":http://getsprockets.org/
+* Special handling for files, for example, search indexes (Ferret, Solr, Sphinx) should be retained through deploy
+* Server-side assets that should be preserved through deploy (user-generated content)
+* Session management (ActiveRecord, file-based, etc)
+* tmp/ management -- trash or symlink?
+
+h3. 2. Database
+
+* What type of database does your application use?
+* What database version is it? (MySQL 5? Postgres 8.4?)
+* What environments are available to the production server? (you may actually want a test database on their to run tests against during deployment)
+* What are the database's administration requirements -- does it use replication? Do you run vacuum jobs?
+
+h3. 3. Application Settings
+
+List application-specific configuration files, and decide on the strategy used to deploy production-specific configuration files:
+
+# The deployment script will move or symlink settings files from a directory that stores settings for all environments
+# The application will have a production fork (or git tag) that "trunk" code is merged into, so settings files won't have special management during deployment
+# Settings files will use the environment name to load appropriate settings
+
+h3. 4. Dependencies
+
+List the application's dependencies.
+
+# Libraries (gems)
+# Plugins
+# Rails version
+# Ruby version
+
+h3. 5. Cron, Daemons and Other Background Tasks
+
+# List the cron jobs your application needs.
+# List the daemons the application runs and any associated control scripts.
+# Include any server-based tasks like logrotate on log/
+# Do you use monit or god to monitor these processes?
+
+h3. 6. Server Configuration
+
+Do you use any management tools like monit?  Do you version control your configuration files?
+
+h3. 7. Deployment
+
+# What commands are used to deploy?
+# How are the commands run?
+# Are any special authentication details required?
+# What deployment system do you use? (if based on Rake or Vlad you could ignore this)
+# How are web server processes restarted?
+# How do you handle maintenance pages during deployment?

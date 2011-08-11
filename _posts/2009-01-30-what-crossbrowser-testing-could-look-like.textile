@@ -1,0 +1,48 @@
+---
+layout: post
+title: "What Cross-Browser Testing Could Look Like"
+categories: 
+- thoughts
+- web
+- design
+---
+
+I build web applications aimed at Windows, Mac OS and Linux.  This means I have to test my designs in Firefox, Safari, Opera, Internet Explorer (some clients still need 6 support) and Chrome.
+
+The biggest problem with this is Windows: I can't run versions of IE side-by-side: I've used "Multiple IE":http://tredosoft.com/Multiple_IE before, but it's stopped working on my XP machine.  So I have Internet Explorer 7 on my Windows PC, VMware and IE6 on my Mac, and another VMware instance for IE8.  That's 3 Windows licenses.  I don't even use Windows, I do all my development in Mac OS and Linux.
+
+There are products out there that snap images of web sites in different browsers.  That's not really good enough: I need to see *behaviour as well as layout*.
+
+h3. vBrowse: The holy grail
+
+There is, however, another solution.  I don't think it exists.  Let's call it VirtualBrowse or vBrowse to save typing.  vBrowse is a combination of 3 products: meebo.com, VNC and virtualisation.  vBrowse would run inside my browser and let me browse any site.  It would also have a Mac/Windows/Linux program for forwarding connections to my local machine so I can test sites that I'm developing locally.  It would run as a service, remotely, so I don't need to buy any Windows (or other operating system) licenses.
+
+Why did I mention Meebo?  Well, originally their IM platform was based on running instances of Gaim on a server.  Gaim is a multiple-protocol IM client.  It let them quickly build out Meebo and get it out there so people could try it.  If running Gaim on a server is possible, let's combine this concept with running browsers remotely with virtualisation and VNC.  Flash could be used to display the VNC so no one needs to worry about setting that up.  Flash could also send the dimensions of the user's browser to the server so VirtualBrowse could resize the browser, so it feels almost 100% native.
+
+h3. Mockup
+
+Here's what it might look like:
+
+!/images/vbrowse.png!
+
+h3. Mockup notes
+
+* It hides the min/max/resize buttons because they don't make sense in this context
+* The browser icon list opens a menu so you can access different versions of each browser
+* The URL bar shows the active browser, allowing you to bookmark them.  For example, virtualbrowseapp.org/ie/6, virtualbrowseapp.org/safari/2
+* Resizing the user's browser window adapts the remote browser's size allowing you to test common resolutions like 1024x768
+* If a particular instance of a browser isn't available, an error is displayed with a list of similar instances
+* Security: This would be hard, especially for securing IE.  It might be possible to somehow contain customer's instances for the duration of their access to the site, like FreeBSD jails
+
+h3. Pricing and conclusions
+
+This fantasy application would save me a lot of time, so I'd have no issues paying for it.  I'd pay upwards of &pound;20 a month as a subscription.  It could also offer single session use, or a day's use (at a premium price).
+
+The costs to run it would be:
+
+* Bandwidth
+* A presence in different geographical locations to cut down latency
+* A solid development and support team to create and maintain the illusion
+* Licenses for virtualised instances of each OS
+
+This application might already exist, if so please post in the comments!  Also, cheap virtualisation might effectively solve the problem in a different way.  I really feel like nobody's seriously tackled this fundamental problem that web designers face every day, and nobody's making life easier: try to run multiple versions of IE and you'll see what I mean.

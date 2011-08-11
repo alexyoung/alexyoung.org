@@ -1,0 +1,55 @@
+---
+layout: post
+title: "Deployment: Diffs and Dependencies"
+categories: 
+- ruby
+- rails
+- deployment
+- agiledeployment
+---
+
+We moved house recently, so my daily development machine was packed up for a few weeks while I worked off a laptop and a 3G card.  It was like being on holiday except I still had to work.  Anyway, I found a few deployment-related scripts I was working on for my _Agile Deployment_ series of articles (visit the "agiledeployment":/tags.html#agiledeployment tag for more).
+
+I've packaged these scripts as rubygems, so they'll be easy to install and try out.  They're essentially snippets that I use to maintain sanity when deploying.  They might form part of a bigger deployment system in the future.
+
+h3. Rsyncdiff
+
+!/images/rsyncdiff.png!
+
+"rsyncdiff":http://github.com/alexyoung/rsyncdiff shows the differences between your local and remote code.  I've been using this to try to visualise what will happen after deploying.
+
+The output contains file creations, deletions and updates.  The updates show a <code>diff</code>, and will automatically use <code>colordiff</code> if you've got it.
+
+I use it with my Rails projects like this:
+
+{% highlight sh %}
+rsyncdiff server:/u/apps/project/current/app app/
+rsyncdiff server:/u/apps/project/current/lib lib/
+{% endhighlight %}
+
+I usually just compare <code>app/</code>, <code>lib/</code> and <code>public/</code>, just to keep the output manageable. 
+
+h3. Depwhack
+
+!/images/depwhack.png!
+
+"depwhack":http://github.com/alexyoung/depwhack compares the gems your application loads locally with the gems available on a remote server.  I use <code>config.gem</code> in my Rails project which helps mitigate missing gems, but if I'm doing a major deploy for a client I don't like nasty surprises.
+
+Ruby has a method called <code>at_exit</code> which you can use as a callback at the end of a script.  I was using this after running tests on my Rails projects to get a complete list of the gems they use.
+
+It's pretty easy to do:
+
+{% highlight ruby %}
+at_exit do
+  p Gem.loaded_specs.collect { |g| [g.first, g[1].version.to_s] }
+end
+{% endhighlight %}
+
+h3. Installation
+
+I've put these scripts as gems on "gemcutter":http://gemcutter.org/:
+
+{% highlight sh %}
+gem install rsyncdiff
+gem install depwhack
+{% endhighlight %}

@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Mac-friendly Terminal Cheat Sheet"
+categories: 
+- mac
+- cheatsheets
+- terminal
+- console
+---
+
+One of my colleagues wanted help with his mac's terminal, so I put together a little cheat sheet containing all the commands and keyboard shortcuts I find essential.  I marked the most awesome time-saving commands with stars, and even added a few emergency help tips:
+
+<a href="http://alexyoung.org/terminal_cheat_sheet.pdf"><img src="/images/terminal_cheat_sheet.png" alt="Mac-friendly terminal cheat sheet" /></a>
+
+It's all basic stuff, but if you're new to using the command line (and when I say command line I really mean bash), this should help you kick some ass.

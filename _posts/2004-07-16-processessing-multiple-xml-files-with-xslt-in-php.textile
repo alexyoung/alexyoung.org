@@ -1,0 +1,130 @@
+---
+layout: post
+title: "Processessing Multiple XML Files with XSLT in PHP"
+categories: 
+- php
+- xslt
+- programming
+- snippets
+- tips
+---
+
+I often use a message class for a lot of things with PHP.  This allows me to build messages to display to the user for errors, successes and general feedback.
+
+Classes for each of these three things are created in CSS to display the information, and then I use a simple PHP class for appending messages to a arrays.
+
+I wanted to include this in some XML data I was processing with XSLT, but I found it difficult to combine multiple XML files with PHP's XSLT processor.  However, in PHP4, you can do it like this:
+
+{% highlight php %}
+// this is a code fragment
+//
+$XML = implode('', file($XML_File));
+$XSL = implode('', file($XSL_File));
+$XML_Messages = $Messages->xml_all_messages();
+
+define(XSLT_SABOPT_PARSE_PUBLIC_ENTITIES, 0);
+$Entities = array_flip(get_html_translation_table(HTML_ENTITIES));
+
+$Processor = xslt_create();
+xslt_set_encoding($Processor, 'UTF-8');
+
+$Args = array('/_xml' ==&gt; $XML,
+              '/_xml_messages' ==&gt; $XML_Messages,
+              '/_xsl' ==&gt; $XSL);
+
+$HTML = xslt_process($Processor, 'arg:/_xml', 'arg:/_xsl', NULL, $Args);
+xslt_free($Processor);
+{% endhighlight %}
+
+Notice I've got the extra XML file '_xml_messages' in the argument list.  This is the extra file I wanted processed by the xslt processor.  Next, I added the following to my XST file:
+
+{% highlight xml %}
+<xsl:variable name="Messages_Info" select="document('_xml_messages')/Messages/Info"/>
+<xsl:variable name="Messages_Error" select="document('_xml_messages')/Messages/Error"/>
+<xsl:variable name="Messages_Success" select="document('_xml_messages')/Messages/Success"/>
+{% endhighlight %}
+
+This reads the XML data into the variables you can access elsewhere (in scope) in your XSL file:
+
+{% highlight xml %}    
+<xsl:for-each select="$Messages_Info">
+    <div class="Info"><xsl:copy-of select="." /></div>
+</xsl:for-each>
+<xsl:for-each select="$Messages_Error">
+    <div class="Error"><xsl:copy-of select="." /></div>
+</xsl:for-each>
+<xsl:for-each select="$Messages_Success">
+    <div class="Success"><xsl:copy-of select="." /></div>
+</xsl:for-each>
+{% endhighlight %}
+
+You can see how I'm referencing the CSS classes here.
+
+For completeness, here is the PHP error class I was using:
+
+{% highlight php %}
+class Message_Class
+{
+    var $_Errors = array();
+    var $_Successes = array();
+    var $_Info = array();
+
+    function &Messages_Class()
+    {
+    }
+
+    function add_error($Message)
+    {
+        array_push($this->_Errors, $Message);
+    }
+
+    function add_success($Message)
+    {
+        array_push($this->_Successes, $Message);
+    }
+
+    function add_info($Message)
+    {
+        array_push($this->_Info, $Message);
+    }
+
+    function xml_all_messages()
+    {
+          $XML =<<<EOD
+<?xml version="1.0" encoding="UTF-8"?>
+<Messages>
+
+EOD;
+          foreach ($this->_Errors as $Error)
+          {
+              $XML .=<<<EOD
+    <Error>$Error</Error>
+
+EOD;
+          }
+
+          foreach ($this->_Successes as $Success)
+          {
+              $XML .=<<<EOD
+    <Success>$Success</Success>
+
+EOD;
+          }
+          foreach ($this->_Info as $Info)
+          {
+              $XML .=<<<EOD
+    <Info>$Info</Info>
+
+EOD;
+          }
+
+          $XML .=<<<EOD
+</Messages>
+
+EOD;
+
+          return $XML;
+    }
+}
+{% endhighlight %}
+

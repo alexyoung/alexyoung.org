@@ -1,0 +1,19 @@
+---
+layout: post
+title: "Wingman: Open Source To-Do List App"
+categories: 
+- programming
+- projects
+- rails
+---
+
+!/images/wingman.png!
+
+I'm a big fan of a certain popular to-do list app for Mac OS.  But I've stopped using it because I've made an open source replacement called "Wingman":http://github.com/alexyoung/wingman/.  You can download it and install it on your computer or server.  Alternatively, try it out on "wingman.heroku.com":http://wingman.heroku.com/.  I can't promise you won't lose data on the Heroku instance, so treat it as a demo version.
+
+It's built with OpenID, Rails 3, MongoDB, and jQuery UI.  The interface closely follows the Mac app that I've clearly been inspired by, but has Gmail-style keyboard shortcuts.
+
+I started working on it about 2 months ago.  I built the basic version completely in JavaScript while drinking too much over a rainy weekend.  It still only really has one page, and saves everything through a Rails app's JSON API.
+
+It's not finished yet, and there are a lot of glitches, but feel free to fork it and submit patches if you like it enough.
+

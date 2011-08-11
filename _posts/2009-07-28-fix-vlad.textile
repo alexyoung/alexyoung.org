@@ -1,0 +1,87 @@
+---
+layout: post
+title: "Vlad Debugging and Solutions"
+categories: 
+- ruby
+- rails
+- deployment
+- agiledeployment
+---
+
+!/images/deployed.png!
+
+"Vlad the Deployer":http://rubyhitsquad.com/Vlad_the_Deployer.html is a well-written piece of software.  It demonstrated that a realistic alternative to Capistrano is possible, with way less code.  I've come to rely on it for a few projects and I like the design.  There are times, however, when using Vlad can feel like pulling teeth.
+
+This is another deployment-themed article about how to fix issues when using Vlad.  If you'd like to read more about deployment, visit my "agiledeployment":/tags.html#agiledeployment tag.
+
+h3. SSH and All That
+
+If you run ssh on a different port (or need other ssh options), put the relevant settings in <code>.ssh/config</code>.  Here's an example:
+
+{% highlight sh %}
+host example.com
+     Port 1999
+{% endhighlight %}
+
+Or, set it in your deploy file with <code>ssh_flags</code>:
+
+{% highlight ruby %}
+  set :ssh_flags, ['-p 3123']
+{% endhighlight %}
+
+This will allow your colleagues to get the same settings as you (except for keys).
+
+h3. Debugging Broken Deploys
+
+Vlad pays attention to Rake's <code>--trace</code> flag.  This is a key tool for debugging your deploy script.
+
+The output is fairly clean, but it's hard to break down those blocks of one-line && separated shell commands.
+
+h3. Other Gotchas
+
+Look out for these gotchas:
+
+* Invalid permissions -- you might need some <code>chmod -R</code> or <code>chgrp</code>
+* OS compatibility -- I had problems with Solaris and git archive due to tar
+* Process restart issues -- I use my own for Solaris/Mongrel/Apache, on Linux/Passenger Vlad's standard stuff works well
+
+h3. OS Compatibility
+
+Vlad usually refers to commands using variables, which means you can switch them out for others.  You generally don't need to, but I switched a few around for Solaris.
+
+Here's a full set of shell commands that you can switch:
+
+* <code>:rake_cmd</code> -- set to "rake"
+* <code>:rsync_cmd</code> -- set to "rsync"
+* <code>:ssh_cmd</code> -- set to "ssh"
+* <code>:sudo_cmd</code> -- set to "sudo"
+* <code>:darcs_cmd</code> -- set to "darcs"
+* <code>:git_cmd</code> -- set to "git"
+* <code>:p4_cmd</code> -- set to "p4"
+* <code>:svn_cmd</code> -- set to "svn"
+
+h3. Where's my VCS?
+
+Vlad supports a lot anyway, but if you wanted to add support for another version control system, it isn't that hard:
+
+* Create a module
+* Add <code>set :source, Vlad::WhateverVCS.new</code>
+* Add <code>checkout</code> and <code>export</code> methods that take <code>revision, destination</code> parameters
+* Add a <code>revision</code> method that returns something sensible with revisions
+
+h3. Where's Dry-Run?
+
+Sadly Vlad doesn't appear to like dry runs much.  I'd like it to pay attention to <code>--dry-run</code>, but it doesn't.  Simply echoing the shell commands it would have executed in a readable format would really help visualise what it's going to do.
+
+h3. Vlad's Git Support Sucks
+
+Vlad checks out an entire copy of your repository every time you deploy.  This isn't ideal because makes deployment take longer than a coffee break.
+
+A friend of mine wrote a patch before they even supported git, but the seattle.rb guys use their own version.  If you'd like to check out his fork, see "git.rb":http://github.com/gabrielg/vlad/blob/f22a00efe673266570b97243251e78a84f6775ae/lib/vlad/git.rb or "annealer.org":http://annealer.org/2009/01/08/better-git-support-in-vlad-the-deployer.html.
+
+h3. On the Upside
+
+If you're having problems getting Vlad to behave, just remember:
+
+* Vlad relies on old friends like rsync and ssh, so if those work you're almost there
+* Due to this, Vlad's code can be understood very quickly.  If you hit a problem don't be afraid of reading the source

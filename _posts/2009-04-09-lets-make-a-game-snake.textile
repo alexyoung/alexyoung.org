@@ -1,0 +1,22 @@
+---
+layout: post
+title: "Let's Make a Game: Snake"
+categories: 
+- shoes
+- ruby
+- programming
+---
+
+I just finished wrapping up a 5 part tutorial on building Snake in Ruby and Shoes.  It looks like this:
+
+!/images/snake.png!
+
+* "Part 1":http://quiteuseful.co.uk/post/92210521/lets-make-a-game - Covers installation of Shoes and explains how the snake moves and how to control it with the keyboard
+* "Part 2":http://quiteuseful.co.uk/post/92503237/lets-make-a-game-2-food - Basic collision detection, eating food to make the snake longer
+* "Part 3":http://quiteuseful.co.uk/post/93418725/lets-make-a-game-3-rules - Collision detection for bricks and the snake, stopping the main animation when the snake crashes
+* "Part 4":http://quiteuseful.co.uk/post/93775108/lets-make-a-game-4-scores-and-death - Handling scores, game over screen and restarting the game.  This part also shows how to draw a border around the level, and explains how to use Git to get my code
+* "Part 5":http://quiteuseful.co.uk/post/94127465/lets-make-a-game-5-sounds - Sounds and ideas for better sound support
+
+Building games with Ruby and Shoes is a lot of fun because you can throw away the boring stuff and focus on the game's rules and algorithms.  The cross-platform (Mac, Linux, Windows) nature of Shoes also keeps your work accessible.
+
+My Snake game is on GitHub: "snake-shoes":http://github.com/alexyoung/snake-shoes/tree/master -- please fork it and do something cool!

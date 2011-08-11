@@ -1,0 +1,29 @@
+---
+layout: post
+title: "Captor: A Capistrano GUI"
+categories: 
+- capistrano
+- ruby
+- programming
+---
+
+!/images/captor_blog.png!
+
+Here's an idea I've been playing with today: "Captor":http://github.com/alexyoung/captor/wikis, a GUI for Capistrano management.  It's a very rough prototype right now.
+
+Goals:
+
+* Make running tasks across multiple projects easier
+* Interpret the output from Capistrano graphically so it's easier to understand
+* Secondary: Provide a wizard-like interface for creating Capistrano files, with recipe management and configuration
+
+Caveats:
+
+* The prototype is messy because I can't get Shoes to load net/ssh (I get openssl errors), so I'm using drb to communicate with cap
+* There's no project settings management yet, but that will be easy to add
+* The interface isn't cool enough yet
+
+"Read my notes on the project":http://pad.helicoid.net/document/public/f5181afb
+
+
+

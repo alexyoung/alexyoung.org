@@ -1,0 +1,74 @@
+---
+layout: post
+title: "FOWA 08: Day 2 Talks"
+categories: 
+- fowa
+---
+
+This is a summary of the talks I went to at the Future of Web Apps on the second day of the conference.  Read the first part here: "FOWA 08: Day 1 Talks":http://alexyoung.org/articles/show/57/fowa_08_day_1_talks
+
+h3. "The Fear Factor - Tim Bray":http://events.carsonified.com/fowa/2008/london/highlights/tim-bray/
+
+Tim changed his talk to one about how to survive in the current economic climate.  He basically described my career (I graduated in 2001 - during the dot com crash) so I felt some encouragement from his ideas. 
+
+h3. "Innovation, the future and why nothing is ever simple - Simon Wardley":http://events.carsonified.com/fowa/2008/london/videos/simon-wardley/
+
+Simon's talk explained why managing software companies is difficult.  He centred on the concepts around balancing innovation and competitiveness: how staying ahead of competitors requires different management techniques to innovation and research.  The paradox of managing order and disorder.
+
+h3. "The Future of your Online Presence - Bret Taylor":http://events.carsonified.com/fowa/2008/london/videos/bret-taylor/
+
+A lot of people left the business track to see this talk, so either FriendFeed is getting popular or people had high expectations from Bret.  Bret showed how media has changed to focus on the Internet, and how the future will be about helping people filter this content.  FriendFeed featured heavily, but I didn't dismiss his talk as product placement because he discussed some interesting details about the subtleties of developing his product.
+
+h3. "Work/Life Balance - Jason Calacanis, Tom Nixon":http://events.carsonified.com/fowa/2008/london/highlights/jason-calcanis-and-tom-nixon/
+
+Jason Calacanis argued that working hard gets you somewhere, and Tom reasoned that you should carefully balance work and life.  Tom was evidently nervous but gave a balanced and professional talk with some inspirational ideas for budding entrepreneurs.
+
+I've never really read much about Jason Calacanis (beyond the success of Weblogs, Inc), but I found his rhetoric uninspired and useless considering the audience.  He publicly cited 37signals as a "boutique, lifestyle business" and said that companies like Microsoft are "real" businesses.  He also claimed the people at 37signals are average.  Is Jason Fried an average designer or author? No.  Is David Heinemeier Hansson an average developer? No.
+
+If one considers how many people visiting FOWA are going to found the next Microsoft, and how many might start a successful small business, it's clear that Nixon's advice was the most beneficial.
+
+Rhetorical question: Early in the talk Jason pretends not to remember 37signal's name, yet berates them very specifically later on.  He clearly has a bone to pick with them, so why pretend not to remember who they are?
+
+h3. "How to survive outside of Silicon Valley - Michael Galpert, Andy McLoughlin":http://events.carsonified.com/fowa/2008/london/videos/michael-galpert-andy-mclaughlin/
+
+Andy from Huddle gave me loads of ideas about marketing my products in the UK.  He also mentioned loads of events I didn't know were going on locally, like "DrinkTank":http://entrepreneur.meetup.com/1678/.  You'll definitely be seeing me there soon!
+
+h3. Making the web more social with Facebook Connect - David Morin
+
+David gave details on Facebook Connect and how you can integrate it with your site.  You can use it as a full identity system to enhance social features (similar to Gravatar).
+
+h3. Adobe AIR Competition Finals
+
+A selection of AIR apps were suggested and rated by a panel.  Richard Moross from Moo was on the panel.  One idea was a social network remote for your PC, so you can grant friends on social networks permission to access your PC's resources.  I actually liked this idea, but apparently the panel didn't.
+
+h3. "Fireside chat with special guest Mark Zuckerberg":http://events.carsonified.com/fowa/2008/london/videos/mark-zuckerberg/
+
+Ryan Carson interviewed Mark about life at Facebook.  It was amazing to hear Facebook's already grown to 700 staff.
+
+h3. How to grow and nurture your community - Kathy Sierra
+
+I was a huge fan of Kathy's "Creating Passionate Users":http://headrush.typepad.com/ blog.  I haven't read anything new by her since she stopped blogging, so I was really looking forward to this talk.  It didn't disappoint.  She focused on the prominent ideas from _Creating Passionate Users_, but had evidently updated and added concepts.  
+
+Here's my summarised notes (I can't find the video on the FOWA site):
+
+* Home pages should feature users speaking in first person about how the product helped them kick ass
+* There's a balance to be struck between the motivation gained from learning to use a product and putting that knowledge into practice
+* "Hi-Res experiences" - the analogy of climbers seeing cities differently, in terms of places they can climb
+* Focus on what the user does rather than what you do
+* Make the t-shirt before the product - people select t-shirts based on something they want to say - does the product stand for anything at all?
+* Easter eggs - these can give people something to talk about
+* Asking the question - _needing_ to ask a question about a product can help with marketing - "a smile in the mind"
+* Help users justify the time they spend using your product - help them defend their interests
+* Make people smarter - give users patterns of use
+* Make product manuals and documentation from the perspective of a user's feelings: frustrated, confused - consider the writing style
+* Community - make people feel like there are no dumb questions/answers 
+
+h3. Summary
+
+If you don't have time to watch all of these videos, these are my picks:
+
+* Kathy's talk (if they post it)
+* "Languages don't scale - Blaine Cook &amp; Joe Stump":http://events.carsonified.com/fowa/2008/london/highlights/blaine-cook-joe-stump/
+* "The future of interface design - Alvin Woon":http://events.carsonified.com/fowa/2008/london/highlights/alvin-woon/
+* "Innovation, the future and why nothing is ever simple - Simon Wardley":http://events.carsonified.com/fowa/2008/london/videos/simon-wardley/
+* "The Fear Factor - Tim Bray":http://events.carsonified.com/fowa/2008/london/highlights/tim-bray/

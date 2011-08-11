@@ -1,0 +1,36 @@
+---
+layout: post
+title: "Google Home Module"
+categories: 
+- google
+- programming
+- api
+---
+
+It didn't take me long, and I knew I wouldn't be able to go for a few hours without writing a basic plugin for <a href="http://google.com/ig">Google Home</a>.
+
+I always wanted to have a del.icio.us search box in a panel with my latest bookmarks, so I wrote this:
+
+<img src='/images/ig_delicious.png' alt='' />
+
+Once you've added it to your homepage, you can enter your delicious username, and it displays your latest links using raw JSON:
+
+{% highlight javascript %}
+_IG_FetchContent('http://del.icio.us/feeds/json/' + prefs.getString('username') + '?raw', function (responseText) {
+  posts = eval('(' + responseText + ')')
+  for (var i=0, post; post = posts[i]; i++) {
+     // ... display code here ...
+  }
+}
+{% endhighlight %}
+
+All I'm doing is calling _IG_FetchContent(), which the <a href="http://www.google.com/apis/homepage/guide.html">API documents</a>, and then building an unordered list of my links.
+
+A search box is displayed by just using a HTML form.
+
+The reason I did this is that I want to extend it in the future so I can do a live search of delicious from Google Home without leaving the page.  I assume this will be quite complex, although I'm hoping I can recycle <a href="http://script.aculo.us">scriptaculous</a> for the most part.
+
+Now I've whet my appetite, however, I'm sure I'll be able to integrate all manner of applications into Google Home.
+
+<a href="http://alexyoung.org/delicious0.1.xml ">The delicious module</a>
+

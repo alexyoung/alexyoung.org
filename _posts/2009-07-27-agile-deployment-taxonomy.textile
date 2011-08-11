@@ -1,0 +1,65 @@
+---
+layout: post
+title: "Agile Deployment: Taxonomy"
+categories: 
+- ruby
+- rails
+- deployment
+- agiledeployment
+---
+
+It's important to select the appropriate deployment technology for your project, especially if you need to take colleagues and workflow into consideration.  This post outlines different approaches to deployment.
+
+Rails deployment is dominated by technologies like "Capistrano":http://www.capify.org and "Vlad":http://rubyhitsquad.com/Vlad_the_Deployer.html.  These _deployment frameworks_ represent one approach, but there are others that are just as valid depending on the project.
+
+h3. Manual Uploading
+
+Uploading files is how most projects used to be deployed.  FTP, SFTP, and maybe even rsync.
+
+This approach might be sufficient for your simplest projects, so it's still worth trying out graphical FTP clients and rsync to figure out what works for your team.  "Transmit":http://www.panic.com/transmit/ by Panic has a sync feature that works reliably.  Notice that all of the following solutions are not turnkey -- it always takes some development effort to adapt the server environment and deployment process to fit your application's requirements.
+
+!/images/transmit.png!
+
+For example, a company's static website could be deployed with <code>rake deploy</code> which just fires off rsync.
+
+h3. Automated Deployment Frameworks 
+
+In this case deployment is orchestrated from a developer's machine which sends commands to one or more servers. "Vlad the Deployer":http://rubyhitsquad.com/Vlad_the_Deployer.html and "Capistrano":http://www.capify.org/ are the two main tools for this.  They seem similar on the surface, but the fundamental difference is Vlad relies on rake, rsync and the ssh binary, whereas Capistrano uses its own libraries.  Even though Vlad shells out to commands to get the job done, it has a certain elegant simplicity.  It's worth trying out both solutions.  
+
+It can take some work to make deploying with these frameworks reliable -- they're touted as simple, but I guarantee your deployment file will end up growing pretty large over time.  They don't typically provide much feedback on the deployment process, it can be tough when things go wrong.  As far as I know, Vlad doesn't provide dry runs (Capistrano does), which means it's hard to test your deployments without a pre-production server.
+
+They also don't provide any audit trails, so if you work in a large team you can't see who deployed what.  Solutions for this exist, including "Webistrano":http://blog.innerewut.de/webistrano.  Webistrano provides a web interface for managing deployment.
+
+h3. Configuration Management
+
+Capistrano is good at managing servers as well as general Rails deployment.  However, there are a huge family of tools in this area.  If you manage a cluster or might need to in the future, it's worth looking at configuration management tools like "Puppet":http://reductivelabs.com/products/puppet/.
+
+h3. Automated SCM Deployment
+
+Post receive hooks can be used to run scripts based on changes in a source code management system.  How you manage this process is up to you.  "Pushr":http://github.com/karmi/pushr/tree/master is one attempt at solving this problem -- it triggers deployment using Capistrano when you commit.
+
+!/images/pushr.png!
+
+Deploying with a simple <code>git push</code> sounds exciting, but it's not simple to set up.  Although companies like "Heroku":http://heroku.com/ make it look easy, it needs a lot of work on a server to get working.  If you use a tool like Pushr, you'll still need to tailor Capistrano to work for your application.
+
+There are times when this approach makes a lot of sense.  It's great for colleagues who need to deploy but don't have the technical skills to install and manage Capistrano, or can't get it working with their OS.  You're effectively setting up deployment once, instead of on each developer's machine.
+
+h3. Packaging System
+
+"Rubygems":http://rubygems.org/ provides packaging and dependency management for Ruby libraries.  Technically web applications could be treated like a package, and deployed with a <code>git update</code> or <code>git install</code>.
+
+Coaxing gem into installing your application and restarting web server processes might sound strange, but consider what it would provide:
+
+* Strict package versioning (your boss or colleagues might like this)
+* Rollback by selecting a previous version
+* Reliable dependency tracking and auto install for new dependencies
+
+Granted, I've never seen anyone do this, and packaging in this way might require more work than just using a deployment framework, but it's an interesting idea.
+
+h3. Proprietary
+
+Companies like "EngineYard":http://engineyard.com/ and "Heroku":http://heroku.com/ provide their own deployment services that fully integrate with their hosting services.  EngineYard allows you to spawn new instances of Amazon EC2 servers, allowing capacity to increase over time.
+
+Proprietary solutions are often "full stack" -- they'll deploy a new system (if required), your application and related libraries.
+
+Note that you can set up a free 5MB account on "Heroku if you wish to try out this approach.

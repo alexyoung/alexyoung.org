@@ -1,0 +1,55 @@
+---
+layout: post
+title: "Vim Stuff"
+categories: 
+- vim
+- programming
+---
+
+!/images/macvim.png!
+
+I get a lot of hits to my blog from people looking for Vim resources, probably due to "Vim for TextMate fans":http://alexyoung.org/articles/show/12.  I think Vim might be getting a resurgence from developers using Linux on netbooks and the refreshing speed and efficiency of Vim.
+
+Here are some of my recent discoveries and tips for Vim.
+
+h2. Macvim
+
+"Macvim":http://code.google.com/p/macvim/ is works really well for me: it retains Mac-friendly keyboard shortcuts.  I use gvim in Linux which is good, but macvim seems to get the blend of native and vim-like behavior just right.
+
+h2. Sysadmin
+
+I always forget to sudo when editing config files on servers, but <code>:w !sudo tee %</code> totally solved that.  "Kev":http://twitter.com/thefrod found that tip on "commandlinefu":http://www.commandlinefu.com/commands/view/1204/save-a-file-you-edited-in-vim-without-the-needed-permissions
+
+h2. Projects
+
+I like using "NERDTree":http://www.vim.org/scripts/script.php?script_id=1658 for navigating around projects.  I set it to map-leader x:
+
+{% highlight text %}
+map <leader>x :NERDTree<CR>
+{% endhighlight %}
+
+h2. Ack
+
+I search through files all the time rather than hunting for them.  I used this plugin to call Ack: "Ack and Vim integration":http://blog.ant0ine.com/2007/03/ack_and_vim_integration.html
+
+Then I map it to map-leader a:
+
+{% highlight text %}
+map <leader>a :Ack
+{% endhighlight %}
+
+h2. Rails
+
+I've got used to using "rails.vim":http://rails.vim.tpope.net/.  <code>.Rake</code> over a test method is incredibly handy, and <code>Rserver!</code> makes switching between projects easier (it starts a server for the current project, killing any existing servers).
+
+When I work on Rails projects I always seem to split the screen between a model or controller and their tests.  Controllers and views is common too.  If you're not quite used to working with Vim yet, try learning the "keyboard shortcuts for window management":http://www.keyxl.com/aaa8263/290/VIM-keyboard-shortcuts.htm so you can creatively split and manage windows.
+
+h2. Cappuccino
+
+I've been developing interfaces with Cappuccino lately, and I found that using Vim with their syntax highlighting works better with spell checking turned off:
+
+{% highlight text %}
+au BufNewFile,BufRead *.j setf objj
+au BufNewFile,BufRead *.j set nospell
+{% endhighlight %}
+

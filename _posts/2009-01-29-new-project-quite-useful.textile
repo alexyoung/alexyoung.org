@@ -1,0 +1,15 @@
+---
+layout: post
+title: "New Project: Quite Useful"
+categories: 
+- writing
+- blogs
+---
+
+!/images/qu.png!
+
+I've started a new project called "Quite Useful":http://quiteuseful.co.uk.  The inspiration is "Quite Interesting":http://www.qi.com/ with a twist on productivity.  Currently Quite Useful takes the form of a blog, twitter and delicious account.
+
+I've been posting useful everyday tips and software applications with a group of friends from London.  We intend to keep things relevant to UK readers, but international content is of course welcome.  One area we'd like to focus on is reviewing and promoting UK-based tech startups.
+
+If you'd like to take part (by writing) or get your app featured on Quite Useful, "contact me":http://alexyoung.org/contact

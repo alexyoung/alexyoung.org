@@ -1,0 +1,103 @@
+---
+layout: post
+title: "Textile JavaScript Class"
+categories: 
+- textile
+- javascript
+- programming
+---
+
+This JavaScript class requires <a href="http://prototype.conio.net/">Prototype</a>.  It displays help on Textile next to elements with a particular class, and parses the help from a Hash that you can define in the constructor.
+
+I've been using it to add help next to textareas that accept textile.  All I have to do is create textareas with the class "show-textile-help", and they get a little div full of useful information.  The help text is hidden until the user clicks on the link:
+
+<img src="/images/textile_small.png" alt="Textile small help text" />
+
+AFTER A CLICK BY THE INTRIGUED USER:
+
+<img src="/images/textile_big.png" alt="Textile full help text" />
+
+Style it a little bit like this:
+
+{% highlight css %}
+/* Textile help */
+div.textile-help { font-size: small; background-color: #ffc; border: 1px solid #333; padding: 4px; }
+div.textile-help .def { font-family: courier }
+{% endhighlight %}
+
+Here's the JavaScript:
+
+{% highlight javascript %}
+var TextileHelp = new Class.create();
+TextileHelp.prototype = {
+  initialize: function(editor_class_name) {
+    this.current_id = 0;
+    this.editor_class_name = editor_class_name;
+    this.help_items = {
+      'Headers': {'Level 1': 'h1', 'Level 2': 'h2', 'Level 3': 'h3', 'Level 4': 'h4' },
+      'Links and images': {'Image': '!http://url.to/image.jpg!', 'Link': '"Link name":http://url.to/link/address'},
+      'Lists': {'Numeric list': '#', 'Bulleted list': '*'},
+      'Text formatting': {
+        'Emphasis':    '_italic text_',
+        'Strong':      '*strong text*',
+        'Citation':    '??citation??',
+        'Quote':       'bq. Quoted text goes here',
+        'Deleted':     '-deleted text-',
+        'Inserted':    '+inserted text+',
+        'Superscript': '^superscript^',
+        'Subscript':   '~subscript~'
+      }
+    }
+  },
+
+  current_link_id: function() { return 'TextileLink_' + this.current_id; },
+  current_detail_id: function() { return 'TextileDetail_' + this.current_id; },
+  
+  generate_help_text: function() {
+    this.current_id++;
+    
+    var textile_help = '';
+    var link_id = this.current_link_id();
+    var detail_id = this.current_detail_id();
+    
+    textile_help += '<div class="textile-help">                                ';
+    textile_help += '  This text field uses <a href="javascript: return false" id="' + link_id + '">Textile</a>.';
+    textile_help += '  <div class="textile-help-detail" id="' + detail_id + '">';
+    
+    $H(this.help_items).each(function(item) {
+      textile_help += '<p>' + item[0] + '</p>';
+      textile_help += '<ul>';
+      $H(item[1]).each(function(element) {
+        textile_help += '<li>' + element[0] + ': <span class="def">' + element[1] + '</span></li>';
+      })
+      textile_help += '</ul>';
+    });
+    
+    textile_help += '  </div>';
+    textile_help += '</div>';
+    return textile_help;
+  },
+
+  show_help: function() {
+    var editors = document.getElementsByClassName(this.editor_class_name);
+      
+    editors.each(function(editor) {
+      var th = this.generate_help_text();
+      var link_id = this.current_link_id();
+      var detail_id = this.current_detail_id();
+      
+      new Insertion.Before(editor, th);
+      Element.hide(detail_id);
+
+      Event.observe($(link_id), 'click', function() {
+        Element.toggle($(detail_id));
+      })
+    }.bind(this))
+  }
+}
+
+Event.observe(window, 'load', function() {
+  textile_help = new TextileHelp('show-textile-help');
+  textile_help.show_help();
+})
+{% endhighlight %}

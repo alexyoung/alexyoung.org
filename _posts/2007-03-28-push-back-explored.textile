@@ -1,0 +1,53 @@
+---
+layout: post
+title: "Push Back Explored"
+categories: 
+- programming
+- theory
+---
+
+'Push Back' is a simple concept succinctly explained in 37signals' book, "Getting Real":http://gettingreal.37signals.com/.  When translating requirements into code, issues often crop up that make implementation impractical.  Something about the structure of your project resists a new feature.
+
+Getting Real suggests ways to mitigate push back.  I'm going to explain how to spot push back occurring in your code.
+
+h3. Methods or variables become hard to name
+
+If you're having issues naming things, perhaps you don't fully understand the problem you're trying to solve.  If the concept is ill-defined, your code is pushing back.  If you can't rethink a cleaner approach, go back and discuss the feature with your client (or boss).
+
+I've done this countless times, and discovered:
+
+* I had misunderstood the client's particular requirement
+* The client didn't actually know what they wanted
+* The client's original explanation was inaccurate, and after a discussion we discovered a simple solution
+
+h3. Long comments become necessary
+
+Could you simply rename variables or method names to help create self-documenting code?  Long comments are often a sign that the requirements have not been fully understood, or that the method in question could better expressed, perhaps by breaking it up into atomic methods.
+
+Long comments are fine for API code, especially with real usage examples.  This generally cuts down maintenance time later on.  If you find yourself writing long comments to document methods that aren't intended to be generic outside their context, or you're writing long comments inline, your code is pushing back.
+
+h3. Deeply nested code spews forth into your methods
+
+Deeply nested code often makes code look overcomplicated.  Could your algorithm be simplified by breaking it up into smaller chunks? Can you exit the method earlier in a way that's easier for the reader to follow, therefore reducing the nesting?
+
+If expressing a concept in code is so difficult that it becomes a deeply nested mess, your code is pushing back, unwilling to accept the abstraction.
+
+h3. Files start becoming too long
+
+Ensure there's one class per file.  If you find you've lumped things together because they're almost related, this could be a sign that you haven't misunderstood a fundamental concept.
+
+If your language or IDE make this difficult, research a better approach.  For example, I have the terrible habit of grouping functions together in JavaScript.  To get around this, I periodically revisit my code and attempt to restructure it as classes, using the Prototype framework's approach.  The classes are split up into files.  You might think this makes things slow in the browser, but I using a rake (ruby make) task to create one large file.
+
+h3. Exceptions to accepted rules are introduced
+
+Be vary wary of the need to add exceptions to generalised rules.  A new option to a method might seem acceptable, especially with a sensible default so existing code still works correctly, but this can be a maintenance nightmare later on.  It might also indicate that you've hit upon a fundamental misunderstanding and you need to re-think your approach.
+
+If it takes you 5 hours to go back and restructure code and update tests, this could save days of maintenance time in the future.
+
+h3. Using your code becomes unwieldy
+
+Most languages have unit test libraries readily available.  JavaScript is a weird example in this respect, but <a href="http://www.jsunit.net/">JsUnit</a> can help.
+
+When I write unit tests, I attempt to <em>attack</em> my code.  From the perspective of the tests, I try to force it to do unexpected things.  At this stage, I sometimes find that using my original code is messy and unwieldily.  Even though it was easy to write, and relatively easy to read, using it is far from easy.  This is where tests help determine if code is pushing back, unwilling to accept a new concept.
+
+If your code is easy to use, it follows that your tests should be easy to read.

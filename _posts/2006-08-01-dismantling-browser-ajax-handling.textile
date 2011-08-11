@@ -1,0 +1,114 @@
+---
+layout: post
+title: "Dismantling Browser Ajax Handling"
+categories: 
+- ajax
+- javascript
+---
+
+I've been writing some fairly complex JavaScript for a small project designed by my fiancé (she makes demands for features like autosave without realising the amazing trickery required), and I started thinking about threading.
+
+When you use XMLHttpRequest to fetch or send data, you create methods or functions to act as callbacks.  At some point the callbacks are run, and data magically appears into your classes.  That feels a lot like threading to me, the fact it's asynchronous.  I remember reading <a href="http://mir.aculo.us">Thomas Fuchs</a> saying something about JavaScript being single-threaded, a quick search found the comment: <a href="http://lists.rubyonrails.org/pipermail/rails-spinoffs/2006-July/004871.html">[Rails-spinoffs] Ajax.Request synchronization (onSuccess beforeonComplete?)</a>.
+
+How do browsers manage XMLHttpRequest?  What if there's more than one thread? Is there a thread for that handles JavaScript, and new threads for asynchronous requests? How do browsers that are cross platform handle threads if they need to work on different operating systems?  I took a look at the gecko and WebKit source to try and figure out some answers.
+
+h3. Inside Gecko's XMLHttpRequest code
+
+Download the Firefox source and take a look at extensions/xmlextras/base/src/nsXMLHttpRequest.cpp.  Gecko gives XMLHttpRequest its own file.  They define a namespace for it, and use streams to send and suck down data.
+
+What I was looking for was on line 1423:
+
+{% highlight c %}
+nsXMLHttpRequest::Send(nsIVariant *aBody)
+{% endhighlight %}
+
+A thread gets added to an internal queue at line 1558:
+
+{% highlight c %}
+rv = mEventQService->PushThreadEventQueue(getter_AddRefs(modalEventQueue));</pre>
+{% endhighlight %}
+
+And, if the code was called synchronously the code waits until execution is complete:
+
+{% highlight c %}
+// If we're synchronous, spin an event loop here and wait
+if (!(mState & XML_HTTP_REQUEST_ASYNC)) {
+  while (mState & XML_HTTP_REQUEST_SYNCLOOPING) {
+    modalEventQueue->ProcessPendingEvents();
+
+    // Be sure not to busy wait! (see bug 273578)
+    if (mState & XML_HTTP_REQUEST_SYNCLOOPING)
+      PR_Sleep(PR_MillisecondsToInterval(10));
+  }
+{% endhighlight %}
+
+You're probably wondering what PushThreadEventQueue is.  It's line 267 in xpcom/threads/nsEventQueueService.cpp:
+
+{% highlight c %}
+nsEventQueueServiceImpl::PushThreadEventQueue(nsIEventQueue **aNewQueue)
+{% endhighlight %}
+
+Mozilla browsers abstract the concept of a thread with <a href="http://developer.mozilla.org/en/docs/NSPR_API_Reference:Threads">PRThreads</a>:
+
+bq. A thread has a limited number of resources that it truly owns. These resources include a stack and the CPU registers (including PC). To an NSPR client, a thread is represented by a pointer to an opaque structure of type PRThread. A thread is created by an explicit client request and remains a valid, independent execution entity until it returns from its root function or the process abnormally terminates.
+
+Here's another good overview of NSPR and the history of it: <a href="http://www.mozilla.org/classic/nsprdesc.html">NSPR Module Description</a>.
+
+This all comes from the Netscape Portable Runtime (NSPR) API, which provides low-level services in a platform-independent manner.  This is why Firefox runs on so many platforms - most common operating systems provide some level of POSIX compliance that is used to provide many of these features (threads are implemented as pthreads for most systems).  Many software projects also do this, such as Apache with the Apache Portable Runtime API.
+
+Therefore, Gecko browsers have a powerful API that provides threads, and queues and processes requests and responses.
+
+h3. WebKit's world of XMLHttpRequest
+
+Download WebKit's source from CVS, and open up <code>WebCore/xml/xmlhttprequest.cpp</code>.  This file is part of the WebCore framework.  WebCore and JavaScriptCore form WebKit, Apple's basis for Safari.  WebCore is based on KHTML, an open source project, and WebCore is open source (released using the LGPL license).
+
+If you take a look at line 290:
+
+{% highlight c %}
+void XMLHttpRequest::send(const String& body)
+{% endhighlight %}
+
+In reality this implementation is different to Firefox, because there's many layers of abstraction at work.  There's a similar pattern whereby the send() method sets things up, has a special case for synchronous requests so it can wait for completion.
+
+In the <code>send()</code> method, <code>m_job</code> is defined at line 319:
+
+{% highlight c %}
+m_job = new ResourceLoader(m_async ? this : 0, m_method, m_url, m_encoding.fromUnicode(body.deprecatedString()));
+{% endhighlight %}
+
+ResourceLoader can be found in platform/, and here it's being instantiated with either the current class or 0 as the reference to a ResourceLoaderClient.  Just to verify, load the file WebCore/xml/xmlhttprequest.h and take a look at line 64:
+
+{% highlight c %}
+class XMLHttpRequest : public Shared<XMLHttpRequest>, ResourceLoaderClient {
+{% endhighlight %}
+
+So the class XMLHttpRequest inherits ResourceLoaderClient, defined in platform/ResourceLoaderClient.h, which specifies a few methods that a ResourceLoaderClient requires:
+
+{% highlight c %}
+virtual void receivedRedirect(ResourceLoader*, const KURL&) { }
+virtual void receivedResponse(ResourceLoader*, PlatformResponse) { }
+virtual void receivedData(ResourceLoader*, const char*, int) { }
+virtual void receivedAllData(ResourceLoader*) { }
+virtual void receivedAllData(ResourceLoader*, PlatformData) { }
+{% endhighlight %}
+
+We can even see the familiar responses in xmlhttprequest.h:
+
+{% highlight c %}
+// these exact numeric values are important because JS expects them
+enum XMLHttpRequestState {
+  Uninitialized = 0,  // open() has not been called yet
+  Loading = 1,        // send() has not been called yet
+  Loaded = 2,         // send() has been called, headers and status are available
+  Interactive = 3,    // Downloading, responseText holds the partial data
+  Completed = 4       // Finished with all operations
+};
+{% endhighlight %}
+
+ResourceLoaderInternal.h has several definitions of threadID depending on the operating system.  Also, WebCore uses the convention that anything in the bridge/ directory is operating system specific, so there's a mac/ directory containing mac os stuff, so you find a reference to pthreads in there.
+
+After looking at WebKit, I'm still confused since I'm wondering how exactly multiple XMLHttpRequest requests are handled.  I assume that an instance is instantiated for each call, which would mean a new resource is also instantiated with a new thread.  This would take a little bit more research, or perhaps simply asking the <a href="http://webkit.org">WebKit</a> developers.
+
+h3. Conclusions
+
+So am I any closer to understanding what's going on under the hood?  Definitely, but now I want to know more.  I've been writing software with interpreted languages for the last few years, and going back to C++  (and Objective C with parts of WebKit) feels slightly odd.  Seeing how browsers really work does make me aware of potential issues with the use of JavaScript, however, so I'm inclined to dive back in at some point soon.

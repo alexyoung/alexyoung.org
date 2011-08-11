@@ -1,0 +1,71 @@
+---
+layout: post
+title: "Processing Textile Text with XSLT"
+categories: 
+- xslt
+- programming
+- snippets
+- tips
+- textile
+---
+
+<a href="http://textism.com/tools/textile/">Textile</a> provides a simple way of writing human-friendly text that can easily be translated to XHTML.  HTML tags are simplified into a set of phrase and block modifiers; even tables and attributes can be created.
+
+I was looking at the PHP code for this and wondering if I could create an XSL file that could translate similar text into XHTML.  I created some XML to contain my text:
+
+{% highlight xml %}
+<textile>
+<![CDATA[
+*Hello*
+
+This should be in *bold*.
+
+Hello
+]]>
+</textile>
+{% endhighlight %}
+
+And then used the following recursive algorithm to process it in XSLT:
+
+{% highlight xml %}
+ <xsl:template name="replace-string">
+    <xsl:param name="text"/>
+    <xsl:param name="from"/>
+    <xsl:param name="to_close"/>
+    <xsl:param name="to_open"/>
+    <xsl:param name="tagon"/>
+
+    <xsl:choose>
+        <xsl:when test="contains($text, $from)">
+            <xsl:variable name="before" select="substring-before($text, $from)"/>
+            <xsl:variable name="after" select="substring-after($text, $from)"/>
+            <xsl:value-of select="$before"/>
+            <xsl:choose>
+                <xsl:when test="$tagon=0">
+                    <xsl:variable name="prefix" select="concat($before, $to_open)"/>
+                    <xsl:value-of select="$to_open"/>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:variable name="prefix" select="concat($before, $to_close)"/>
+                    <xsl:value-of select="$to_close"/>
+                </xsl:otherwise>
+            </xsl:choose>
+
+            <xsl:call-template name="replace-string">
+                <xsl:with-param name="text" select="$after"/>
+                <xsl:with-param name="from" select="$from"/>
+                <xsl:with-param name="to_close" select="$to_close"/>
+                <xsl:with-param name="to_open" select="$to_open"/>
+                <xsl:with-param name="tagon" select="1-$tagon"/>
+            </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:value-of select="$text"/>
+        </xsl:otherwise>
+    </xsl:choose>
+ </xsl:template>
+{% endhighlight %}
+
+This code was based on <a href="http://aspn.activestate.com/ASPN/Cookbook/XSLT/Recipe/65426">this example</a> at the ASPN XSLT Cookbook.
+
+Although I managed to create an example of using this text, it's obvious that the PHP code is far more understandable than the XSLT code.  It's well-known that XSLT isn't as friendly as most programming languages for string processing, and I think this example illustrates this.  Despite it being possible to process text this way, it's currently much more efficient to rely on PHP, java, python, perl and so on.

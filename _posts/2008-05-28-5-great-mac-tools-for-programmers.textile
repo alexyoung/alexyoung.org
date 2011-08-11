@@ -1,0 +1,42 @@
+---
+layout: post
+title: "5 Great Mac Tools for Programmers"
+categories: 
+- programming
+- tools
+- mac
+---
+
+h3. Diff visualisation: Changes
+
+!http://www.box.net/shared/static/6soxjd0ow4.png! !http://www.box.net/shared/static/1cyvvb8dcg.png!
+
+"Changes":http://changesapp.com/ is a fast and friendly diff tool.  You can quickly list files that have changed in a project, and view differences between files.  It also works with Subversion and Git (and several other version control systems), so it will fit right into your typical workflow.  Oh, and it also has a TextMate bundle.
+
+Changes gets perhaps the highest accolade for a mac application: I like Changes so much it actually has a permanent place in my Dock.
+
+h3. Performance analysis: Instruments
+
+"!http://www.box.net/shared/static/lag4an4wg4.png!":http://www.box.net/shared/static/iteg1rwg0w.png
+
+"Instruments":http://www.apple.com/macosx/developertools/instruments.html comes with Leopard, so you might already have it on your machine.  It's a performance monitoring tool, which means you can attach it to a process and analyse various aspects of its performance.  This is incredibly useful if you're looking for memory leaks or working on OpenGL performance in native Mac applications.
+
+You can even watch the performance of any processes that support DTrace, which means Ruby programmers can use this tool to inspect everything from CPU profiles to network usage.  The screenshot above is of a Ruby on Rails application.
+
+Whilst we're on the subject of Leopard bundled applications, check out Dashcode as well.  It's indispensable if you want to quickly prototype a widget or iPhone web interface.
+
+h3. Version control: GitNub and svnX
+
+I usually use Subversion through either TextMate's excellent bundle or the command line, but in sticky situationsI need to visualise things through a GUI.  That's when I reach for "svnX":http://www.lachoseinteractive.net/en/community/subversion/, which is a solid enough Cocoa SVN tool.
+
+"GitNub":http://github.com/Caged/gitnub/wikis/home is a pretty new tool for working with Git, and is written with RubyCocoa.  It seems like they're working hard on it, so this could become the default tool for Mac Git users.  That is, unless there's something lurking in the shadows waiting to jump out...
+
+h3. Database visualisation: CocoaMySQL-SBG
+
+It's getting long in the tooth and doesn't get updated enough, but even so "CocoaMySQL-SBG":http://www.theonline.org/cocoamysql/ is still my favourite Cocoa database tool.  I really wish something would come along with the pedigree of "Panic's":http://www.panic.com/ software, but there's been a gap in the market for so long that I somehow doubt it.  While there are a few good Java or cross-platform multi-database clients out there, I want to see something with the elegance of "Coda":http://www.panic.com/coda/ that will let me manipulate SQLite, MySQL and Postgres.
+
+h3. Text editing: TextMate, Coda, Vim
+
+I've "already written a lot":http://www.thinkvitamin.com/reviews/dev/textmate about "TextMate":http://macromates.com/ over the years, needless to say it's one of the greatest Mac development tools.  If you're more into design or want an alternative, have a look at "Coda":http://www.panic.com/coda/ from Panic.  And don't forget "Vim":http://www.vim.org/!
+
+

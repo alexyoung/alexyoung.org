@@ -1,0 +1,23 @@
+---
+layout: post
+title: "script.aculo.us: When to Use Ajax and Effects"
+categories: 
+- tips
+- programming
+- code
+- javascript
+---
+
+A few applications I've been developing recently have either had things from <a href="http://script.aculo.us">script.aculo.us</a> applied for fun, to add effects our client would like, or they've been designed with Ajax and visual effects from the start.
+
+A very beta application I'm working on is <a href="http://multitap.net">Multitap.net</a>.  Since it's my project, and I don't have clients to answer to, I've done whatever the hell I want with it.  I had these things in mind when creating it:
+
+# I'd use Ajax to allow users to post comments on things, to cut down on page loads.  The site features screenshots from videogames as the main content, so I didn't want to be loading a lot of images all the time.
+# I'd use some of the transitional effects from <a href="http://script.aculo.us">script.aculo.us</a> to make it obvious when new things have been added, and when hidden things appear.  Visual queues can be very helpful, especially when posting comments.
+# Being able to hide things such as settings and edit panes would keep the pages simple on the surface, and keep the focus on the content.
+
+I have a group of friends who have been testing it and making suggestions.  I found they liked the visual effects, basically for the reasons I described just there, but also because it makes the site seem quite unique.
+
+One of them mentioned that it would be nice to have a login box on all pages, instead of having to leave a page if you forgot to login.  Sticking with my idea of keeping pages simple, I used a popup login box like <a href="http://www.odeo.com">Odeo</a> uses.  They liked this, and said "more Web 2.0!" as a little joke on the side... :)
+
+<img src='/images/multitap1.png' alt='' /><img src='/images/multitap2.png' alt='' />

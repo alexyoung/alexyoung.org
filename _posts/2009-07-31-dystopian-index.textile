@@ -1,0 +1,28 @@
+---
+layout: post
+title: "A Rails Plugin for Tokyo Dystopia"
+categories: 
+- ruby
+- rails
+- plugins
+- tokyocabinet
+---
+
+"Dystopian Index":https://github.com/alexyoung/dystopian_index is a Rails plugin for "Tokyo Dystopia":http://tokyocabinet.sourceforge.net/dystopiadoc/.  I'm using it with small projects that don't really need a more sophisticated indexing solution like Sphinx or Solr.  There's no daemon, so setup is less of a headache.
+
+It uses Dystopia to build disk-based indexes.  At the moment it stores one index per ActiveRecord model, but I might change this to an index per field later.
+
+I've made it support sorting by date, just because clients always ask for it.  To achieve this, dates are stored in the first 12 characters of each index record.  The plugin uses these to sort in Ruby.  I've been working on benchmarks to figure out the fastest way to handle this.
+
+h3. Critical Section
+
+Because this is on disk, Dystopia raises an error if you try to access it concurrently.  "Tokyo Tyrant":http://tokyocabinet.sourceforge.net/tyrantdoc/ can be used as a remote storage service for Tokyo Cabinet, so a solution using this might make more sense.  I've wrapped calls to the index database with a block like this:
+
+{% highlight ruby %}
+with_dystopian_db do |db|
+  db.clear
+end
+{% endhighlight %}
+
+This means it will always <code>close</code> the database in an <code>ensure</code>.  Since most Rails projects use multiple Ruby processes, this should delay and try again on failure, but it doesn't for now (patch it if you want it).
+

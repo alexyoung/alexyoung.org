@@ -1,0 +1,73 @@
+---
+layout: post
+title: "GitLondon: Event Review and Notes"
+categories: 
+- events
+- london
+- gitlondon
+- git
+---
+
+I went to "GitLondon":http://www.gitlondon.com/ last week, a git training event organised by the developers at "Codebase":http://www.codebasehq.com/ and "GitHub":http://github.com/.  Scott Chacon from GitHub did the main presentation and workshop, which lasted from 9:30am until around 4pm, with Adam Cooke from Cobebase explaining how to set up Git on your own server.
+
+Scott's presentation covered everything from basic git commands to advanced commands and even the internals.  He originally started using git several years ago when it was in its infancy, and built a system that required rsync-like features (but presumably more advanced than rsync).  This means he has an interesting perspective on git because he's familiar with the internals that most of us never see.
+
+Before the event I was using git to store "my open source projects on GitHub":http://github.com/alexyoung/.  I definitely like their social coding approach, and it's helped me get help and feedback on my work.  However, I only knew the basic commands, most of which GitHub shows on the site.  After this event, I felt like an entire book on git had been poured into my brain, and I'm definitely more comfortable with it now.  It's not necessarily hard to learn, but it does take some work to become comfortable with it.
+
+Also, PJ and Scott from GitHub came drinking with us after the event.  And when I say drinking I mean 5 pints of ale and my wife wondering where I'd got to.  It was a good night!
+
+h2. My notes
+
+Here are my full notes from the event: "Git Notes":http://helipadapp.com/document/public/d770c353
+
+I also posted bookmarks for sites that Scott mentioned: "Bookmarks tagged gitlondon":http://delicious.com/alex_young/gitlondon
+
+h2. Note summary
+
+Here's a few things that I found really interesting.
+
+h3. Git's structure
+
+Git is a snapshot-based system.  Files are stored in an object database in .git with SHA1 hashes for your project's filenames.  There's only 4 components to this: blobs, trees, commits and tags.  Interestingly, commits retain both author and committer, which means when other people submit patches their name is retained alongside the person who commits the code -- this makes sense for open source projects.
+
+h3. Workflow
+
+If you're used to subversion, git's workflow is strange at first.  Code must be staged before commits and then pushing to the remote.
+
+To see what is staged, use <code>git diff --cached</code>.
+
+h3. Stashes
+
+I didn't know git had stashes, but it sounds like something that would work well for me.  Stashes allow you to store the current snapshot and switch to another branch or stash.  This is handy if you're working on a new feature, but then get interrupted and need to fix a bug.
+
+* Move current work to stash stack: git stash save
+* Get back to the last stash: git stash apply
+* See current stashes: git stash list
+
+h3.  Interface stuff
+
+Colour makes git's diff output and logs easier to read.  You can set up colour in the command line like this:
+
+{% highlight sh %}
+git config --global color.diff auto
+git config --global color.status auto
+git config --global color.branch auto
+{% endhighlight %}
+
+This Gist is a bash script that will show the current branch in the prompt: "Gist 31631":http://gist.github.com/31631
+
+Did you know git has a built-in web view?  It's called instaweb, and can be run like this: <code>git instaweb -d webrick</code>
+
+h3. Best practice notes
+
+Towards the end of the workshop we had a question/answer session about git best practices.
+
+* Scott said the *develop/integrate* pattern is often used and makes sense for a lot of companies
+* Using lots of branches is a good idea -- before you start doing anything unusual, or a "risky merge", start a "topic branch"
+* Long commit messages -- style for company or open source project, passive voice, non-english users for open source
+* Summarise commit messages on the first line because some sites or tools only show the first line.  I often use bullets in my commits, so it's probably best if I do this
+* Commit often, but not necessarily push
+* Push when it seems OK to share (if you want to share a lot maybe push to a remote branch)
+* Talk to people: explain why you created remote branches
+* Difference between version control and backups -- some companies would need to make it company policy to do local backups, or use multiple remotes so developers can have their own remotes to act as backups
+

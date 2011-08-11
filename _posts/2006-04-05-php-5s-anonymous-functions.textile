@@ -1,0 +1,33 @@
+---
+layout: post
+title: "PHP 5's Anonymous Functions"
+categories: 
+- php
+- programming
+---
+
+I don't see much use of anonymous functions in php, yet when I write python or ruby, I use constructs like this quite often.  You can do it in php though, with <a href="http://uk2.php.net/manual/en/function.create-function.php">create_function</a>.  It's nothing that fancy, it just lets you create a function whenever you feel like it.  This can be placed wherever you need a callback in php.
+
+Callbacks in php must be a function name.  You can't refer to methods in the current class, or hack it by making a function that returns an object: <code>function()->probably_a_singleton->hello()</code>.  This is where <code>create_function()</code> comes in.
+
+Here's an example:
+
+{% highlight php %}
+$where_sql[] = " $field IN (" . implode(',', array_map(create_function('$str', 'return registry()->db->quoteSmart($str);'), $data['in'])) . ') ';
+{% endhighlight %}
+
+This is part of a query builder I'm writing for a project.  It lets you pass arrays to build queries, and also something like this:
+
+{% highlight php %}
+array('in' => array('data' => array(1, 2, 3)))
+{% endhighlight %}
+
+This maps to the SQL fragment "IN (1, 2, 3)", and also escapes the operands to make sure the query is relatively secure.  I had to call our singleton'd database object through create_function to do this:
+
+{% highlight php %}
+create_function('$str', 'return registry()->db->quoteSmart($str);'), $data['in'])
+{% endhighlight %}
+
+<code>array_map</code> calls this with each field you pass and escapes them.  
+
+So all in all, remember <code>create_function</code>.  It can save some legwork, and it might help you do things how you would in other languages if you're coming to php from somewhere else.

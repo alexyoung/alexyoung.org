@@ -1,0 +1,37 @@
+---
+layout: post
+title: "Gemcutter"
+categories: 
+- ruby
+- gems
+- gemcutter
+---
+
+I've put all my gems on "gemcutter":http://gemcutter.org/.  They were on "GitHub":http://github.com but seeing as "GitHub has dropped building gems":http://github.com/blog/515-gem-building-is-defunct I thought it'd be useful to move them.
+
+h3. Using gemcutter
+
+The site makes it look easy, because it is:
+
+{% highlight sh %}
+gem install gemcutter
+gem tumble
+{% endhighlight %}
+
+Now you'll be able to install gems from gemcutter.
+
+h3. Publishing your own gems
+
+This is easy too.  Write a gemspec file and then build a gem, and push it to gemcutter:
+
+{% highlight sh %}
+gem build yourgem.gemspec
+gem push yourgem.gem
+{% endhighlight %}
+
+*Note*: It might take a few minutes before the gem is available from gemcutter.
+
+h3. Automation
+
+"Jeweler":http://github.com/technicalpickles/jeweler can be used to automate this process -- it can use your git and GitHub settings to automatically generate a new project (including GitHub hosting, test directories/helpers).
+

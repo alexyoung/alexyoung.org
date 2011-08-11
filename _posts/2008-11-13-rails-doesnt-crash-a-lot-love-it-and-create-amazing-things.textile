@@ -1,0 +1,16 @@
+---
+layout: post
+title: "Rails Doesn't Crash a Lot"
+categories: 
+- programming
+- rails
+- sysadmin
+---
+
+DHH wrote this: "Myth #2: Rails is expected to crash 400 times/day":http://www.loudthinking.com/posts/31-myth-2-rails-is-expected-to-crash-400-timesday -  a response to a myth about Rails processes regularly needing restarts.
+
+I'm a big Rails hacker, it's 90% of what I've done for years.  I've designed and developed these apps: "Tiktrac":http://tiktrac.com, "Ebiwrite":http://ebiwrite.com, "Helipad":http://pad.helicoid.net, "Deadline":http://deadlineapp.com, "Loom":http://loomapp.com and "Reuters Real Estate":http://reutersrealestate.com, this blog, not to mention work for smaller clients I haven't included here.  They're real live applications with constant development, performance and error monitoring.
+
+In the time I've been running these applications I've never had Rails crash several times a day.  In fact, I can't remember Rails crashing at all except when it's my fault.  Early on I had a cheap Dreamhost account and ran my personal blog on there, and found it crashed due to Dreamhost zapping processes when a server was under load.  Now I've got dedicated servers (and obviously Reuters do), and we have Rails processes that run from deploy to deploy -- this can be weeks or even months depending on the project.
+
+So don't put off using Rails for your next project, it's not a big scary beast to deploy and manage.  It won't sap all your server's RAM.  If you're using Apache get "Passenger":http://www.modrails.com/, it makes managing Rails projects as easy as anything else.  If you want to use another Ruby framework or library, Passenger, fcgi and similar projects make it possible and easier than ever.

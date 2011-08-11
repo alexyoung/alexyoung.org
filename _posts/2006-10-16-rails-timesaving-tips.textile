@@ -1,0 +1,44 @@
+---
+layout: post
+title: "Rails Time Saving Tips"
+categories: 
+- tips
+- rails
+- programming
+---
+
+I've created quite a few Rails projects over the last year, some commercial projects, and others are applications released under <a href="http://helicoid.net">Helicoid</a>.  Here's a few things I've found save time and help make projects as maintainable as possible.
+
+<h3>Named routes</h3>
+
+You can refer to routes in your forms and links like this: <code>document_edit_url(:id => document.id)</code>.  Isn't that much nicer than other means?  It can often make code easier to understand quickly, thus helping maintainability.
+
+To use named routes, instead of the usual <code>map.connect</code> directive, use <code>map.my_name</code>.
+
+<h3>Migrations</h3>
+
+I use migrations for everything, they're amazingly useful.  They allow me to get up an running on a totally different machine minutes after checking in, and deploying code to live or development servers is much safer (especially when combining migrations with version control and Capistrano.)
+
+<h3>Helpers</h3>
+
+Try and use helpers for places where you can see code duplicated, and those nasty bits of code that look like they should be in your controller but can't quite fit in there.  You can use helpers to abstract templates slightly, and if you do this carefully you can help designers understand what's going on.
+
+Remember that in ruby you can pass blocks around quite naturally, so you can do things like this easily: <a href="http://www.bigbold.com/snippets/posts/show/2483">Block to Partial Rails Helper</a>.
+
+Always check the Rails API before writing helpers, because they've got a lot in there already.  And don't forget, render can render templates for collections:
+
+{% highlight ruby %}
+render :partial => "document", :collection => @documents
+{% endhighlight %}
+
+Things like that are what will keep your view code down to a minimal, and increase reusability!
+
+<h3>Exception handling</h3>
+
+Don't go around blindly catching all exceptions!  I've seen this done quite a lot, and it can take bug fixes up from minutes to hours.  Only catch what you expect.  This isn't really a Rails issue, but a lot of developers seem to want to hide errors on live systems rather than deal with them intelligently, purely because by default Rails will show "Application error" or nothing.
+
+When planning the time required for a project, add on time for both test code and error handling.  You'll reap the rewards in the long run.
+
+<h3>Test code</h3>
+
+The Rails team works really hard to give you great test functionality, so use it!  Test code isn't a chore, it's part of the actual development process.  For example, when I check out a project from subversion and there's no tests, how do I know my changes haven't broken another part of the system?  Tests are more valuable than documentation (since no one ever reads it properly anyway.)  Good test code is another thing that'll cut down your bug fixing time, decreasing your project's maintenance costs.

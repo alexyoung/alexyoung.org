@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Some Ruby on Rails Plugin Stats"
+categories: 
+- ruby
+- rails
+- programming
+- plugins
+---
+
+There are now almost 1000 entries in the main resource for Ruby on Rails plugins, "Agile Web Development's Plugins Directory":http://agilewebdevelopment.com/plugins.  Of these, 596 have repositories listed that are accessible.  I wanted to see how many of these plugins came with some form of tests, so I created a spider (using a "web spider library":http://rubyforge.org/projects/spider/) and performed some basic analysis on each repository.
+
+After reading a few magazines, and watching two entire TV shows, the spider came back with a result: *54% of the plugins have tests*.
+
+It's amazing to think that there's almost 1000 plugins in one directory, and a good proportion have tests amongst those I could easily analyse.

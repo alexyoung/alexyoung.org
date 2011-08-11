@@ -1,0 +1,22 @@
+---
+layout: post
+title: "Google Home API Security"
+categories: 
+- google
+- api
+- programming
+---
+
+If you wanted to develop a <a href="http://www.google.com/ig">Google Home</a> module that accesses a service using a password, you might notice a few flaws:
+
+# There isn't a password type available, so any user preferences that require a password will display the password in plain text.
+# If you still want to store passwords in user preferences, be aware that every single time Google Home loads, it will fetch the module with the password in plain text in the GET request.
+
+It would be nice if Google introduced a 'password' type, to compliment the existing types for preferences.  This would at least allow you to have a starred password field in the user preferences.
+
+Many services, such as xmlrpc used by weblogs like Wordpress, send passwords in the clear anyway.  But as it stands, if a friend or colleague had a Google Home module that integrated with a third party service that required a password, I could use their browser and:
+
+* Click edit and view the password in the password field, or:
+* Use the browser to open the module in a new window or tab, and observe the password in the URL, since all user preferences are submitted by GET requests to the module's source XML file.
+
+Additionally, you're not going to be able to use XMLHttpRequest() with Google Home because... XMLHttpRequest() doesn't allow you to talk to different servers, for obvious security reasons.  You can, however, use _IG_FetchContent(url, func) to perform GET requests, and get the content back (func takes a single parameter that contains the resulting content.)

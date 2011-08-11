@@ -1,0 +1,60 @@
+---
+layout: post
+title: "Session Encapsulation"
+categories: 
+- rails
+- programming
+- tips
+---
+
+!/images/session_encapsulation.png!
+
+Have you ever been working on a project that has session variables controlling important aspects of functionality?  When they start falling out of controllers and views into a big pile of soup on the floor it's probably time to encapsulate them.
+
+Although relying on the session object in controllers and views is relatively easy to understand, you should be very wary when you're tempted to use them this way.  Thinking, "I'll just add a session variable for this" will probably lead to misunderstandings or bugs later on.  And once session variables start relying on each other for application logic it really is a good time to encapsulate them.
+
+Encapsulating code that relates to sessions can produce controllers that are easier to understand, and add new opportunities for high quality testing.  It also becomes easier to serialise session data people care about, and possibly even give people on your site new configuration options later.
+
+There are several strategies to consider:
+
+# Using methods within the controller that abstract session interaction
+# ActiveRecord objects with before and after filters to save and load data
+# Creating your own classes that interact with the session object
+
+At the very least, using filters to automatically load objects that views depend on will save later headaches.  For example, if you're displaying news and offer a drop-down for country selection, don't use <code>session[:selected_country]</code>.  Try and use <code>@country</code> instead.
+
+Ultimately you should be aiming for is code that looks something like this:
+
+{% highlight ruby %}
+class ArticlesController::Session
+  # Your session logic goes here
+end
+{% endhighlight %}
+
+{% highlight ruby %}
+class ArticlesController
+  before_filter :load_session
+
+  def index
+    @articles = Article.find :all, :limit => @article_session.story_limit
+  end
+
+  def load_more
+    @article_session.increment_story_offset
+    @articles = Article.find :all, :limit => @article_session.story_limit, :offset => @article_session
+  end
+
+  private
+    def load_session
+      @article_session = ArticlesController::Session.new session
+    end
+end
+{% endhighlight %}
+
+In this scenario, <code>ArticlesController#index</code> displays a list of articles.  Scrolling down the page uses Ajax to load more stories dynamically by calling <code>ArticlesController#load_more</code>.  A session variable is automatically incremented so stories can be loaded where <code>ArticlesController#index</code> left off.  Subsequent calls will continue to increment the counter.
+
+It's assumed that <code>ArticlesController::Session</code> automatically reads and writes to the session object.  Therefore, writing unit tests for <code>ArticlesController::Session</code> is simple and easy to understand.  I put classes like <code>ArticlesController::Session</code> in another file to make life easier.
+
+Abstracting the session in this case makes sense because incrementing the offset is something that should be tested carefully.  For example, it would be useful to handle what happens when all stories have been displayed in a testable way, without resorting to over-complicated functional tests or a few hours in the browser.
+
+Finally, once you've started encapsulating session variables you can immediately start validating data.  This has immediate implications for security issues and the overall quality of your application.

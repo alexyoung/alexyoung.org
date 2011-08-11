@@ -1,0 +1,18 @@
+---
+layout: post
+title: "Carson Workshops: Get Started Using Ajax By Thomas Fuchs"
+categories: 
+- javascript
+- programming
+- workshops
+---
+
+I went to the <a href="http://www.carsonworkshops.com/dev/fuchs/08DEC2005.html">Get Started Using Ajax workshop with Thomas Fuchs</a> in London yesterday, and despite having used minimal Ajax and <a href="http://script.aculo.us">script.aculo.us</a> effects before, learned quite a lot.
+
+Thomas started off discussing the background of the technology, and wasn't scared to dive into real examples, with PHP and Rails.  He explained how the Ajax call works, and also discussed the pros and cons of using JavaScript libraries, such as <a href="http://dojotoolkit.com/">Dojo</a> and <a href="http://script.aculo.us">script.aculo.us</a>, against using more lean server-oriented abstractions such as <a href="http://www.modernmethod.com/sajax/">Sajax</a>.
+
+What was very interesting was his section on real world examples.  The primary focus of this was an extensive demo of <a href="http://fluxiom.com/">Fluxiom</a>, where he showed how using simple effects and ajax can actually make your application behave much more like a desktop application than a web page.  Fluxiom only loads images as you scroll, and uses dynamic tagging, so there's no need to use pagination or anything messy like that.  It was good to hear that Fluxiom has beta testers from all over the world, and they've found no latency issues when using Ajax.
+
+As well as real world examples, Thomas explained how to debug Ajax-oriented applications using several Firefox extensions.  Although I use the JavaScript debugger and the DOM inspector, seeing how someone with advanced knowledge of JavaScript works really made it clear how to debug, profile and improve JavaScript code.  So now my copy of Firefox is installed with several new extensions that he recommended, and I'm already finding working with Ajax much easier.
+
+Hats off to <a href="http://www.carsonworkshops.com ">Carson Workshops</a> though, they ran a professional and friendly event.  They mentioned they were running the workshop because it seemed to them that a lot of this knowledge is being put to use in the US, rather than in Europe.  Perhaps London will become the new Chicago within the next year?  I can hope!

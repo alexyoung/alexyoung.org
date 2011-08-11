@@ -1,0 +1,65 @@
+---
+layout: post
+title: "Running a Web Business in the UK"
+categories: 
+- business
+- marketing
+---
+
+A friend of mine shared this link with me: "37signals has some lessons for European startups":http://eu.techcrunch.com/2009/10/29/startup-school-2009-37-signals-has-some-lessons-for-european-startups/.  It made me think about 37signals business and marketing approach to web apps -- what works and what doesn't for the rest of us.
+
+I build web applications and I also freelance.  My company is called Helicoid.  I've found that marketing software without a good chunk of capital is like playing the lottery.  There's a chance that your apps might get noticed, but you need to sustain interest over time.  You might have noticed how often certain businesses appear on premium advertising services like "The Deck":http://decknetwork.net/ -- that's because they invest a serious amount of money into marketing.
+
+Why do some businesses have to pay thousands of dollars to appear on The Deck while 37signals don't?  The secret is community.
+
+h3. History and Community
+
+37signals started as a design agency.  They had some great public-facing projects: single page redesigns, a design-oriented blog, and a book called "Defensive Design":http://www.amazon.com/Defensive-Design-Web-improve-messages/dp/073571410X.  All of these things conspired to make their blog incredibly popular.  Meanwhile, their work became increasing technical, and Basecamp evolved from the desire to better communicate with clients.
+
+Once they hit upon the idea of selling Basecamp as a web application, they had thousands of readers on their blog to sell it to.  This is a marketing dream come true.  There's literally no way you can emulate this.  You can't buy thousands of people and make them follow your work and trust you.
+
+With this history in mind, lots of 37signals' business advice makes sense, *within the context of their business*.  Unless you run a community or have a popular blog, you're going to need to *think for yourself*.
+
+If you have access to such a community then you're in an incredible position: *selling to hundreds of people who are genuinely interested in what you do is the best marketing strategy in the world*.
+
+h3. Fundamental Business Concepts
+
+If you're interested in forming a business, it's worth learning what _limited_ in limited company means.  It's important to understand that the liability is limited to the company itself, not you.  That means the risk of failure isn't as drastic as it sounds, as long as you run your business legally.
+
+Running a business legally is made easier by finding a good accountant.  I'm not talking about someone who will find legal loopholes in your country's tax system, I'm talking about someone who will give you tax and even business advice.
+
+My accountant helped with our company's formation, and without him I'd never have got started.  I found him with Google by searching for accountants in my area.
+
+h3. Networking and Events
+
+Think carefully about the difference between networking, events and marketing.
+
+I go to a lot of web technology events to learn.  When I started out, I mistakenly thought these would be good for marketing.  They're terrible for marketing products unless they directly relate to the audience.
+
+Startup events are useless for product marketing.  Drinking a few beers with a group of people who are all running web technology companies isn't going to help you find customers, but it might help you find freelance work.
+
+h3. What Works for Me
+
+Freelance, open source, social media and Alan Sugar.
+
+Freelancing allows me to work on my terms.  Sadly the British government has created a climate that is hostile to freelancers and contractors.  We're taxed so much you could probably run NASA off us.  To be efficient with the company's money, I invest in my web applications.
+
+I currently have over 30 GitHub projects.  A few of them have corresponding web sites, like "JsChat":http://jschat.org/.  JsChat has a reference to my company's name, so my open source efforts get paid back in a small way by people discovering my company.
+
+Social media has given me more marketing exposure than thousands of pounds of web adverts.  One of my products gets talked about all over the web on forums, Facebook, Twitter and blogs.
+
+At first I didn't like to contact blogs about my products because I felt like I was spamming them, but you really need to do this.  I launched something last year, fired off a few friendly emails to Mashable, Read Write Web and similar sites, and I had 6000 signups within two weeks.  These blogs have a needle/haystack issue, so one trick I used was to offer their readers a code to get a special premium version of my service.
+
+Producing your own content is a good marketing strategy.  Aim to write and share useful things with your audience.  I write design and technical articles here and on one of Helicoid's blogs.  The secret to social media is rhythm -- whenever I let the blogs slide for a few weeks it gets harder and harder to regain interest in them.  It takes a while to pay off though, you can blog for months before picking up interest.
+
+I mentioned Alan Sugar for a good reason.  I don't watch The Apprentice and I've only seen a few episodes of Dragon's Den, and I don't think much of Amstrad.  But a few years ago I saw him on TV and he was explaining managing a business to a failed contestant.  He said he'd know the exact figures for his potential market, the overheads, the marketing investment, the forecast for the next month or even year.
+
+This was a wake up call for me.  I'm a programmer, and business is something I do when I'm not programming.  I had to turn this mentality around to have any hope of making money selling software.
+
+Be exacting: detailed monitoring of your web apps can funnel straight back into your marketing investment.  I do this my way -- I have rake tasks that go off and query my apps to give me figures for various statistics.
+
+h3. Choose Your Own Adventure
+
+All this advice comes down to finding what works for you, and working hard.
+
+*If you build it, they won't come* -- you need to work to get people interested in your products, and you need to work to support your hard won customers.  If you don't love it you won't succeed, and if you expect to be successful without marketing you will fail.

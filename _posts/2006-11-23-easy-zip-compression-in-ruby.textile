@@ -1,0 +1,28 @@
+---
+layout: post
+title: "Easy Zip Compression in Ruby"
+categories: 
+- ruby
+- programming
+---
+
+I needed a quick way of exporting data as zlib from a controller in Rails, so I came up with this:
+
+{% highlight ruby %}
+def export
+  send_data compress_string(Document.find_all.to_xml), :filename => 'backup.xml.gz'
+end
+
+def compress_string(data)
+  gz = Zlib::GzipWriter.new(StringIO.new(''))
+  gz.write data
+  gz.close.string
+rescue
+  gz.close
+  raise
+end
+{% endhighlight %}
+
+Another way would be to use tempfiles with Tempfile -- I wanted to benchmark and profile using files compared to StringIO, but that'll be an exercise for another day.
+
+This could also work nicely with <a href="http://raa.ruby-lang.org/project/minitar/">Minitar</a>.

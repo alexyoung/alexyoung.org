@@ -1,0 +1,42 @@
+---
+layout: post
+title: "Smartphone Security Flaws / Nexus One Review"
+categories: 
+- mobile
+- security
+---
+
+I've been playing with an Android phone recently (the "Nexus One":http://www.google.com/phone).  Android has a screen lock feature where you can draw a shape on the screen instead of entering a code.  Lazily tracing the unlock code with a finger is a novel (and very fast) way to unlock the phone.
+
+I noticed that every time I do this my code is visible in finger grease on the screen.  As disgusting as this sounds it's an amusing security flaw.  Even though it only shows you the overall shape (not the direction the shape is drawn) you can bet native English speakers are more likely to draw the shape left-to-right due to the writing system working that way.
+
+h3. Nexus One
+
+I haven't used Android much before, and I feel like I've started using it at a good time.  Just about everything I'm interested in is on the Android Market.  I'm not actually switching from iPhone to Android, because I'm a serious Mac/iPhone developer and I enjoy using Objective-C and Cocoa.  However, I'd like to supplement my incredibly busy schedule with Android development as well.
+
+The Nexus One hardware has some good points:
+
+* The touch screen, though not as accurate as the iPhone's, is usable
+* The screen's contrast is excellent
+* The camera is 5MP and the flash is good enough for near-distance photos (no more grainy indoor shots)
+* The hardware feels high quality
+* My 3GS iPhone headphones work well with it: the mic and the pause/stop buttons work (volume doesn't)
+* It has this nifty trackball that works really well, allowing me to scroll through web pages with minimum effort
+* You get a mains charger, so it's not just USB
+* You can install custom keyboards!
+* You get a really cool case with a cute picture of the Android droid
+
+!/images/android_case.png!
+
+However:
+
+* Despite having a ridiculously fast CPU the GUI's framerate isn't as good as it should be -- iPhones feel faster in general use
+* The supplied apps vary wildly in interface quality
+* The onscreen keyboard just doesn't work as well as Apple's, by a long way
+* Although some apps "unlock" multitouch most games don't seem to use it, which makes them pretty unplayable (Nexus One doesn't have as many hardware buttons as phones like the Droid)
+* For some reason the standard Android buttons (back, menu, home, search) don't always trigger when I press them, I don't really understand why but I think your finger needs to fall slightly above them
+* The fact Android needs these buttons is very confusing if you're an iPhone user -- iPhone apps have just about everything on the screen with no need for a back or menu button.  After almost a week of use I've only just got used to reaching for back/menu
+
+One thing I've always liked about iPods and iPhones is sync.  You get a backup, and your content appears on the device.  Google sidestep this by syncing your Google data.  I use Google hosted for my work and personal email, so having my contacts appear after entering my login details was great.  In fact, I haven't missed sync at all.  Even with music and photos, because the apps just find the content on the SD card.
+
+The combination of web-based services and wireless syncing works well for Android and Kindle, and I suspect more devices will go this way.

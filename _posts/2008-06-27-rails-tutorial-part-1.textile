@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Rails Tutorial Part 1"
+categories: 
+- writing
+- rails
+- ruby
+---
+
+My Rails tutorial (part 1 of 4) has been published in "Linux Format 108":http://www.linuxformat.co.uk/modules.php?op=modload&name=NewArchives&issue=108.  It shows you how to build a Rails-powered photo gallery, by using basic techniques and popular plugins.
+
+Grab it from your favourite newsagent and let me know what you think!

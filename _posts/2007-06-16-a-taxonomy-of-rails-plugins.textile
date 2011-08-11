@@ -1,0 +1,197 @@
+---
+layout: post
+title: "A Taxonomy of Rails Plugins"
+categories: 
+- rails
+- programming
+- ruby
+- patterns
+- plugins
+---
+
+A common stumbling block for Rails developers is learning the basics required to write plugins.  This is made more complicated by the fact that Ruby is inherently dynamic and offers many techniques for code reuse.  Luckily, if you can write Rails applications you can write plugins by simply drawing on a handful of basic patterns.
+
+The purpose of this article is to demystify writing plugins using examples of common patterns used by popular plugins.
+
+h3. Why write plugins?
+
+Writing a plugin will:
+
+* Help make sharing code more efficient, whether it's between projects or within the same project
+* Allow you to publish generic code to the community
+* Save time and increase your confidence by testing once and reusing many times
+* Share functionality in a robust manner, especially when using namespaces with ActiveRecord
+
+h2. Usage
+
+h3. Management
+
+Rails provides installation scripts through <code>script/plugin install</code>, and a generator for creating new plugins: <code>script/generate plugin</code>.  These will work with URLs, saving time when trying out plugins.  You can read more about installing and managing plugins at the "Rails wiki":http://wiki.rubyonrails.org/rails/pages/Plugins.
+
+h3. Creation
+
+Rails provides a generator for creating plugins.  Invoking the following command:
+
+{% highlight sh %}
+script/generate plugin acts_as_
+{% endhighlight %}
+
+generates a set of files in <code>vendor/plugins/acts_as_</code>, with stubs for you to fill in.  You'll notice files are generated for installing, uninstalling and testing, as well as a rake task.  Many plugins won't require a rake task, and installing and uninstalling a plugin can mean whatever you want it to: perhaps your plugin requires database tables (consider a _taggable_ plugin that requires tables to store tags), or maybe you want to check for dependancies during <code>script/plugin install</code>.
+
+h2. Rubyisms
+
+Any of the following tools and techniques provided by Ruby are used by plugins to extend functionality:
+
+* Mixins: including or extending classes using modules
+* Opening a class or module definition and adding or overriding methods
+* Dynamic extension through callbacks and hooks: <code>method_missing</code>, <code>Class#inherited</code>, <code>Module#const_missing</code>, <code>Module#included</code>
+* Dynamic extension through code generation: <code>eval</code>, <code>class_eval</code>, <code>instance_eval</code>
+
+These techniques fall into two broad categories:
+
+* Using modules and classes to extend existing classes, providing new features
+* Using introspection to adapt generic code to specific cases
+
+It's important to consider exactly what should be extended when writing a plugin.  If complex meta-programming to adapt your plugin to the host application is required, care should be taken to ensure concurrency will not produce unexpected results.
+
+h2. Extending ActiveRecord
+
+The most popular technique for extending ActiveRecord classes is by using modules and an <code>acts_as_</code> class method.  Most plugins split themselves into two modules containing class methods and instance methods, making it clear where methods are meant to be used.  
+
+h3. Adding new code to ActiveRecord
+
+To extend <code>ActiveRecord::Base</code> with your new <code>acts_as_</code> plugin, the most common technique is to simply add the following to the plugin's <code>init.rb</code> file:
+
+{% highlight ruby %}
+ActiveRecord::Base.send(:include, MyPlugin)
+{% endhighlight %}
+
+You could also use class_eval to achieve the same effect.  This example is from "acts_as_rateable":http://rateableplugin.rubyforge.org/:
+
+{% highlight ruby %}
+ActiveRecord::Base.class_eval do
+  include FortiusOne::Acts::Rateable
+end
+{% endhighlight %}
+
+Notice the use of the company name to create a namespace for the author's plugins.
+
+The next step is to <code>extend</code> <code>ActiveRecord::Base</code> with the module housing the <code>acts_as_</code> method.  Again, from "acts_as_rateable":http://rateableplugin.rubyforge.org/:
+
+{% highlight ruby %}
+module FortiusOne #:nodoc:
+  module Acts #:nodoc:
+    module Rateable #:nodoc:
+      
+      def self.included(mod)
+        mod.extend(ClassMethods)
+      end
+
+      module ClassMethods
+        def acts_as_rateable(options = {})
+        end
+      end
+{% endhighlight %}
+
+At this point, it would be possible for any <code>ActiveRecord</code> class to use <code>acts_as_rateable</code> in its class definition.  Doing so would send any provided options to <code>acts_as_rateable</code> in the plugin's <code>ClassMethods</code> module.
+
+h3. Managing options
+
+Most plugins use <code>extend</code> and <code>include</code> within their <code>acts_as_</code> method to furnish the receiving class with class methods and instance methods.  This is also where options are dealt with.  Options are generally handled by using a hash:
+
+{% highlight ruby %}
+def acts_as_taggable(options = {})
+{% endhighlight %}
+
+If options are required elsewhere by both class and instance methods, <code>write_inheritable_attribute</code> and <code>class_inheritable_reader</code> can be used to save settings.  This edited example is from "acts_as_state_machine":http://agilewebdevelopment.com/plugins/acts_as_state_machine:
+
+{% highlight ruby %}
+def acts_as_state_machine(opts)
+  self.extend(ClassMethods)
+  raise NoInitialState unless opts[:initial]
+
+  write_inheritable_attribute :initial_state, opts[:initial]
+          
+  class_inheritable_reader    :initial_state
+{% endhighlight %}
+
+There's a reason so many plugins use <code>write_inheritable_attribute</code> and not <code>cattr_</code> methods.  Consider what would happen if <code>initial_state</code> was a class variable: other objects that used the plugin would contain references to the same <code>initial_state</code>.  Plugins are generally distinct, reusable chunks of code, so a copy (rather than a reference) of <code>initial_state</code> is required.
+
+h3. Reusing sets of associations and callbacks
+
+"acts_as_taggable_on_steroids":http://agilewebdevelopment.com/plugins/acts_as_taggable_on_steroids demonstrates a simple use for plugins:
+
+{% highlight ruby %}
+module ClassMethods
+  def acts_as_taggable(options = {})
+    has_many :taggings, :as => :taggable, :dependent => :destroy, :include => :tag
+    has_many :tags, :through => :taggings
+          
+    before_save :save_cached_tag_list
+    after_save :save_tags
+{% endhighlight %}
+
+As you can see, the author has called associations and callbacks from within the plugin's class method.  This is possible because the <code>acts_as_taggable</code> method runs from within the receiving class's definition.
+
+I've found myself using the same technique for defining complex but reusable associations (particularly in the case of reusable polymorphic has_many associations.)
+
+For example, I worked on a group-based security system that used callbacks and polymorphic has_many associations.  Instead of adding this (albeit simple) code to each class that required group-based security, I wrote a plugin.  Compare the following code:
+
+{% highlight ruby %}
+class Contact < ActiveRecord::Base
+  acts_as_restricted
+end
+{% endhighlight %}
+
+To the original:
+
+{% highlight ruby %}
+class Contact < ActiveRecord::Base
+  has_many :restrictions, :as => :restricted, :dependent => :destroy, :extend => ...
+  before_save :auto_groups
+  after_create :save_groups
+{% endhighlight %}
+
+This code can now be reused between all of my projects, and new classes can be "restricted" merely by adding <code>acts_as_restricted</code> to their class definition.  This can help save time -- especially in cases where clients are still making up their mind about what should be restricted.
+
+h3. Structure
+
+I prefer to structure my plugins by creating separate files for each module.  This can be seen demonstrated in "acts_as_solr":http://acts-as-solr.rubyforge.org, which uses a separate file for class methods.
+
+Modules can be used for class methods, instance methods and _singleton methods_.  Although it might seem difficult to distinguish between class and singleton methods, some plugin authors exploit this to clarify their code.  Since singleton methods apply to a particular object, rather than a class of objects, you could effectively add new methods to particular instances of a class as required.
+
+Or, in the case of "acts_as_rateable":http://rateableplugin.rubyforge.org/, <code>module SingletonMethods</code> is used to distinguish between methods added to ActiveRecord and those added to the receiver.  In this case finders are added.
+
+h2. Extending ActionController and ActionView
+
+The same techniques used by ActiveRecord plugins are used to extend ActionController and ActionView.  The UploadProgress plugin extends ActionView and ActionController to add its own helpers and controller functionality:
+
+{% highlight ruby %}
+ActionController::Base.send(:include, UploadProgress)
+ActionView::Base.send(:include, UploadProgress::UploadProgressHelper)
+{% endhighlight %}
+
+Controllers can then use the plugin by calling <code>upload_status_for</code>, defined in <code>UploadProgress::ClassMethods</code>.
+
+h2. Best practices
+
+* Eschew liberal usage of <code>include</code> in favour of well-designed plugins
+* Structure your plugins carefully to ensure they're easy to understand and easy to test
+* Make sure you use <code>write_inheritable_attribute</code> and <code>class_inheritable_reader</code> so you don't end up referencing settings instead of creating new ones
+* Write tests as part of the design process, not least because plugins can be slow to write as they're not reloaded when using mongrel/webbrick
+* Ensure generated SQL isn't open to injection attacks: escape user input -- I've found open source plugins that generate raw SQL without escaping variables
+* Think carefully about the implications of meta-programmed code, and be wary of eval and eval-like methods
+
+h2. Next steps
+
+This article will be continued with examples of how plugins are tested.
+
+h2. References
+
+* "acts_as_rateable":http://rateableplugin.rubyforge.org/
+* "acts_as_state_machine":http://agilewebdevelopment.com/plugins/acts_as_state_machine
+* "acts_as_taggable_on_steroids":http://agilewebdevelopment.com/plugins/acts_as_taggable_on_steroids
+* "acts_as_solr":http://acts-as-solr.rubyforge.org
+* "Rails Plugin Directory":http://agilewebdevelopment.com/plugins
+* "Rails Wiki on plugins":http://wiki.rubyonrails.org/rails/pages/Plugins
+

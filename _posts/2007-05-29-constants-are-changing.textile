@@ -1,0 +1,34 @@
+---
+layout: post
+title: "Constants are Changing"
+categories: 
+- ruby
+- programming
+---
+
+!/images/constants_are_changing.png!
+
+Boards of Canada wrote a song called _Constants are Changing_.  In Ruby even constants are dynamic, holding a reference to an object rather than the object itself.  This consistency makes modifying constants possible, and rather than being something considered distasteful it may form an integral part of the design of a system.
+
+Changing a constant's reference will result in a warning, but there are times when ignoring these warnings might be arguably legitimate.  I wrote a simple tool that runs for long periods of time, and occasionally needs to reload associated classes.  Ruby makes this possible, but raises warnings when constants are redefined.  In this case I decided to ignore the warnings (although eventually re-factored.)
+
+However, attempts to reassign a constant inside a method block will result in <code>SyntaxError: compile error</code>.  Constants therefore behave in a way that supports Ruby's desire to be dynamic without fundamentally contradicting the notion of a constant.
+
+Modifying a constant's referenced object will not result in warnings:
+
+{% highlight ruby %}
+>> Friends = []
+=> []
+>> Friends << 'Bob'
+=> ["Bob"]
+>> 
+{% endhighlight %}
+
+This can be exploited to model certain situations.  It implies that Friends should always be an array, and perhaps starts life with a default set of Friends that always exist.  It makes it awkward for a developer to reassign the constant on a whim.  This constant would also fit neatly into scope, and is often used to provide some syntactic simplicity in meta-programming schemes.
+
+There are times, however, when constants are misused.  Take the case of application configuration.  Many developers immediately assume "I know these application-specific configuration values will never change, so I can safely define them as constants."  An assumption like this can be dangerous, because:
+
+* A list of constants isn't necessarily the best way to model something
+* It results in poor encapsulation
+* Testing can become messy, or leave the side-effects of different values untested
+* Aesthetics: avoiding "just adding" another configuration value and modelling elegantly instead

@@ -1,0 +1,24 @@
+---
+layout: post
+title: "We Are The App Store"
+categories: 
+- business
+- essays
+---
+
+In the time I've been a programmer, I've seen Apple gain and lose the respect of developers in a cycle of growing predictability.  Apple's fortunes have arguably followed these trends.  Reading John Gruber's response to "Readability's open letter to Apple":http://blog.readability.com/2011/02/an-open-letter-to-apple/ on Apple's new subscription policy surprised me to say the least:
+
+bq. Readability needs Apple to publish an app in the App Store. Apple doesn’t need Readability.
+
+Without Readability and innovative small businesses like it, the App Store is _nothing_.  What's an App Store without Apps?  A way to sell Apple's over-hyped and underused applications like Pages for iPad?
+
+We are the App Store, and Apple will lose out if they don't respect that.  As a developer of web and iOS applications, taking away my freedom by forcing me to use Apple's subscription system is unacceptable.
+
+Both Apple and Google have demonstrated that they want to be the only source of commercial apps for their platform.  Now they're telling us how to do business at a fundamental level, and taking a cut of our income.
+
+Recently, "37signals made a web app instead of native apps":http://37signals.com/svn/posts/2761-launch-basecamp-mobile for Basecamp.  I thought a native Basecamp app sounded like a fun project and couldn't understand why they made this move, but now it looks like a wise decision.  They have a usable app, on devices with built-in wireless connectivity, without having to give a dime to Google, Apple, or anybody else.  How many more companies are going to move to elegant HTML5 web experiences to escape the control of Apple?
+
+The most galling statement I've read on this topic is that app developers have had a free lunch so far.  Excuse me?  How many of us invested weeks or months to study Apple's (relatively unique) choice of language, and closed APIs?  How many of us paid our mandatory iOS developer fee?  How many of us have had apps rejected for obscure reasons?  And before the Apple apologists start arguing about App Store rejections -- I work (freelance) for a music streaming service, and believe me when I say there's nothing _fair_ about Apple's review policies.
+
+I love developing with Apple's operating systems and tools, but people are surprisingly fickle and will dump their iPhones quicker than Apple are prepared for.  We make the App Store what it is, and the future of it is in our hands.
+

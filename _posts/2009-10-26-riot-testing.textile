@@ -1,0 +1,61 @@
+---
+layout: post
+title: "Riot: Ruby Unit Testing"
+categories: 
+- programming
+- testing
+- ruby
+- riot
+---
+
+"Riot":http://github.com/thumblemonks/riot is a Ruby unit testing framework.  It results in terse and expressive unit tests.  It strikes the perfect balance between shoulda and rspec-like test frameworks.  It's also very fast.
+
+Riot isn't based on <code>Test::Unit</code> (unlike Shoulda).  It flattens your tests into contexts with sets of assertions.  It has a <code>setup</code> block that runs before the assertions in a context.
+
+There's a movement within the Ruby community to write tests with one assertion per test block.  Riot fundamentally works this way because assertions are the test block, so cheating isn't possible.  This makes for incredibly focused unit tests.
+
+Riot is still under active development by its author, "Justin Knowlden":http://github.com/thumblemonks/riot/blob/master/README.markdown, but it's completely usable right now.  I was so impressed by it that I've created a JavaScript port called "riotjs":http://github.com/alexyoung/riotjs -- I'll cover this in another post soon.
+
+h3. Redundancy
+
+Used as the author intended, Riot removes redundancy even when compared to Shoulda.
+
+Test::Unit:
+
+{% highlight ruby %}
+class UserTest < Test::Unit::TestCase
+  def setup
+    @user = User.new
+  end
+
+  def test_email_address_is_nil
+    assert_nil @user.email
+  end
+end
+{% endhighlight %}
+
+Shoulda:
+
+{% highlight ruby %}
+class UserTest < Test::Unit::TestCase
+  def setup
+    @user = User.new
+  end
+
+  should "have nil email" { assert_nil @user.email }
+end
+{% endhighlight %}
+
+Riot:
+
+{% highlight ruby %}
+context "a new user" do
+  setup { User.new }
+  asserts("email address") { topic.email }.nil
+end
+{% endhighlight %}
+
+h3. FAQ and More
+
+Riot's author has anticipated the typical set of Ruby test tool questions in the "README":http://github.com/thumblemonks/riot/blob/master/README.markdown.
+

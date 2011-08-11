@@ -1,0 +1,10 @@
+---
+layout: post
+title: "Guerrilla Software Marketing Strategies"
+categories: 
+- marketing
+---
+
+"Guerrilla Software Marketing Strategies":http://biznik.com/articles/guerrilla-software-marketing-strategies is an article I wrote for "Biznik":http://biznik.com about our experiences marketing my web applications.  It covers (proven!) free techniques for marketing your software.
+
+If you find this useful I'm thinking about following it up with an article about what *didn't* work for us.

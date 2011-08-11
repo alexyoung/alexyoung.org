@@ -1,0 +1,59 @@
+---
+layout: post
+title: "Agile Deployment: Unified Repository"
+categories: 
+- ruby
+- rails
+- deployment
+- agiledeployment
+---
+
+Source code management is closely tied to deployment.  Creating a deployment strategy that truly feels agile requires careful management and preparation of the source repository.
+
+h2. Branched Environments
+
+My first approach worked like this:
+
+* I had subversion branches for each server type (pre-production, production)
+* These branches had their own settings files suited to their environments
+* We'd merge changes from forks into trunk, then merge into pre-production, then production
+
+This worked relatively well and was easy to understand.  The main issue I had with this approach was it added overhead to deploying that I wasn't prepared to deal with.  Having to carefully merge new changes every time was a real chore.  I often didn't feel secure that we'd merged in all the changes, and I'd have to open up "Changes":http://connectedflow.com/changes/ to visualise the differences.
+
+h2. Unified Environments
+
+I generally work in very small teams.  Most of Helicoid's design and development is still just me, so I don't want any overheads at all.  I just want to type <code>rake deploy</code> and feel secure that my servers are up to date.
+
+This forced me to unify my deploy environments into one branch.  This is how it works for my Rails projects:
+
+* <code>database.yml</code> is either 3 files (dev, pre-prod, prod) or 1 file (where production actually refers to the production database settings) -- this depends on the project and QA requirements
+* Most of my projects have their own configuration files.  These are handled like <code>database.yml</code>
+* My <code>deploy.rb</code> allows me to select which environment I'm deploying to
+
+These settings files can then be either symbolically linked or simply copied during deploy.  Environment selection can work either using a command line variable or a prompt in the deploy script.
+
+Here's how I select environments:
+
+{% highlight sh %}
+rake deploy server=test
+{% endhighlight %}
+
+Then in <code>deploy.rb</code>:
+
+{% highlight ruby %}
+if ENV['server'] == 'production'
+  set :application, 'production_app'
+elsif ENV['server'] == 'test'
+  set :application, 'test_app'
+else
+  raise "Please select an environment with 'server=test|production'"
+end
+{% endhighlight %}
+
+h3. Sanity
+
+This unified approach makes every fork deployable to any environment.  Although this removes a lot of overhead, this creates a situation where deployment is so easy that people on your team might deploy to production before your QA processes have reviewed changes.
+
+One way to mitigate this is by only allowing certain people to have deploy keys.  As with SCM, the software tools can't replace communication.  Don't rely on the state of the repository alone, talk to your colleagues (and clients if appropriate) to prepare for deployment.
+
+For small projects I find a group email of feature changes is useful to start this process.  I gather all my changes from my time sheets (I usually have lots of useful stuff in "Tiktrac":http://tiktrac.com/), and git logs, then I send out a quick message with bullet points detailing the changes.  This can be a polite way of reminding clients that they need to review and accept changes on the pre-production server.

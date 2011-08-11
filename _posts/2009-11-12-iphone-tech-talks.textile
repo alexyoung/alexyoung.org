@@ -1,0 +1,18 @@
+---
+layout: post
+title: "iPhone Tech Talks: A Great Success"
+categories: 
+- koolaid
+- programming
+- iphone
+---
+
+!/images/iphone-tech.png!
+
+I was at the London iPhone Tech Talks yesterday.  It was a free event put on by Apple with talks by Apple's engineers.  More importantly, it was at a "great venue":http://www.congresscentre.co.uk/ with free food and drink all day, and free beer and wine afterwards.  Also, the wifi worked!
+
+I have two of my own apps on the store right now, with a freelance project about to appear as well.  One app in particular is giving me some grief -- I'm using Apple's push API to send out reminders, but it's not being 100% reliable.  Fortunately there was a talk about push, and I was able to talk to the speaker afterwards about my issues -- by following his advice I've already fixed my app.
+
+There was also a good talk on iPhone fundamentals which included some coverage of <code>NSOperation</code>.  I've been looking for a simple way of backgrounding API requests in my apps, so this talk helped a lot.
+
+Despite the talks being pretty basic I've been working with the iPhone API since the start, and Cocoa for longer, and I learned a lot.  Getting advice on how to fix real apps from Apple engineers was hugely useful for me.

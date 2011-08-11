@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Top 5 uses for Capistrano"
+categories: 
+- capistrano
+- rails
+- programming
+- sysadmin
+---
+
+I recently posted my "top 5 uses for Capistrano":http://blog.helicoid.net/2008/10/02/top-5-uses-for-capistrano over at "Helicoid's Blog":http://insider.helicoid.net -- including juicy code snippets!
+
+I like "Capistrano":http://capify.org/ a lot.  It's now doing all kinds of things to ease my workflow, from backing up servers to providing me with detailed signup statistics for each of my web apps.  Whilst I'm still the only developer designing and building 4 successful web apps I need all the help I can get, so I've naturally cobbled together a range of software techniques to help.  At least, until I can find an army of robots to do the work for me.
+
+Seriously, as soon as we hit enough subscribers to take on another developer I'll be straight out in London hunting down the finest Ruby developers, with bribes in the form of shares and beers.

@@ -1,0 +1,30 @@
+---
+layout: post
+title: "What you Absolutely Must Know About TextMate"
+categories: 
+- textmate
+- editors
+- programming
+---
+
+<a href="http://macromates.com/">TextMate</a> is one of the best text editors for Mac OS X.  There's a few features that you might have missed if you're a new user, which I'll briefly illustrate with screenshots.
+
+<h3>mate .</h3>
+
+In the Terminal, type 'mate .' to create a project out of the current directory.  This is so handy and fast:
+
+"!/images/mate-thumb.png!":/images/mate.png
+
+<h3>cmd-t</h3>
+
+Press cmd-t to search through the files in the current project, select the file and press return to open it in a new tab.
+
+<img src='/images/cmdt.png' alt='' />
+
+<h3>ctrl-escape</h3>
+
+Press ctrl-escape to call up the bundle menu.  This basically lets you process text, you can do handy things like quickly insert language control and flow constructs, or validate the syntax of the language you're using.
+
+"!/images/ctrlescape-thumb.png!":/images/ctrlescape.png
+
+Since keyboard navigation in TextMate is so efficient, if you're a fan of Quicksilver you're likely to enjoy using it.  And if you're used to Eclipse (which I use as my editor in Windows), you'll start wishing someone wrote plugins to emulate some of these features... There is, of course, the resource search (you can type *controller* to get a list of controllers in a ruby project), but this isn't quite as friendly as the TextMate cmd-t magic.

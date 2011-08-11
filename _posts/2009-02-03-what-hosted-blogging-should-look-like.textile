@@ -1,0 +1,77 @@
+---
+layout: post
+title: "What Hosted Blogging Should Look Like"
+categories: 
+- writing
+- blogging
+- software
+---
+
+I like "Tumblr":http://tumblr.com -- they're very generous with what they let you edit, so you can run a pretty serious blog with only a domain name and some spare time to make a template.  I use it both as a lifestreamer and blogging system.  "WordPress.com":http://WordPress.com is also pretty good, although a bit slow at times.  No matter which hosted blogging software I try, though, none of them really deliver 100%.
+
+It's hard to please everyone, but existing services have some pretty serious omissions.  They also do things most people don't need.  Trying to bend WordPress.com into behaving how I want is sometimes so much work just getting cheap hosting and running my own copy would be easier: and that's the kind of time wasting I'm trying to avoid.
+
+h2. How hosted blogging should work
+
+h3. #1. No duplication of other services
+
+The entire philosophy for the system should be plug and play.  People should be able to easily select services they already use, and they should be supported fully.  Anything from comments and captcha codes to images should work.  These third-party systems should just plug in with a few clicks.
+
+Why host any files at all?  Let people use "Flickr":http://flickr.com, "box.net":http://box.net or "DropBox":http://getdropbox.com/.  Support as many services as possible, using open source libraries to do it.  Have a cool Flickr browser instead of spending money on supporting massive storage requirements.  Allow users to regularly send backups to box.net.
+
+Don't bother with stats, let people use Google Analytics or similar services.  If a potential customer makes a lot of noise about wanting real stats they can install their own software on their own host.
+
+One area that would be duplicated is search and comments.  There are some good services for searching blogs and comments, but I think a local commenting solution with a third-party captcha system and Gravatar would suffice.  Making people use another system for search would be confusing as well.
+
+h3. #2. Full template editing
+
+All templates should be editable.  Not just the overall template, but posts, comments, search page, pages, etc.  Safe templates have been solved time and time again, so you could pluck the solution straight from an open source library.
+
+h3. #3. Safe migrations
+
+I'd guess that a lot of people don't want to use hosted blogging platforms due to a fear of lock-in.  From sign-up to account deletion if should be clear that you can easily migrate your data.  The following formats should be available:
+
+# A zip file of text files of the original content
+# A zip file of text files of the HTML content (applicable if textile/markdown has been used)
+# An XML API
+# Ability to send any of the above data to a service like "box.net":http://box.net, "DropBox":http://getdropbox.com/ - and also regularly schedule sends, optionally expiring old data
+
+What really annoys me is images.  Every time I've switched blogging platforms moving all the images and updating the image tags is a massive headache.  Something to at least address and help this would be great.  If you've used Flickr or a remote disk service to host your images you probably won't want to, so my first point above would probably satisfy this.
+
+It should be possible to import and export between popular blog systems too.  WordPress.com, Tumblr, Typepad.
+
+h3. #4. Permalinks
+
+If you want people to migrate to your service you need to support editing permalink format.
+
+If I already have a blog and would like to offload it to your service, why can't I edit permalinks?  I don't want all my existing content to 404, that would be SEO suicide.
+
+h3. #5. API, mobile and print friendly
+
+There should be an XML API from the launch day.  There should also be XHTML MP for mobile support at the minimum.  Print friendly stylesheets should also be available in all standard templates.
+
+h3. #6. Plugins
+
+Why can't anyone get server-side plugins going?  If whytheluckystiff can safely run a "modified version of ruby":http://tryruby.hobix.com/ that's accessible to the world, why can't we have server-side plugins?
+
+I do a lot of work with Ruby so my view here is fairly ruby-centric.  This fantasy blogging platform could be written in anything, so it might be a good idea to use an embedded language for plugins.  You might be able to get something going with server-side JavaScript, or maybe even something from the gaming industry like LUA.
+
+Host the plugins on a separate machine, access them through an API.  Let them run in little VMs, and only allow them to access the blog's API.  If they do anything unusual CPU or network-wise, kill them.
+
+h3. #7. Domains, multiple blogs, users
+
+Let people use their own domains as part of the standard package.  Support multiple blogs, and let each blog have multiple posters.  Have an unlimited number of posters for each blog.
+
+h3. #8. Limitations
+
+Don't have any weird artificial limitations, _just in case of abuse_.  Actually have staff that monitor the system and track abuse.  Allow people to easily report abuse, and investigate it professionally.
+
+h3. #9. It should be cheap
+
+Most of my points would naturally lead to a cheaper service.  Cutting down storage by relying on Flickr or Box.net would save admin and hardware costs.  This philosophy also simplifies the software: no need to do annoying batch processing for stats, just let people plug in Google Analytics or similar apps.  It'd probably help with marketing too: some apps would proudly display your blogging engine logo for supporting their API.
+
+h3. #10. It should be simple
+
+Honestly, trying to use WordPress.com boggles my mind at the best of times.  I just want POSTS, COMMENTS.  ADD, DELETE, EDIT.  Ever heard of _CRUD_?  The fantasy blogging system should have no long and confusing menus, just features in context.
+
+It should be so simple that people will say "this is so simple I don't see the point of it."  Yet people will love it because it will let them do one thing well: write.

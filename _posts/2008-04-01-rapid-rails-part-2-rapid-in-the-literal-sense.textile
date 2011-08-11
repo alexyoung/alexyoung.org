@@ -1,0 +1,136 @@
+---
+layout: post
+title: "Rapid Rails Part 2: Rapid Literally"
+categories: 
+- programming
+- sysadmin
+- server
+- rails
+- rapidrails
+---
+
+This is part 2 of the _Rapid Rails_ series.  "Part 1":http://alexyoung.org/articles/show/45/rapid_rails_part_1_commandline_mastery featured tips on how to work more efficiently with Rails by making the most of the bundled and related command line tools.  This part discusses how to make your Rails application perform faster, with particular focus on server optimisation.  Why?  Because systems administration requires a very different skill set to programming, and I've been often been expected to manage sysadmin tasks on my Rails contracts -- and I bet you have too!
+
+I've included real-world examples from Linux, Lighttpd, Exim and MySQL because these are what I currently use on most of my servers.  If you're just starting out trying to boost your server performance there are some general principles for you, too.
+
+h2. Rails application performance
+
+People new to Rails are often concerned about its performance in production.  In my experience, unless you're lucky enough to be dealing with a ridiculously popular site, you shouldn't have major performance issues.  However, at the very least you should do the following to every application you deploy:
+
+# Ensure database tables are indexed effectively
+# Employ caching
+# Identify expensive database queries and look for alternative approaches
+# Check sessions are managed appropriately for your application.  Using ActiveRecord sessions may improve performance
+
+I've previously discussed these basic application-based optimisations in "Getting started with rails optimisation":http://alexyoung.org/articles/show/19.
+
+h2. Server software optimisation
+
+If your application performs well under tests, and benchmarks show it performs well, you might be left wondering if there's any other ways to squeeze more performance out of your server.  In all of the commercial Rails projects I've been involved in, optimising server software got killer performance gains.
+
+* Most server software (especially databases and web servers) are very conservative about memory usage by default.  It's likely you have a lot spare since memory is more affordable than it used to be, so consider increasing caching where possible
+* If you're operating a service that sends out large volumes of emails, your MTA probably isn't configured to perform well under these conditions (especially by default)
+* Servers are often left configured in a state that "works", rather than well-tested and verifiably solid
+
+In general:
+
+* Track down some good books about your mail, web and database servers
+* Use system tools like <code>top</code> and <code>iostat</code> to identify any hardware bottlenecks
+* Turn on logging to record poor performance (MySQL can do this)
+* Slowly reconfigure software, observing its performance using monitoring tools -- don't paste in "optimised" configurations found second-hand on forums!
+* Put configuration files in version control, and add comments where possible
+
+Most server software has similar techniques to improve performance.  Things to look out for when you're scanning books and manuals are:
+
+* *Caching*: If you've got a few gigabytes spare it's likely that you can increase cache and buffer sizes for practically anything
+* *Cache optimisation*: It's important to get high cache hits, so check your software can display this information (MySQL will show you with <code>show status like 'qcache%';</code>)
+* *Parallelism*: Server software might be still running as single-threaded dinosaurs when they could increase parallelism to run through tasks faster (especially effective with the Exim MTA)
+* *Additional software support*: Sometimes even the most mundane tasks can be made faster with additional software.  For example, FAM can be used to give lighttpd an extra boost by reducing stat system calls
+
+h2. Monitoring
+
+It's no good tweaking configuration files if you can't prove you've improved performance, and this is partly why I said configuration changes should be applied slowly over time.  The easiest way to get started monitoring your server is "Cacti":http://www.cacti.net/.  It's open source and will tell you a lot about what your server is doing.  Since it'll show you RRD graphs generated over time, it's easy to see if your configuration changes had any impact.
+
+You'll also have a lot of monitoring options bundled with your software.  MySQL and Exim provide various binaries and logging features for monitoring performance.
+
+h2. Practical server optimisation techniques
+
+h3. Memory, CPU and disk performance tuning
+
+The first tool to familiarise yourself with is <code>top</code>.  By pressing <code>F</code> you can select sort fields to analyse the processes running on your system.  This is a quick way to view the overall activity of a system.
+
+To get an overall picture of system resources, <code>vmstat</code> summarises memory, paging and CPU activity.  To generate results over time, run:
+
+<pre>
+vmstat 10 8
+
+procs -----------memory---------- ---swap-- -----io---- --system-- ----cpu----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in    cs us sy id wa
+ 0  0    640 146956 3072880 863520    0    0    15    35    1     0  4  1 94  1
+</pre>
+
+This will generate 8 results, with statistics taken every 10 seconds.  The vmstat man page explains each column.  If you think lack of memory is an issue pay attention to the <code>si</code> and <code>so</code> columns - these represent page in and out, indicating where memory contents are being written to and read from the disk.
+
+To keep track of disk performance, use <code>iostat</code> to produce reports.  The format is similar to <code>vmstat</code>, and the manual page details the columns.  Run <code>iostat -x</code> and check if any disk has a high <code>%util</code> result.  To see which process is responsible for saturating the disk, run <code>ps w</code> and look for anything with a <code>D</code> in the stat column.  It's likely that this process is blocking IO.
+
+Practical scenario: When initially running <code>top</code> to analyse a server, I noticed the Rails ruby processes were using far too much RAM on the system, simply because lighttpd had been set up to run too many processes through FastCGI.  Reducing the number of FastCGI processes improved performance because (according to <code>vmstat</code>) the swap was being hit less.
+
+If you're using Linux, <code>hdparm</code> (for IDE devices) and <code>blockdev</code> are useful tools if disk performance is an issue.  You can also benchmark any devices you found performing poorly in <code>iostat</code>:
+
+{% highlight sh %}
+hdparm -tT /dev/sda
+{% endhighlight %}
+
+Performance can often be increased by configuring drives with <code>hdparm</code>, older Linux distros often ignored DMA settings which visibly reduces performance.  Here's a "detailed write-up on hdparm":http://gentoo-wiki.com/HOWTO_Use_hdparm_to_improve_IDE_device_performance.
+
+h3. MySQL
+
+Optimising MySQL is in-depth, and full of quirks.  Settings vary between storage engines and MySQL versions too.  Things to look out for are:
+
+* Logging: Turn on <code>log-slow-queries</code> so MySQL can help find slow queries
+* "Query cache performance":http://dev.mysql.com/doc/refman/5.0/en/query-cache.html: Execute <code>show status like 'qcache%';</code> in MySQL's console to get an overview of how the cache is behaving, setting <code>query_cache_size</code> in my.cnf to larger values
+* "innodb_buffer_pool_size":http://www.mysqlperformanceblog.com/2007/11/03/choosing-innodb_buffer_pool_size/ can be increased depending on your situation
+
+The "MySQL performance blog":http://www.mysqlperformanceblog.com/ regularly discusses how to optimise MySQL in detail.
+
+h3. Lighttpd
+
+Lighttpd's wiki includes details on how to "optimise for FastCGI":http://trac.lighttpd.net/trac/wiki/Docs%3APerformanceFastCGI, with monitoring too.  Beyond this, adding <code>server.stat-cache-engine = "simple"</code> (or <code>fam</code>) "can improve overall performance":http://trac.lighttpd.net/trac/wiki/Docs%3APerformance#stat-cache.
+
+h3. Exim
+
+Exim is structured as a set of binaries and processes that handle each part of the mail delivery process.  This means that rather than dealing with one monolithic daemon process you're dealing with a distributed set of tools.  When sending out thousands of emails, don't just loop through your subscriber list and fire off thousands of mails with ActionMailer.  Exim will queue a certain number of mails per connection rather than immediately sending them with SMTP.  Also, threading will improve performance here by sending out batches in several threads.
+
+General Exim performance tips are:
+
+* <code>smtp_accept_queue_per_connection = integer</code> can be increased to match your desired per-connection mail batch
+* <code>remote_max_parallel = integer</code> forks the delivery process a number of times up to the maximum
+* <code>split_spool_directory</code> splits message queues into subdirectories which can improve filesystem performance
+* <code>connection_max_messages</code> increases the number of messages sent to the same host in a single connection
+* Ensure <code>exim_tidydb</code> is being run regularly with cron
+
+To get a good idea of how these changes affect performance over time, generate reports with <code>eximstats</code>:
+
+{% highlight sh %}
+eximstats -txt /var/log/exim/main.log
+{% endhighlight %}
+
+Here's an example of running <code>exim_tidydb</code> in <code>/etc/crontab</code>:
+
+<pre>
+0 6 * * * /usr/sbin/exim_tidydb /var/spool/exim wait-remote_smtp > /dev/null 2>&1
+0 6 * * * /usr/sbin/exim_tidydb /var/spool/exim retry > /dev/null 2>&1
+</pre>
+
+h2. Final tips
+
+In general, change configuration settings one by one, monitoring as you go.  This can unfortunately require downtime for your site, but if you keep track of what you're doing it shouldn't be too visible to your site's visitors.  Try to identify any hardware bottlenecks before blaming software for your problems: if you know something is using up too much RAM, either buying more RAM or scaling back caching or other settings is better than wasting hours trying to optimise your application's code.
+
+h3. Server optimisation summary checklist of guaranteed win
+
+* Don't make multi configuration changes at once, observe the impact of each change
+* Use *monitoring tools* to collect real evidence on performance changes
+* Use the tools that come with your server's software to gauge the overall state of hardware resource allocation, try to identify bottlenecks and potential causes
+* *Don't accept defaults*: Study books on your server software and operating system to properly understand configuration changes
+* *Be proactive*: Check with clients if you can book downtime for server maintenance, don't get caught out trying to improve performance on a live system
+* Consider using version control to track configuration file changes and share them between servers

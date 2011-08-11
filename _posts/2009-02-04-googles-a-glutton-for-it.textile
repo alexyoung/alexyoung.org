@@ -1,0 +1,17 @@
+---
+layout: post
+title: "Google's a Glutton for It"
+categories: 
+- google
+- privacy
+---
+
+There was a time when journalists finally realised what cookies were, and Google got heavily covered in the press for using them to track what you were searching for.  Google said they use the data anonymously, and so the argument moved on to the lifespan of the cookies.
+
+Recently Google stated inviting users to enter profile data.  You can see this if you're logged in, "google.com/ig":http://google.com/ig users will have no doubt seen it by now.  This can be as detailed as you want: full contact details, date of birth, place you were born, employment details and a photo.
+
+I'm not entirely sure what the point of filling this out is, Google don't make it 100% clear.  They say, "the more information you provide, the easier it will be for friends to find you".  Previously Google only stored your login details, now they've furnished these with a complete profile.  That's enough to make privacy concerns greater than ever.
+
+They haven't stopped there though!  Now they want you to let them know exactly where you are and what you're doing, with the "latitude":http://google.com/latitude service.  It can work through your browser and mobile phone (in selected locations).
+
+I don't intend to criticise or tinfoil hat about Google's addiction to data.  I just want to point out that it seems amusing that a company so publicly berated for creating potential privacy nightmares has rolled out a service to record *exactly where you are and what you're doing*.  There's a delicious irony to it.

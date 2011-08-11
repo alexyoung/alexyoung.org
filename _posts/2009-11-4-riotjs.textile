@@ -1,0 +1,54 @@
+---
+layout: post
+title: "Riotjs: A JavaScript Unit Testing Framework"
+categories: 
+- javascript
+- programming
+---
+
+I really like "Riot":http://alexyoung.org/2009/10/26/riot-testing/, the Ruby unit testing framework, so I decided to port it to JavaScript.  You can get it from GitHub at "alexyoung/riotjs":http://github.com/alexyoung/riotjs.
+
+I've worked hard to keep the syntax minimal.  This is challenging in JavaScript, as you may have gathered from my "Fear and Loathing in JavaScript DSLs":http://alexyoung.org/2009/10/22/javascript-dsl/ article.
+
+There's actually no need for a JavaScript "DSL" in this case -- riotjs could work fine by passing around objects.  It's just that riot tests are so terse that I wanted to carry this over to JavaScript.  Up until now I've been using unittest.js from "script.aculo.us":http://script.aculo.us/ and I always felt the tests were too messy.
+
+Here's a few interesting things to note about it:
+
+* Like cucumber the output is verbose
+* It'll work with Rhino, I do a lot of work this way because it's very fast and focused
+* I colourize the output in the terminal
+* Your tests will also run in a browser without any modification
+* There are some aliases: <code>should</code> is aliased to <code>asserts</code>, and <code>given</code> is aliased as <code>context</code>
+* Those methods *are not* global because I'm a cunning magician
+
+Here's an example test:
+
+{% highlight js %}
+load('test_helper.js');
+
+Riot.context('Functions', function() {
+
+  given('a function to curry', function() {
+    var add  = function(a, b) { return a + b; },
+        add1 = Closure.curry(add, 1);
+    should('return expected values', add1(10)).equals(11);
+  });
+
+  given('a function to memoize', function() {
+    var fibo = Closure.memoize([0, 1], function(recur, n) {
+      return recur(n - 1) + recur(n - 2);
+    });
+    should('return fibonacci numbers', fibo(10)).equals(55);
+  });
+});
+
+Riot.run();
+{% endhighlight %}
+
+This test is from my "closure":http://github.com/alexyoung/closure library, which is a bunch of functional stuff (with lazy evaluation!) for JavaScript.  Here's what the output looks like:
+
+!/images/riotjs.png!
+
+I could also include that script in HTML, because <code>Riot.run</code> will automatically run the tests <code>onload</code>.  Additionally, <code>Riot.run</code> can be passed a function containing the tests, rather than having a call to run.  The reason I call run here is because I have a set of files I want to run to test the entire libraries.
+
+Don't be afraid to message me about riotjs on GitHub, it's a work in progress so I'd appreciate contributions and thoughts.

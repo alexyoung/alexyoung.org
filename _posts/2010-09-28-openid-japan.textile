@@ -1,0 +1,47 @@
+---
+layout: post
+title: "Rails 3 OpenID with Mongo"
+categories: 
+- holidays
+- mongodb
+- rails
+---
+
+!/images/wm.png!
+
+I'm working on an open source project that uses Rails 3, "MongoDB":http://www.mongodb.org/, "Mongoid":http://mongoid.org/, and OpenID.  I've been using "ruby-openid":http://github.com/pelle/ruby-openid, and whilst it has example code it's not exactly easy to get to grips with.
+
+I'm using OpenID for authentication because I want to create a series of open source projects that use a bunch of interesting technologies like Rails 3 and Node, yet are simple to deploy on cheap hosting services like "Heroku":http://heroku.com/ or "Joyent":http://www.joyent.com/technology/smartplatform/introduction-to-node-js/.  I want people to be able to easily install instances of these projects and authenticate without registering, and perhaps have the option of paying to use a commercial deployment that I might run.
+
+The reason I mention it is ruby-openid was behaving strangely on Heroku with in-memory storage.  The file system module worked fine locally.  Here's some context:
+
+{% highlight ruby %}
+OpenID::Consumer.new session, OpenID::Store::Module.new(module_args)
+{% endhighlight %}
+
+In this case <code>Module</code> could be <code>Filesystem</code> or <code>Memory</code>.  Heroku doesn't allow filesystem writes, so I thought it would be nice to use Mongo instead.  I put some slapdash code together and it worked pretty well: "db_store.rb":http://gist.github.com/601236.
+
+Most people use plugins like "authlogic":http://github.com/binarylogic/authlogic which optionally support OpenID.  I wanted to avoid the plugin dependency because these open source mini-projects I'm building don't have any other login options.  The reason for this is I want the server-side code to be incredibly light, so the server basically acts as a way to safely save JSON data. 
+
+Client-heavy, OpenID-powered apps that are easy to install on cloud services.  That's my motivation.
+
+If you're using Mongoid and OpenID, you might be able to use "db_store.rb":http://gist.github.com/601236.  You could even improve it and release it!
+
+h3. Meanwhile, in Tokyo
+
+!/images/tokyo-night.jpg!
+
+I went to the "Tokyo Rubyist Meetup":http://www.mobalean.com/blog/2010/09/02/announcing-tokyo-rubyist-meetup.  Contrary to popular belief, I don't travel the world going to programmer meet-ups.  It was actually my wife who arranged it -- she's not a programmer, she worked with one of the organisers when translating "Basecamp":http://basecamphq.com/.  It was a good event for her to attend, because the idea behind it was to get Japanese programmers talking with English-speaking people to get translation help, and also encourage more interaction between the communities.
+
+I met a lot of interesting developers, both Japanese and from just about everywhere else.  I was a little bit envious of the foreigners working in Japan -- the language barrier is difficult of course, but I love trying to learn Japanese.  I'm convinced my body was engineered to survive on Japanese food, because it seems to agree with me more than Western food.  
+
+!/images/tgs.jpg!
+
+While we were there we also went to TGS.  I got to play Fallout New Vegas, of which I'm a big fan (I lost nearly 100 hours to Fallout 3).  There was an amusing booth for the 龍が如く games, featuring a guy with makeup who looked a lot like a zombie.
+
+Another interesting thing happened in Japan -- "one of my closest friends":http://twitter.com/rowland flew over from Hong Kong.  We took him to some of Tokyo's big toy and comic shops, and he seemed to have a knack for finding Star Wars-related stuff.
+
+I managed to avoid talking about the trip on Twitter, because I'm still convinced announcing "I'M ON HOLIDAY!" on social networks is a bad idea.  So that's why I've been quiet!
+
+There are more photos on my "Japan 2010":http://www.flickr.com/photos/alex_young/sets/72157624956432840/ set at Flickr.  Somehow my iPhone photos came out better than my real camera, I'm not sure if serendipity was at work or if the new iPhone has magical camera powers.
+

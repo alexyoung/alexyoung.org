@@ -1,0 +1,56 @@
+---
+layout: post
+title: "An Inkling"
+categories: 
+- programming
+- thoughts
+---
+
+Learning a new platform or language obviously takes a lot of work.  I used to do it like this:
+
+# Assume I'm awesome
+# Rush in and make something
+# Waste a lot of time getting basics wrong
+# Eventually learn how to do things properly the hard way
+
+This isn't a particularly productive way of working.  After learning a few languages we assume we can pick up new ones pretty quickly, but overconfidence can lead to big problems.
+
+Shortly after this era I entered _The Age of the Unwieldy Tome_:
+
+# I'd buy a few books about a topic
+# Barely read them
+# Realise most of them were garbage
+# Rush in the same way as before
+
+After over a decade of programming I now learn new languages a different way.  The key thing is to efficiently build up an overall picture of the platform and language.  Not down to the API method level, but an awareness of the various structures applications can take, and the capabilities of the major APIs.
+
+Then I figure out how to make the IDE or my editor do what they need to do: how do I run an app in debug mode?  What debug options are there?  For example, if the language isn't garbage collected how do I get good stack traces for memory-related crashes?
+
+Next I start building toy apps that I'll probably delete.
+
+Meanwhile, I'll search sites like GitHub for real projects, and try to build up a picture of who writes good code and why.  Reading real code from open source projects and libraries can get you up to speed quickly.
+
+h3. An Inkling
+
+The first stage is the most important -- becoming familiar with application structure and available APIs.  By taking time to read things and not rushing into real work, I'll be in a good position to tell when something is wrong.  When writing iPhone apps in the early days I used to get a feeling that anything that looked synchronous was a bad idea, and because I'd surfed through Apple's documentation I was aware of methods like <code>performSelectorInBackground</code>, and classes like <code>NSThread</code> and <code>NSNotification</code>.
+
+When I originally learned Cocoa, Apple hadn't yet rolled out garbage collection, so we had to be careful with retain counts.  I rushed into Cocoa development, so my early projects had some poor memory handling.  I'd missed an important convention: convenience class methods return <code>autoreleased</code> objects, so sometimes objects would get deallocated and I didn't know why.
+
+If I'd read through the documentation, even if I forgot this convention, I'd get an inkling that I'd seen the answer somewhere.
+
+h3. Oblique Strategies for the Autodidact
+
+Next time you come to start a new language:
+
+* Try keeping your initial studies broad: get an overall picture of the landscape
+* Don't read too much detail early on to keep motivated
+* Learn how to make the environment work effectively before writing code
+* Find the best sources of documentation.  When you get the inkling something is wrong, plunder the docs
+* Read other people's code
+
+h3. This is Common Sense
+
+All of this is common sense, but it's hard to formalise or structure learning new skills when we're under pressure in a commercial (or even educational) environment.  It's almost like we need a set of _Oblique Strategies_ cards for programming.
+
+How and why do you learn new languages?  Does it just happen because you're landed with a project in a different language, or do you actively seek new languages and platforms to broaden your horizons?
+

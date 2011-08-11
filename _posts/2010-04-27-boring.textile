@@ -1,0 +1,26 @@
+---
+layout: post
+title: "My Desktop is Boring"
+categories: 
+- work
+- productivity
+---
+
+!/images/desktop.png!
+
+I revealed desktop earlier and was surprised to find a utilitarian utopia:
+
+* There are no icons on the desktop
+* The background image is simply grey
+* There's no Dock
+
+Concerned that obsessive-compulsive minimalism had kicked in, I tried to figure out why my office computer had ended up like this.
+
+Certain projects of mine benefit from IM, but I can't work productively with Adium or Skype's icon blinking intermittently.  Rather than quit and load all the time, I hid the Dock.
+
+I take a lot of screenshots of my products, and I also make videos to demo work to clients, which resulted in the grey desktop.  Accidentally capturing the content of my desktop background got annoying.
+
+I don't really work with many documents, and scrappy bits that I need to share get dragged to "Dropbox":https://www.dropbox.com/ rather than the desktop.
+
+"DateLine":http://www.machinecodex.com/dateline/ sits at the bottom of the screen so I can quickly work out appointments without needing to open iCal.
+

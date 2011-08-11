@@ -1,0 +1,138 @@
+body
+{
+    font: 11px verdana, serif;
+    background-color: black;
+    color: #eee;
+    background-image: url('/include/images/background.png');
+    background-repeat: repeat-x;
+    background-position: bottom;
+    background-attachment: fixed;
+}
+
+a
+{
+    color: #eee;
+    text-decoration: underline;
+}
+
+a:hover
+{
+    text-decoration: none;
+}
+
+h1, h2, h3, p
+{
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, p
+{
+    margin-bottom: 10px;
+}
+
+h1
+{
+    font-size: 14px;
+}
+
+h2
+{
+    font-size: 12px;
+}
+
+div#Thumbnails, div#RHS
+{
+    clear : right;
+    float : left;
+}
+
+div#Thumbnails
+{
+    width: 62%;
+}
+
+div#Content
+{
+}
+
+div#RHS
+{
+    margin: 0;
+    padding: 0;
+    width: 37%;
+    text-align: right;
+}
+
+div.Column
+{
+    clear : right;
+    float : left;
+    width: 50%;
+}
+
+div.Row
+{
+    clear: both;
+    padding: 3px 10px;
+}
+
+.Panel
+{
+    margin-bottom: 30px;
+}
+
+.Right
+{
+    text-align: right;
+}
+
+#Logo
+{
+    clear: both;
+    margin-bottom: 10px;
+}
+
+#Logo .Left
+{
+    clear : right;
+    float : left;
+    padding-top: 6px;
+    width: 49%;
+}
+
+.Logo
+{
+    margin-bottom: 20px;
+}
+
+.Border
+{
+    border-bottom: black 2px solid;
+    border-left: #cdd1d8 1px solid;
+    border-right: black 2px solid;
+    border-top: #cdd1d8 2px solid;
+}
+
+img.Border
+{
+    border: black 1px solid;
+}
+
+.Small
+{
+    width: 300px;
+}
+
+a img
+{
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.aboutme
+{
+    list-style-type: disc;
+    margin: 0 0 10px 0;
+}

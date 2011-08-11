@@ -1,0 +1,117 @@
+---
+layout: post
+title: "Rapid Rails Part 3: Desktop Mastery"
+categories: 
+- programming
+- rails
+- rapidrails
+---
+
+Welcome to _Rapid Rails Part 3: Desktop mastery_, the third article in my series focussing on making Rails (and yourself) faster.
+
+A good programmer recognises when to reuse and therefore reduce code.  A great programmer applies this tendency to their own workflow.  Whether you use an IDE or text editor, working with Rails can be made more pleasant and efficient by observing commonly performed tasks and simplifying them.
+
+The examples given below have a heavy bias toward TextMate, Vim and Mac OS.  If you work in Windows or Linux, at the very least consider the following 10 ideas.
+
+# Ensure you can invoke Rails scripts without leaving your editor
+# Run tests without leaving your editor
+# Keep documentation nearby and searchable
+# Make sure your database schema and data are only key presses away
+# Integrate source code management with your editor
+# Make switching between projects as easy as possible
+# Use snippets, completion and generators when possible
+# Master your text editor - collect books, articles, blog posts
+# Learn how to extend your text editor
+# Code navigation
+
+h2. 1. Ensure you can invoke Rails scripts without leaving your editor
+
+Repeatedly visiting the terminal to run Rails scripts quickly gets tiresome.  The TextMate Rails bundle allows you to call generator scripts and migrations by pressing <code>shift-ctrl-|</code>.  Meanwhile "rails.vim":http://www.vim.org/scripts/script.php?script_id=1567 provides somewhat abstracted access to these scripts. 
+
+h2. 2. Run tests without leaving your editor
+
+Running tests in TextMate is as simple as pressing <code>cmd-r</code> when you're viewing a test file.  To show a menu of types of tests to run, press <code>ctrl-\</code>.  With rails.vim, you can use <code>:Rake</code> with the appropriate tests.
+
+h2. 3. Keep documentation nearby and searchable
+
+TextMate provides _documentation for word_ using RDoc by pressing <code>ctrl-h</code>, which should cut down your trips to "http://api.rubyonrails.org":http://api.rubyonrails.org.  Similarly, rails.vim has the <code>:Rdoc</code> command.
+
+h2. 4. Make sure your database schema and data are only key presses away
+
+Hover over a model name in TextMate, then press <code>cmd-ctrl-shift-s</code> -- this will show the schema for the model.  rails.vim provides integration with the "dbext plugin":http://www.vim.org/scripts/script.php?script_id=356.  This is from the rails.vim documentation:
+
+<blockquote>
+Then, you can use features like table name completion and commands like:
+
+:Create database brablog_development
+</blockquote>
+
+h2. 5. Integrate source code management with your editor
+
+!http://www.box.net/shared/static/0xh5xqigwk.png!
+
+In TextMate, press <code>shift-ctrl-a</code> to bring up the subversion bundle's menu.  The commit window is especially user-friendly.  Vim has "vcscommand.vim":http://www.vim.org/scripts/script.php?script_id=90
+
+h2. 6. Make switching between projects as easy as possible
+
+!http://www.box.net/shared/static/b4q9spq4gs.png!
+
+Stacks were added in Mac OS Leopard, and I find these a great way of grouping my TextMate projects for quick, spring-loaded access.  It's worth getting to know your editor's project management capabilities.  Even though it's tempting to use scratch projects (with TextMate this is usually done with <code>mate .</code> in the terminal), carefully maintaining your own projects allows you to group files (differently to the file system) and maintain state.  Vim supports these features through "project.vim":http://vim.sourceforge.net/scripts/script.php?script_id=69.
+
+Of course, there are many ways of quickly accessing projects.  Here's a few ideas:
+
+* Use "Quicksilver":http://www.blacktree.com/ with TextMate
+* Create memorable shell aliases
+* Pin them to your Windows start menu, or add a folder
+* Use a "Windows-compatible Start Menu replacement":http://launchy.net/ to find project files
+
+h2. 7. Use snippets, completion and generators when possible
+
+!http://www.box.net/shared/static/bq8guf6w4o.png!
+
+TextMate has loads of snippets.  You can access them by typing a phrase then pressing tab.  For example, <code>deft[tab]</code> creates the outline for a unit test case.  To search TextMate snippets (or any of the keyboard shortcuts I've detailed here), press ctrl-cmd-t to bring up the _select bundle item_ menu.  This can also be found by clicking on the _Bundles_ menu.
+
+Also, don't forget to make the most of Rails generators.  Run <code>script/generate</code> to see what's available.
+
+h2. 8. Master your text editor - collect books, articles, blog posts
+
+O'Reilly's Vim books helped me get to grips with Vim, I used to carry "The vi Editor Pocket Reference":http://www.oreilly.com/catalog/vipr/index.html around in my early days at university and my first job.  Searching through "Vim's plugins":http://vim.sourceforge.net/search.php can yield some useful finds, and there's even a "Vim tips wiki":http://vim.wikia.com/wiki/Main_Page.
+
+"TextMate's manual":http://macromates.com/textmate/manual/ and "Wiki":http://wiki.macromates.com/Main/HomePage are both great resources.
+
+Another resource I can fully endorse is "Peep Code":http://peepcode.com/.  The "TextMate for Rails 2":http://peepcode.com/products/textmate-for-rails-2 screencast is detailed and thorough, and comes complete with an indispensable cheatsheet PDF.
+
+h2. 9. Learn how to extend your text editor
+
+Vim's macros can take a bit of getting used to, but this article should set you straight:  "More Vim: Save Time With Macros":http://www.oreillynet.com/mac/blog/2006/07/more_vim_save_time_with_macros_1.html.  TextMate is a bit easier, but the power of TextMate's extensibility lies in the Bundle Editor (found in: Bundles, Bundle Editor, Show Bundle Editor.)
+
+Many of TextMate's bundles are shell scripts or even ruby scripts, and there's a TextMate ruby library for integrating with the GUI.  You can also create your own snippets, which can be useful for quickly writing our your company's boilerplate file headers.  The TextMate "manual entry on bundles":http://macromates.com/textmate/manual/bundles.html is pretty in-depth.
+
+h2. 10. Code navigation
+
+Some of these features require "RubyAMP":http://code.leadmediapartners.com/tools/rubyamp.
+
+* <code>cmd-t</code> lets you quickly search and switch files
+* <code>shift-cmd-f</code> is Find in Project
+* <code>shift-cmd-m</code> skips to a method definition
+* <code>cmd-ctrl-alt-f</code> greps through the project, and is usually faster than Find in Project
+* <code>cmd-alt-down arrow</code> switches from an action to a view or model to unit test
+* <code>shift-cmd-alt-down arrow</code> brings up the _Go To_ menu
+* <code>cmd-shift-t</code> displays the symbol navigator
+
+rails.vim has loads of equivalents, which uses <code>:A</code> (alternate) and <code>:R</code> (related) for easy jumping between files.
+
+h2. Bonus Stage: Workflow-dependent desktops
+
+If you've got Mac OS Leopard or Linux you've probably tried out workspaces.  Why not set up a work-friendly space, with terminals, editors, and everything else all set up so you can access them easily?
+
+Here are a few more ideas:
+
+* Use Mac OS's "Automator":http://automatorworld.com/.  Leopard introduced macro-like functionality, so creating workflows is even easier
+* Make the most of Quicklook in Mac OS
+* Use smart folders and folder actions (ideas: search for project files, or even search for files that have been tagged in some way)
+* Try using some widgets: "Dashboard":http://widgets.precisionis.com.au/
+
+h2. Super-Secret Bonus Stage: Stop working
+
+Play more videogames.  You can use the excuse that you're researching their interfaces for ideas, it's the perfect crime!

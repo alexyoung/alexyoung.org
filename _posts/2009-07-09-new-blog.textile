@@ -1,0 +1,78 @@
+---
+layout: post
+title: "Using Jekyll"
+categories: 
+- site
+- design
+---
+
+Please accept my apologies if I've flooded your feed reader with articles: I owe you a beer.  The reason for this is I've moved my blog over to a new system and new design.  To make up for it I've lovingly curated all of my old posts by adding syntax highlighting, resizing images and fixing typos.
+
+In fact, I've almost killed myself porting this blog over to "Jekyll":http://github.com/mojombo/jekyll.  My old blog was a simple Rails application I built based on code from "Helipad":http://helipadapp.com.  It did a sterling job, but I have so many Rails applications to maintain it added too much to my workload.  Writing a blog with Jekyll is relatively simple, but deciding to make a redesign at the same time is not.
+
+Here's why I like Jekyll, and why you might too:
+
+* Jekyll generates static pages in a very logical way that's easy to understand
+* Anywhere that serves HTML files can serve your blog
+* If you're familiar with rake or git deployment is a breeze
+* Jekyll provides some excellent syntax highlighting through pygments
+
+h3. Design
+
+I wanted to include more details about my projects on the homepage, but I couldn't figure out a design that balanced a mini portfolio with recent posts.  I was really inspired by "Bruce Williams'":http://codefluency.com/  and "Tom Preston-Werner'":http://tom.preston-werner.com/ blogs for the format.  Their blogs are like mine but 100% more awesome.
+
+h3. Jekyll Basics
+
+Here's an example of a Jekyll blog's source code: "bruce.github.com":http://github.com/bruce/bruce.github.com/tree/master.  Notice the directories with underscores:
+
+{% highlight sh %}
+_layouts/
+_posts/
+{% endhighlight %}
+
+By default layouts are in "Liquid templates":http://www.liquidmarkup.org/.
+
+Articles are a little more complicated, but still very intuitive:
+
+* File names should be year-month-day/file-name.format
+* The <code>format</code> can be textile or markdown
+* Post files should include a header that indicates the layout
+
+The headers are yaml and look like this:
+
+{% highlight ruby %}
+---
+layout: post
+title: "Rapid Rails: Boot Up Time"
+categories: 
+- rails
+- rapidrails
+- ruby
+- performance
+---
+{% endhighlight %}
+
+h3. Kool-Aid Factor
+
+Jekyll definitely has a Kool-Aid factor because of the GitHub pages integration.  People are hosting their blogs on GitHub, which makes publishing an article little more than <code>git push</code>.
+
+h3. Workflow
+
+Working with Jekyll is like this:
+
+# Start <code>jekyll --server --auto</code>
+# Create a new file in <code>_posts</code> with the name <code>year-month-day/file-name.format</code>
+# Add the yaml header
+# Write the post
+# View http://localhost:4000 in a browser
+# Realise your design is broken in IE
+
+h3. Working on Designs
+
+Jekyll needs to update the <code>_site/</code> directory every time a file is changed.  This can make working on designs slow, so sometimes it's good to edit files in there then copy them back.  This may be considered bad practice though, so it might be more suitable to make a mock up design page with relative CSS/image links until you're happy with your design.
+
+h3. Tags
+
+I tagged all my previous posts and I didn't really want to lose them.  I've preserved them by adding arrays of categories (see the yaml example above).  Then I include them in a post with loop in liquid: <code>for category in page.categories</code>.
+
+Next I generated a tags.html file that contains all of the posts for each tag.  I wrote a task for this in my Rakefile, you can get the source here: "generate_tags.rb":http://gist.github.com/143571.

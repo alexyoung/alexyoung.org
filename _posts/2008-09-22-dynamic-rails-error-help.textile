@@ -1,0 +1,14 @@
+---
+layout: post
+title: "Dynamic Rails Error Help"
+categories: 
+- rails
+- javascript
+- programming
+---
+
+"!http://farm4.static.flickr.com/3121/2877961211_045d355329_o.png!":http://www.flickr.com/photos/helicoid/2877961211/
+
+Here's a JavaScript snippet intended for Rails that I just posted over on my company's technical blog.  It displays the error message for each field when you click on the field, making it easier to see exactly what went wrong when saving a record.
+
+Read it here: "Dynamic Rails error help":http://blog.helicoid.net/2008/09/22/dynamic-rails-error-help

@@ -1,0 +1,17 @@
+---
+layout: post
+title: "Mini App: TweetFu"
+categories: 
+- projects
+- miniapps
+---
+
+Around Christmas I was watching TV with the family and messing around with my netbook.  It's got Linux and Ruby on it, so I can actually work on that tiny thing.  I came up with a script called <code>lovehate.rb</code>: it downloads matches of love and hate on "search.twitter.com":http://search.twitter.com, then calculates the frequency for each term and presents a "winner".
+
+For some reason this script fascinated me: _love_ almost always won, and I really wanted to find out what trends affected this.  I made the script more generic and used it to compare other terms; eventually "TweetFu.com":http://tweetfu.com was born.
+
+!/images/tweetfu.png!
+
+"TweetFu":http://tweetfu.com allows you to compare to terms to see which occurs the most often on Twitter.  It then reruns the comparison every hour or so, producing an RSS feed and chart -- the amount it reruns tests is based on demand, to keep Twitter's API traffic low.  It's a lot like Google Trends, but currently only allows two terms to be compared.
+
+I'm still using it to track "Love vs. Hate":http://tweetfu.com/fights/1-Love-Hate, but people have created some amusing fights with it.  Also being English, I like to watch "Coffee vs. Tea":http://tweetfu.com/fights/47-Coffee-Tea, it's nice to see tea beating coffee now and then!

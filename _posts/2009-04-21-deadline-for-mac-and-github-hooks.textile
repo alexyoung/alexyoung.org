@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Deadline for Mac (and GitHub Hooks)"
+categories: 
+- programming
+- deadline
+---
+
+!/images/deadline_mac_blog.png!
+
+"Deadline":http://deadlineapp.com is a reminder web app I made.  It sends out alerts through SMS, email and IM, and now it works with Mac OS too.  I spent this weekend building a Mac cocoa app for it that integrates with Growl.  You can download it here:  "DeadlineGrowl":http://dl.getdropbox.com/u/221414/deadline/DeadlineGrowl.zip
+
+Deadline also works with GitHub: "Deadline: Notification API and GitHub support":http://blog.helicoid.net/articles/2009/04/18/deadline_notification_api_and_github_support.  It uses post-receive hooks to grab commit messages and notify you through your preferred notification method.
+
+I really like the idea of hook URLs.  Deadline has a generic notification API (it's just a GET to a URL) you could use to notify your users about events in your apps.  If you're interested in using this, or using Deadline's API for a project, let me know and I'll give you a hand.

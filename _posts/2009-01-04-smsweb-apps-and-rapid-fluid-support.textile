@@ -1,0 +1,12 @@
+---
+layout: post
+title: "SMS/Web Apps and Rapid Fluid Support"
+categories: 
+- sms
+- fluid
+- ssb
+---
+
+I recently wrote two articles over on my company's blog.  The first is about supporting the JavaScript API for "Fluid":http://fluidapp.com in your web app: "Rapid Fluid support":http://blog.helicoid.net/2008/12/26/rapid-fluid-support.  The other is on "sending SMS from web apps":http://blog.helicoid.net/2009/01/03/tips-on-sending-sms-from-web-applications.  Both of these articles draw from my recent technical challenges at "Helicoid":http://helicoid.net.
+
+I recently added Fluid and SMS support to "Deadline":http://deadlineapp.com/, into which I've poured most of my recent creative energy.

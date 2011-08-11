@@ -1,0 +1,12 @@
+---
+layout: post
+title: "10 Essential Ruby Gems"
+categories: 
+- programming
+- ruby
+- gems
+---
+
+Despite leaving it for a while, I'm going to continue my previous article, "A taxonomy of Rails plugins", relatively soon.  I've been inspired by the excellent plugins by "errfree":http://errfree.com/ and come up with a few ideas of my own during the heavy workload of 2007.  In particular, I'd like to clarify testing Rails plugins.  But more of that in the near future.
+
+For now, have a look at "10 essential ruby gems":http://blog.helicoid.net/2008/01/08/10-essential-ruby-gems/.  It's hosted on my company's new blog, where you'll eventually find more articles by me with a greater emphasis on web design.

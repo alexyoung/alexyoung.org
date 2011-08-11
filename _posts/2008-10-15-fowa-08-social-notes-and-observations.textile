@@ -1,0 +1,49 @@
+---
+layout: post
+title: "FOWA 08: Social Notes and Observations"
+categories: 
+- fowa
+---
+
+h3. Social notes
+
+One of the great things about the "Future of Web Apps":http://www.futureofwebapps.com/ expo was how polite the speakers were.  I caught up with a few during the conference and in the parties afterwards.  "Simon":http://simonstarr.com/ and I had a chat with Alvin Woon from Plurk (who likes his beers apparently), the guys from "Swirrl":http://swirrl.com/, the people from "Meebo":http://www.meebo.com/ and "PhoneFromHere":http://phonefromhere.com/.
+
+I also wandered around the Friday night party weeding out the hackers from the Diggnation fans, thankful to find fellow Ruby and Cocoa programmers present.  The amount of UK/EU Microsoft/PHP/Java developers seemed to outweigh the number of Ruby folks, but I found them in the end.
+
+h3. Observations
+
+The UK-centric audience was quiet.  Watch videos of an American conference and compare how load they are -- I'm not saying they're like an episode of Jerry Springer but they're definitely louder.  When it came to questions almost every talk had an embarrassing silence until someone could grudgingly force out a question.
+
+The amount of MacBook Pros and MacBook Airs around was incredible.  As a Mac developer it made me pretty excited, but it also made me think everyone there clearly gets paid more than me.  Granted these were probably all bought on business expenses but it was still something to think about.  I actually leave my laptop at home in favour of a notepad to protect my investment - obviously iPhones have made this much easier.
+
+I hardly saw any netbooks.  I thought there was going to be a Linux presence not seen since the big Linux expos back in around 2000, but people apparently prefer Macs over tiny/cheap laptops.  In the age of the web browser and tiny laptops I expected to see a lot of them: why take a £1200 laptop to a conference when you can take a £200 machine that's more portable?  Perhaps they'll start to catch on more next year.
+
+Apple laptops were clearly beaten by the popularity of iPhones.  I've never seen so many in one place.  I imagine O2's network was being crushed by the amount of data in that cell (the conference's wireless was flaky so Edge/3G was getting used a lot).  If Stephen Ballmer walked into the conference there'd be guaranteed chair throwing.
+
+I couldn't help but notice Twitterific being launched on these iPhones too.  Twitter was very popular at this event, it seems to have become the de-facto chat method of choice.  It made me realise how good Twitter really is -- grabbing your phone and quickly launching Twitterific is way more convenient than logging into IRC/IM.
+
+Something that disheartened me slightly was the general focus of business culture.  Many speakers and attendees seemed primarily concerned with venture capital funding, or creating the next huge world dominating thing.  I thought we'd moved into a culture of building sustainable software with realistic funding sources (paying customers), but apparently I should be chasing American VC money to build the next Twitter.
+
+h3. Conference summary
+
+Good:
+
+* The talks were useful and inspiring, and Carsonified kindly put most of them online
+* Chatting with speakers
+* Networking with UK folks
+* Free Google/Facebook beer
+* Alvin Woon's drinking ability is comparable with a British bloke
+
+Bad:
+
+Note that these bad points aren't Carsonified's fault, the event was incredibly professional.
+
+* Audience needed more encouragement, evident by the silences at question time
+* Don't forget the DLR stops going back to the city around pub closing time.  It took me almost 3 hours to get back to Croydon
+* Business culture: 2008 really isn't the year for chasing VC dollars
+* Conference wireless: It was funny to see wireless go out in demos during a talk, it'd be nice if venues provided a separate ethernet network for presentations
+* Popularity of PHP/.Net/Java with UK startups.  I wanted to meet more Objective-C and Ruby people, come on UK hackers!
+* The venue (ExCeL London) has great facilities but be prepared for overpriced food the next time you visit
+* UK web app culture: we definitely need a stronger community
+* Diggnation invasion: The behaviour at the Friday night party was evidently more immature than Thursday, as the Diggnation fans rushed around the pub's security

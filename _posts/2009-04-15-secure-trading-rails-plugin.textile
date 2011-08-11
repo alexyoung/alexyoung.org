@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Secure Trading Rails Plugin"
+categories: 
+- programming
+- money
+---
+
+!/images/securetrading.png!
+
+I use "Secure Trading":http://www.securetrading.com/ for "Helicoid's":http://helicoid.net payment processing.  I wrote a payment processor plugin for our apps about two years ago, and it's been in production since then.  A few people have asked me to open source the code, so here it is: "securetrading-rails":http://github.com/alexyoung/securetrading-rails/tree/master.
+
+I'd like to integrate it with "ActiveMerchant":http://www.activemerchant.org/ because I like their API, but I haven't had time so far.
+
+Out of all the payment processing companies I've dealt with, which is a lot, Secure Trading have been the most reliable with the best customer service.  Their XML API is relatively straightforward too.

@@ -1,0 +1,60 @@
+---
+layout: post
+title: "Javascript Mini Bibliography"
+categories: 
+- javascript
+- snippets
+- code
+- programming
+---
+
+I often annoys me when people don't make it clear what they're referencing in an article.  Sometimes people don't give any references at all, and when they do they use links on words that shouldn't be links (the <em>click here</em> syndrome).
+
+So I wrote this JavaScript to help out.  It adds a section at the bottom of each of your Wordpress posts containing all the links you referred to in a post:
+
+{% highlight javascript %}
+/* From Prototype */
+document.getElementsByClassName = function(className) {
+  var children = document.getElementsByTagName('*') || document.all;
+  var elements = new Array();
+  
+  for (var i = 0; i < children.length; i++) {
+    var child = children[i];
+    var classNames = child.className.split(' ');
+    for (var j = 0; j < classNames.length; j++) {
+      if (classNames[j] == className) {
+        elements.push(child);
+        break;
+      }
+    }
+  }
+  
+  return elements;
+}
+
+function post_links() {
+  var posts = document.getElementsByClassName('storycontent');
+  for (i = 0; i < posts.length; i++) {
+    found_links = false;
+    for (n = 0; n < posts[i].childNodes.length; n++) {
+      for (p = 0; p < posts[i].childNodes[n].childNodes.length; p++) {
+        if (posts[i].childNodes[n].childNodes[p].nodeName == 'A') {
+          if (!found_links) {
+            header = document.createElement('H4');
+            header.innerHTML = 'Links in this post:';
+            posts[i].appendChild(header);
+            found_links = true;
+          }
+          link = document.createElement("A");
+          link.href = posts[i].childNodes[n].childNodes[p].href;
+          link.innerHTML = posts[i].childNodes[n].childNodes[p].innerHTML;
+          posts[i].appendChild(link);
+          posts[i].appendChild(document.createElement('BR')); 
+        }
+      }
+    }
+  }
+}
+
+post_links();
+{% endhighlight %}

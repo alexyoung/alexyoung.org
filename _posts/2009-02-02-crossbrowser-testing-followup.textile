@@ -1,0 +1,28 @@
+---
+layout: post
+title: "Cross-Browser Testing: Follow-up"
+categories: 
+- browsers
+- design
+- testing
+---
+
+This is a followup to my previous post, "What cross-browser testing could look like":http://alexyoung.org/articles/show/66/what_crossbrowser_testing_could_look_like.  After talking to a few friends about the idea, we realised one way of running remote Windows instances would be through "Amazon EC2":http://aws.amazon.com/windows/.
+
+The weaknesses of this approach are:
+
+* Installing all the different browsers
+* Trying to get multiple versions of IE set up
+* Where's Mac OS?
+
+However, it is a definite possibility or at least a nod towards one.   Ken from <a href="http://www.crossbrowsertesting.com/">CrossBrowserTesting.com</a> got in touch to show off his service.  They've got videos of it so you can see it in action without signing up.  It's basically a Java VNC client accessing a set of servers.  It'd be interesting to know how they plan to control malicious use of the operating system instances.  Also I don't think you can test local stuff, so you'd need to mirror your work.
+
+Here's what it looks like in use:
+
+!/images/crossbrowsertesting.png!
+
+As you can see there's some weird stuff with the mouse.  This is because my latency to the server is quite high, this also makes keyboard and mouse input very slow.  This will probably be resolved if their service takes off and they roll out international servers.  There's a toolbar at the top that allows you to logout or take screenshots of the session, which works very well.
+
+CrossBrowserTesting.com is very reasonably priced and cuts out a lot of the hassles I've mentioned previously.  The latency issues will put many people off initially, but I think these are solvable problems given cash.  The only thing that really concerns me is security: you're able to run programs other than the specified browser, and knowing Windows someone could probably turn the whole thing into a botnet.
+
+People definitely are innovating in this space, and I hope CrossBrowserTesting.com takes off.

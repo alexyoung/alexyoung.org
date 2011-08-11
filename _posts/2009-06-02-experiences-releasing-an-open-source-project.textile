@@ -1,0 +1,27 @@
+---
+layout: post
+title: "Experiences Releasing an Open Source Project"
+summary: I've always dabbled with open source (Linux got me through university), but it's only since GitHub that I've released a lot of stuff: "GitHub.com/alexyoung":http://github.com/alexyoung/ -- I only had weird experiments on my site before, and I released some stuff through work too ("code.helicoid.net":code.helicoid.net).  Nothing much drew any major attention until I publicly announced JsChat.
+categories: 
+- thoughts
+---
+
+I've always dabbled with open source (Linux got me through university), but it's only since GitHub that I've released a lot of stuff: "GitHub.com/alexyoung":http://github.com/alexyoung/ -- I only had weird experiments on my site before, and I released some stuff through work too ("code.helicoid.net":code.helicoid.net).  Nothing much drew any major attention until I publicly announced JsChat.
+
+"JsChat":http://jschat.org/ is a simple protocol for realtime chat.  It's like IRC, but relies on JSON for message encoding and syntax.  I made it so it would be easier to build nice web-based chat clients.  I built an Ncurses client, but it's... kind of dodgy.  I use it daily but I recognise that it needs work.
+
+The point is that JsChat is about communication.  When you visit the site, you can join a chat room straight away.  Therefore, when the project appeared on Ruby news sites, it was inevitable that people would join a chat room and talk to us.
+
+This is what happened:
+
+* People complained that we were using polling instead of Juggernaut or other Flash-sockets hacks -- they didn't seem to realise the project was more than the web client, or that I specifically decided not to rely on technologies like Flash
+* People complained about the language and libraries I used (I had good reasons for using these too)
+* People joined and made random racist comments
+* 90% of people joined with a name like 'test' and wrote random noise.  JsChat loads the lastlog automatically in the web client, so it's obvious that people are having real conversations
+
+On the plus side:
+
+* We made some friends through JsChat
+* Some people are now using it in their sites for professional projects
+* We got lots of bug reports and useful feedback
+* People said they liked the interface design

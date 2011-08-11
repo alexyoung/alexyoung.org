@@ -1,0 +1,105 @@
+---
+layout: post
+title: "Agile Deployment"
+categories: 
+- ruby
+- rails
+- deployment
+- agiledeployment
+---
+
+Deployment should be bullet-proof, predictable and fast.  You might even say it should be *agile*.  Unfortunately, it's difficult to create an agile deployment environment.  One of the reasons for this is that deployment is left as a last minute concern.  It's a spectre lurking in the corners of a project manager's Gantt charts.
+
+To make matters worse, learning and configuring deployment tools can be difficult -- the documentation isn't always great, and it's hard to relate recipes to your particular environment.  They also require a leap of faith before running with a live application.
+
+It's impossible to claim to be "agile" if you're not 100% comfortable deploying.
+
+h3. Goals
+
+Attaining agile deployment nirvana brings the following benefits:
+
+* Happier customers
+* More rapid responses to bug fixes
+* Less chance of being called at the weekend when something breaks 
+
+h3. Symptoms and Solutions
+
+If you have any of the following symptoms, you need _agile deployment_:
+
+* A sense of dread before deploying
+* Inability to visualise the differences between your development code and the active production release
+* There's a lack of clarity about live-only assets, periodic tasks, and other unique things that your application depends on
+* Insecurity about rolling back
+* Confusion about managing settings files for production
+
+Hopefully these deployment nightmares will be cured with this series of articles, in which I'll help you:
+
+* Get back to basics to understand the fundamentals
+* Create a rock solid deployment plan
+* Visualise and demystify deployments
+* Track dependency differences between local and remote environments
+* Design for deployment
+* Feel more secure about rolling back to previous versions
+* Explore some innovative deployment technology and approaches
+
+h3. What is Deployment?
+
+Before looking at tools like Vlad, Capistrano and Puppet, let's consider what deployment is.
+
+Your application is a set of the following things:
+
+* A database schema
+* Ruby scripts
+* Directories
+* Shell and rake scripts
+* Static assets like images and JavaScript
+
+All of these things are files, and syncing files with a remote server is trivial.  Yet deployment is more than updating files:
+
+# Database migrations are run
+# Tasks (like tests) can be run against the live environment before making any fundamental changes
+# Special handling for remote assets (user-generated content, tmp files, search system indexes)
+# Any bespoke daemons are restarted
+# Multiple servers may need to be update for clusters
+# A checkpoint is created to support rollback
+
+h3. Deploying Files
+
+The simplest case is a static site.  Deployment could be performed with a GUI ftp/sftp client like "Transmit":http://www.panic.com/transmit/, or a console tool like rsync.  The most flexible and easy to understand deployment script would be this:
+
+{% highlight sh %}
+rsync -avz "site/" example.com:/var/www/site/
+{% endhighlight %}
+
+* Any files that are different are uploaded in archive mode (a) -- this preserves links, permissions, etc.
+* The files will be compressed (z)
+* The verbosity (v) is increased so you can see what the command is going to do
+
+That's exactly how I deploy changes to this blog: see "Using Jekyll":http://alexyoung.local/2009/07/09/new-blog/ for more.
+
+h4. I'm Scared!
+
+That command is still pretty scary.  It's less scary than Capistrano, but it's still going to change a lot of files.
+
+A _dry run_ can help demystify what's happening:
+
+{% highlight sh %}
+rsync -avz "site/" --dry-run example.com:/var/www/site/
+{% endhighlight %}
+
+By adding <code>--dry-run</code>, rsync will show you what it would have done without changing anything.  The output isn't necessarily easy to understand, but it's a step forward.  I'll be showing you how to process this output in another article.  The concept of dry runs is important to deployment, because it's part of visualising changes.
+
+Capistrano supports dry runs with <code>-n/--dry-run</code>.
+
+h3. Validation
+
+Validation is a key step.  You might have seen Capistrano automatically rollback when a command fails.  Although frustrating, these checks be thought out as part of a deployment plan.  You may even want to run your unit tests to check if everything works in the live environment.
+
+h3. Restarting Processes
+
+Most Rails applications use long-running Ruby processes in the form of mongrel or thin.  If you use "Passenger":http://www.modrails.com/ restarting is easier because it watches for changes to <code>tmp/restart.txt</code>.  Your application might run its own daemons too, in which case some processes will need to be restarted.
+
+Restarting HTTP and application processes can be one of the messiest parts of deployment.  Tools like Vlad and Capistrano don't always give clear advice or recipes for your environment, and if you're not well-versed in sysadmin tasks it can be confusing.  I'll run through some process management basics in a future _Agile Deployment_ post.
+
+*Next Part*: A Deployment Planning Checklist 
+
