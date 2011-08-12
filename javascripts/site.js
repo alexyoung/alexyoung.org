@@ -1,5 +1,8 @@
 $(function() {
-  $('.tag-list a.tag').live('click', function() {
+  prettyPrint();
+
+  $('.tag-list a.tag').live('click', function(e) {
+    e.preventDefault();
     $(this).parents('h2').next('.posts').toggle();
   });
 

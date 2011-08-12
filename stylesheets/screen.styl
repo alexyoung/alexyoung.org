@@ -2,12 +2,12 @@
 light = #fff
 dark = #666
 border-colour = #ccc
-back = #fdfdfa
+back = #fff
 highlight = #cd0001
 lighter = #777
+panel-colour = #fdfdfa
 
 standard-font-size = 1em
-small-font-size = 12px
 header-font-size = 2em
 
 reset()
@@ -29,6 +29,9 @@ h1, h2, h3, h4, p
 h1, h2, h3, h4
   font-size: header-font-size
 
+h3
+  font-size: 1.5em 
+
 a
   color: highlight
   text-decoration: none
@@ -46,21 +49,22 @@ blockquote
   min-height: 100%
   height: auto !important
   height: 100%
-  margin: 0 40px 0 250px
+  margin: 0 40px 0 220px
   padding: 0
   min-width: 200px
   max-width: 1300px
 
 #header
-  margin: 10px 0 0 0
+  margin: 10px 0 0 10px
   padding-bottom: 5px
 
-#header a
+a#home
   background: transparent url('https://s2.googleusercontent.com/s2/favicons?domain=alexyoung.org') 0 center no-repeat
   padding-left: 24px
 
 article
   reset()
+  padding: 0 10px
 
 article header
   margin-bottom: 10px
@@ -107,11 +111,11 @@ article time, article .author, article .tags
 #content
   float: left
   clear: right
-  margin: 10px auto -42px
+  margin: 10px auto
 
 nav.panel
   height: 100%
-  background-color: #f8f8f5
+  background-color: panel-colour 
   box-shadow: 5px 0 4px #e0e0dd
   position: fixed
   width: 200px
@@ -149,7 +153,7 @@ footer
   border-top: 2px solid border-colour
 
 footer p
-  font-size: small-font-size
+  font-size: small
   text-align: right
   text-shadow: 0 1px 0 #fff
 
@@ -176,3 +180,15 @@ footer p
   padding: 10px 0
   text-align: center
   width: 100%
+
+.free p, .free h3
+  padding: 10px 0
+
+.free h1, h2, h3, h4, h5, h6
+  padding: 10px 0 20px 0
+
+.free h1
+  padding-bottom: 5px
+  margin-bottom: 5px
+  border-bottom: 2px solid border-colour
+
