@@ -1,0 +1,38 @@
+ul#sidebar
+  li
+    #carbonads-container
+      .carbonad
+        #carbon
+        script(type="text/javascript")
+          var z = document.createElement("script");
+          z.type = "text/javascript";
+          z.async = true;
+          z.src = "http://engine.carbonads.com/z/12099/carbon_2_1_0_VERT";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(z, s);
+  li
+    a(href="http://feeds.feedburner.com/webdevelopernotes")
+      img(src="http://feeds.feedburner.com/~fc/webdevelopernotes?bg=99CCFF&amp;fg=444444&amp;anim=0", height="26", width="88", style="border:0", alt="")
+  li.link
+    a(href="http://github.com/alexyoung/")
+      img(src="https://s2.googleusercontent.com/s2/favicons?domain=github.com", alt="GitHub/alexyoung")
+      span GitHub
+  li.link
+    a(href="http://www.linkedin.com/in/alexyoung")
+      img(src="https://s2.googleusercontent.com/s2/favicons?domain=linkedin.com", alt="View Alex Young's profile on LinkedIn")
+      span LinkedIn
+  li.link
+    a(href="http://twitter.com/alex_young")
+      img(src="https://s2.googleusercontent.com/s2/favicons?domain=twitter.com", alt="Follow me on Twitter")
+      span Twitter
+  li.link
+    a(href="http://dailyjs.com")
+      img(src="https://s2.googleusercontent.com/s2/favicons?domain=dailyjs.com")
+      span DailyJS
+  li
+    form(action="http://www.google.com/search", method="get")
+      p
+        input(name="sitesearch", type="hidden", value="alexyoung.org")
+        input(class="text", name="q", type="text", size="12")
+          br
+        input(class="button", type="submit", value="Google")
