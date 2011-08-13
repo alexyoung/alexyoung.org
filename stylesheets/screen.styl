@@ -2,10 +2,12 @@
 light = #fff
 dark = #666
 border-colour = #ccc
-back = #fff
+back = #f9f7f5
 highlight = #cd0001
 lighter = #777
-panel-colour = #fdfdfa
+panel-colour = #e5e3dc
+panel-border-colour = #b3b1ac
+lighter-panel = #f9f7f5
 
 standard-font-size = 1em
 header-font-size = 2em
@@ -16,7 +18,7 @@ reset()
 
 /* Styles */
 body
-  font-family: "minion-pro-1", "minion-pro-2", Palatino, Georgia, "Times New Roman", serif;
+  font-family: Palatino, Georgia, "Times New Roman", serif;
   font-size: 1em;
   margin: 0 auto
   padding-bottom: 2em
@@ -30,11 +32,24 @@ h1, h2, h3, h4
   font-size: header-font-size
 
 h3
-  font-size: 1.5em 
+  font-size: 1.5em
+
+h4
+  font-size: 1em
+
+h1, h2, h3, h4, h5, h6
+  font-family: Georgia, "Times New Roman", serif
+
+article h2, article h3, article h4, article h5, article h6
+  padding: 20px 0 10px 0
+
+article h1
+  padding-top: 10px
 
 a
   color: highlight
   text-decoration: none
+  text-shadow: 0 1px 0 #fff
 
 a:hover
   text-decoration: underline
@@ -65,6 +80,7 @@ a#home
 article
   reset()
   padding: 0 10px
+  line-height: 1.5em
 
 article header
   margin-bottom: 10px
@@ -80,7 +96,7 @@ article header h1 a
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5)
   color: #000
 
-article h1, article h2, article h3, article h4, article h5, article h6, article p, article blockquote, article pre
+article p, article blockquote, article pre
   padding: 10px 0
 
 article time, article .author, article .tags
@@ -90,6 +106,7 @@ article time, article .author, article .tags
   text-transform: uppercase
   font-family: Palatino, Georgia, "Times New Roman", serif
   color: lighter
+  text-shadow: 0 1px 0 #fff
 
 .tags
   border-left: 2px solid border-colour
@@ -113,10 +130,14 @@ article time, article .author, article .tags
   clear: right
   margin: 10px auto
 
+.carbonad
+  border: 1px solid panel-border-colour !important
+
 nav.panel
   height: 100%
   background-color: panel-colour 
-  box-shadow: 5px 0 4px #e0e0dd
+  box-shadow: inset -2px 0 3px #d6d2cd
+  border-right: 1px solid panel-border-colour
   position: fixed
   width: 200px
   left: 0
@@ -169,7 +190,15 @@ footer p
   padding: 10px 10px 10px 25px
 
 #sidebar .link a span
-  margin-left: 10px
+  padding: 0 0 0 10px
+  vertical-align: middle
+
+#sidebar .link img
+  vertical-align: middle
+  margin: 0
+  padding: 4px
+  border: 1px solid panel-border-colour
+  background-color: lighter-panel
 
 #sidebar p
   reset()
