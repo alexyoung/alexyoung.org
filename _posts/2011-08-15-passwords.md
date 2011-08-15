@@ -18,7 +18,7 @@ Some sign in forms contain fields that appear multiple times on the page.  Using
 
 I've also found sites that include server-side generated random field names so it's extremely difficult to use my password manager at all.  I end up copy and pasting the credentials manually.  This has led me to research whether it's possible for browser plugins to silently access the contents of the paste buffer and extract plain-text passwords.
 
-Not to mention banks.  Is it more secure to ask me for parts of my password, or let me use my password manager with a high-entropy password?
+Not to mention banks.  Is it more secure to ask me for parts of my password, or let me use my password manager with a high-entropy password that I can easily change regularly?
 
 Password managers also detect when an account has been created or signed into for the first time.  Is it practical to support this directly?  I've often looked at new accounts in my password manager and found a mess of fields that aren't actually authentication credentials.
 
