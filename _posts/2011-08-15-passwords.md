@@ -6,7 +6,7 @@ categories:
 - security
 ---
 
-> 1Password works so well because it isn’t just a security product, but it changes the way we deal with with website logins. That is, we do things more securely and more easily when 1Password is around.<span class="source">- [Looking ahead in security](http://blog.agilebits.com/2011/04/looking-ahead-in-security/), AgileBits</source>
+> 1Password works so well because it isn't just a security product, but it changes the way we deal with with website logins. That is, we do things more securely and more easily when 1Password is around.<span class="source">- [Looking ahead in security](http://blog.agilebits.com/2011/04/looking-ahead-in-security/), AgileBits</source>
 
 I currently have 258 unique passwords.  I'm not addicted to creating accounts on web services; I have multiple identities as a result of separating personal and professional concerns.  Memorising 200+ unique passwords is never going to happen, so naturally I use a password manager.
 
