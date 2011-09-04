@@ -1,0 +1,44 @@
+---
+layout: post
+title: "Google+, Privacy and Engineering Consent"
+categories: 
+- social
+- essays
+- events
+---
+
+At dConstruct 2011, Don Norman gave a talk entitled "Emotional Design for the World of Objects":http://2011.dconstruct.org/conference/don-norman in which he said Google's main product is _us_ and the service they sell is advertising.  The services Google make aren't just a way of getting eyes on adverts, but a way of gathering information about us to improve advertisement targeting.  If this is true, where is the evidence?  And what does it mean for social products like Google+?
+
+It's now possible to "link Google accounts together":http://googlesystem.blogspot.com/2010/08/google-multiple-sign-in-now-available.html, which can make the awkward necessity of using several Google accounts more manageable.  I have Google Apps accounts for work and personal use, as well as an obligatory Gmail account for services the Apps accounts can't yet access.  I've linked these together to make it easier to switch between them.  Does this mean I'm now represented as one person internally within Google?
+
+Google's "Privacy Policy":http://www.google.com/intl/en/privacy/privacy-policy.html seems to indicate that this could be possible:
+
+bq. We may combine the information you submit under your account with information from other Google services or third parties in order to provide you with a better experience and to improve the quality of our services.
+
+This doesn't specifically mention linking data between accounts, but implies information may be shared between services.  There's actually a page called "Ads Preferences":http://www.google.com/ads/preferences/ that shows what Google's advertising knows about you, based on an anonymous cookie.  According to the "associated documentation":http://www.google.com/privacy/ads/ consent is required before collecting personally identifying information:
+
+bq. We will not collect, sell, or share personally identifying information from ad serving cookies without your explicit consent.
+
+This is interesting, because "explicit consent" in our field is something more malleable than it sounds.  What it amounts to is agreeing to terms and conditions, which people do on a daily basis without having to read or understand.  It's entirely possible that I've already _explicitly_ agreed to linking my personal information with Google's anonymous advertising cookies without even realising it.
+
+This brings to mind two things: "The Engineering of Consent":http://en.wikipedia.org/wiki/Manufacturing_Consent and subsequently "Manufacturing Consent":http://en.wikipedia.org/wiki/Manufacturing_Consent by Edward S. Herman and Noam Chomsky, and "Eli Pariser's filter bubble":http://www.newscientist.com/article/mg21128225.800-internet-activist-the-dark-side-of-web-personalisation.html.
+
+"The Filter Bubble":http://www.thefilterbubble.com/ is an ongoing argument against personalisation through technologies like Google's advertising profiling:
+
+bq. Increasingly we don't all see the same internet. We see stories and facts that make it through a membrane of personalised algorithms that surround us [...] The filter bubble is the personal, unique universe of information that results and that we increasingly live in online.
+
+Digesting all of these ideas around online advertising and privacy ethics finally leads me to this: "Your name and Google+ Profiles":http://www.google.com/support/+/bin/answer.py?answer=1228271.  Google+ demands real names, and accounts have been deleted for using names other than the name on your birth certificate, driving license, and passport.  If Google wanted to be in a position to clearly build accurate profiles of people, account linking and real names would be the way to do it.
+
+h3. References
+
+* "Emotional Design for the World of Objects":http://2011.dconstruct.org/conference/don-norman
+* "Explicit Consent, PrivacySense.net":http://www.privacysense.net/different-types-consent/
+* "Your name and Google+ Profiles":http://www.google.com/support/+/bin/answer.py?answer=1228271
+* "The Filter Bubble":http://www.thefilterbubble.com/
+* "Manufacturing Consent: The Political Economy of the Mass Media":http://en.wikipedia.org/wiki/Manufacturing_Consent
+* "The Engineering of Consent by Edward Bernays":http://en.wikipedia.org/wiki/The_Engineering_of_Consent
+* "New net rules set to make cookies crumble":http://www.bbc.co.uk/news/technology-12668552
+* "Internet activist: The dark side of web personalisation":http://www.newscientist.com/article/mg21128225.800-internet-activist-the-dark-side-of-web-personalisation.html
+* "Google Privacy Center: Advertising and Privacy":http://www.google.com/privacy/ads/
+* "Google Privacy Policy":http://www.google.com/intl/en/privacy/privacy-policy.html
+* "Google Multiple Sign-in":http://googlesystem.blogspot.com/2010/08/google-multiple-sign-in-now-available.html
