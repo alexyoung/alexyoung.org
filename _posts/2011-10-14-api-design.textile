@@ -1,0 +1,24 @@
+---
+layout: post
+title: "Changing APIs and Package Managers"
+categories: 
+- essays
+- programming
+---
+
+When I started programming there was a real 'if it ain't broke...' mentality.  At least, I think there was -- this was in the 90s and I connected to the community through magazines, computer shops, and public domain disks (that's disks with a 'k', as in floppy diskettes).  I learned a lot of BASIC derivatives from magazines, and eventually picked up some books on C.  Then I heard about K&R C at university and flipped through a copy at the library.  I think one of my friends bought a copy, and I was envious because I couldn't afford it at the time.
+
+Then later on I started playing with Ruby, and there seemed to be a huge amount of experimentation and creativity within the community.  I dimly recall trying to work my way through Japanese documentation and giving up, but I came back to it a few years later when a lot of English-speaking developers had jumped aboard.  The creativity in the Ruby community seemed to solidify when _why became well known and cartoon foxes and meta-programming were everywhere.
+
+Then I started working with Rails, and there was a new mentality of constantly refining and changing things, sometimes based purely on aesthetic preferences, but other times to genuinely improve APIs and libraries.
+
+In contrast to this, I've dabbled with Objective-C over the years and got paid to write several iPhone apps.  I started taking Objective-C seriously partly because the iPhone was such a phenomenon, but also because I like C-like languages.  Apple's APIs don't change fundamentally, perhaps because they were based on solid principles established by engineers at NeXT in the 80s and 90s.  I've found I'm extremely happy writing code with events in Objective-C, and data storage is trivial thanks to Core Data.
+
+Meanwhile, I've enjoyed building Node apps because I like event-based code, and JavaScript's first class functions suit me as a Lisp hobbyist who never gets paid to write Lisp.  Another reason I enjoy Node is npm's move away from system-wide library installation, which makes dependency management easy.
+
+Node's core developers and prominent library and framework authors seem to be acutely aware of how frustrating API changes are.  In some ways JavaScript and Objective-C seem to inspire a smaller range of API designs than Ruby -- Ruby libraries will come with anything from a DSL to a simple object that can be called with public methods.  JavaScript library APIs are usually designed around simple objects or chaining, and Objective-C APIs use a range of design patterns, Apple's APIs in particular are focused around patterns that suit GUI development.
+
+It can be frustrating to work with Rails when API changes create unexpected problems.  The Ruby community has always had a culture of testing, which fits a dynamic language.  Tests are generally part of the development process, so code can be updated to reflect API changes with a manageable cost in terms of additional testing and time.
+
+API changes can be mitigated by locking down every library to a specific version.  That means mastering a language's package manager is now a core skill, rather than something that can be picked up on the job.  It's equivalent to the build process in a compiled language.  Don't write your <code>Gemfile</code> or <code>package.json</code> without putting serious thought into how library versions should be locked down.  Certain contexts and libraries can generally be on the bleeding edge, others should be locked to a specific version.  Also learn the features of your package manager -- I wouldn't like to develop npm modules without knowing about <code>npm link</code>.
+
