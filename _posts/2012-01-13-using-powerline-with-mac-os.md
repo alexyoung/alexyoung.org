@@ -13,7 +13,7 @@ tags:
 Snow Leopard's Terminal application doesn't support 256 colours, so I started using [iTerm2](http://www.iterm2.com/) instead.  With a little bit of configuration it's functionality equivalent to Terminal, and offers tonnes of extras.  Lion's Terminal is fine.  Both need to report `xterm-256color`, so ensure this is set up in the Preferences pane.
 To get the cool UTF-8 fonts you'll need patched fonts.  Nick Quaranto posted some suitable fonts here: [vim-powerline patched fonts](https://gist.github.com/1595572).  I like "Menlo" myself.
 
-Next, read the Powerline documentation.  When the author says `set nocompatible` and `set laststatus=2` are required he means it, so add those to `~/.vimrc`.  I also had to add `set t_Co=256` and `let g:Powerline_symbols = 'unicode'`.
+Next, read the Powerline documentation.  When the author says `set nocompatible` and `set laststatus=2` are required he means it, so add those to `~/.vimrc`.  I also had to add `set t_Co=256` and `let g:Powerline_symbols = 'unicode'` (Kim notes that setting it to `fancy` will work as well, and make better use of the patched fonts).
 
 Changing `Powerline_symbols` requires the cache to be cleared, so `rm /tmp/Powerline.cache`.
 
