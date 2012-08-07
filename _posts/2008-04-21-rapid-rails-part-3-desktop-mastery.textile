@@ -48,13 +48,13 @@ Then, you can use features like table name completion and commands like:
 
 h2. 5. Integrate source code management with your editor
 
-!http://www.box.net/shared/static/0xh5xqigwk.png!
+!/images/textmate_subversion.png!
 
 In TextMate, press <code>shift-ctrl-a</code> to bring up the subversion bundle's menu.  The commit window is especially user-friendly.  Vim has "vcscommand.vim":http://www.vim.org/scripts/script.php?script_id=90
 
 h2. 6. Make switching between projects as easy as possible
 
-!http://www.box.net/shared/static/b4q9spq4gs.png!
+!/images/textmate_list.png!
 
 Stacks were added in Mac OS Leopard, and I find these a great way of grouping my TextMate projects for quick, spring-loaded access.  It's worth getting to know your editor's project management capabilities.  Even though it's tempting to use scratch projects (with TextMate this is usually done with <code>mate .</code> in the terminal), carefully maintaining your own projects allows you to group files (differently to the file system) and maintain state.  Vim supports these features through "project.vim":http://vim.sourceforge.net/scripts/script.php?script_id=69.
 
@@ -67,7 +67,7 @@ Of course, there are many ways of quickly accessing projects.  Here's a few idea
 
 h2. 7. Use snippets, completion and generators when possible
 
-!http://www.box.net/shared/static/bq8guf6w4o.png!
+!/images/select_bundle_item.png!
 
 TextMate has loads of snippets.  You can access them by typing a phrase then pressing tab.  For example, <code>deft[tab]</code> creates the outline for a unit test case.  To search TextMate snippets (or any of the keyboard shortcuts I've detailed here), press ctrl-cmd-t to bring up the _select bundle item_ menu.  This can also be found by clicking on the _Bundles_ menu.
 

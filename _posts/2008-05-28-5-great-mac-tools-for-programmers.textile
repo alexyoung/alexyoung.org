@@ -9,7 +9,7 @@ categories:
 
 h3. Diff visualisation: Changes
 
-!http://www.box.net/shared/static/6soxjd0ow4.png! !http://www.box.net/shared/static/1cyvvb8dcg.png!
+!/images/changes_diff.png! !/images/changes_list.png!
 
 "Changes":http://changesapp.com/ is a fast and friendly diff tool.  You can quickly list files that have changed in a project, and view differences between files.  It also works with Subversion and Git (and several other version control systems), so it will fit right into your typical workflow.  Oh, and it also has a TextMate bundle.
 
@@ -17,7 +17,7 @@ Changes gets perhaps the highest accolade for a mac application: I like Changes 
 
 h3. Performance analysis: Instruments
 
-"!http://www.box.net/shared/static/lag4an4wg4.png!":http://www.box.net/shared/static/iteg1rwg0w.png
+"!/images/instruments_small.png!":/images/instruments.png
 
 "Instruments":http://www.apple.com/macosx/developertools/instruments.html comes with Leopard, so you might already have it on your machine.  It's a performance monitoring tool, which means you can attach it to a process and analyse various aspects of its performance.  This is incredibly useful if you're looking for memory leaks or working on OpenGL performance in native Mac applications.
 

@@ -7,8 +7,6 @@ categories:
 - ruby
 ---
 
-!http://www.box.net/shared/static/s1m3seknfe.png!
-
 I just posted this article to my company's blog: "Analytics with Capistrano":http://blog.helicoid.net/2008/09/08/analytics-with-capistrano
 
 bq. If you want realtime stats on your web site, why not try using <a href="http://capify.org/">Capistrano</a> to collect data and create graphs and tables?  It's pretty easy to do this, and the beauty is you don't need to make any modifications to your application.

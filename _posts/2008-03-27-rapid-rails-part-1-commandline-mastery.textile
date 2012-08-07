@@ -8,7 +8,7 @@ categories:
 - rapidrails
 ---
 
-!http://www.box.net/shared/static/p0kuthy8g8.gif!
+!/images/rdebug.gif!
 
 _Rapid Rails_ is a series of articles containing succinct tips to increase your productivity when working with "Ruby on Rails":http://rubyonrails.org/.  This is the first part, and shows you how to make the most of the command-line tools that come with Rails.
 
