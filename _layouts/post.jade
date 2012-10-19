@@ -11,6 +11,8 @@ html(lang="en")
     script(type="text/javascript", src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js")
     script(type="text/javascript", src="/javascripts/google-code-prettify/prettify.js")
     script(type="text/javascript", src="/javascripts/site.js")
+    script(type="text/javascript")
+      var _sf_startpt=(new Date()).getTime()
   body
     #container
       nav.panel
@@ -23,3 +25,20 @@ html(lang="en")
         !{disqus(post, 'alexyoung')}
       footer
         p.copyright &copy; Alex R. Young | <a href="/contact.html">Contact</a> | <a href="http://popjs.com">Generated with Pop</a> | <a href="/cookies.html">Cookies and Privacy</a>
+    script(type="text/javascript")
+      var _sf_async_config = { uid: 39178, domain: 'alexyoung.org' };
+      (function() {
+        function loadChartbeat() {
+          window._sf_endpt = (new Date()).getTime();
+          var e = document.createElement('script');
+          e.setAttribute('language', 'javascript');
+          e.setAttribute('type', 'text/javascript');
+          e.setAttribute('src',
+            (("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") +
+            "js/chartbeat.js");
+          document.body.appendChild(e);
+        };
+        var oldonload = window.onload;
+        window.onload = (typeof window.onload != 'function') ?
+          loadChartbeat : function() { oldonload(); loadChartbeat(); };
+      })();
