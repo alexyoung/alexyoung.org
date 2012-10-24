@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Eighteen Months
+summary: I've been trapped in the 18 month hardware cycle for over a decade.  Whether it's mobile phones on a contract with a "free" upgrade, PC hardware replacement driven by games, or Apple's relentless yet undeniably compelling product refreshes, I can't escape it.  I won't lie and pretend that I don't get excited by Apple keynotes or video game hardware news, but we can blame Moore's Law for a certain amount of this thirst for improved technological artefacts.
 tags:
 - culture
 - essays
