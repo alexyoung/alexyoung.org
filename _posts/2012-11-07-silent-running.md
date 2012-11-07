@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Silent Running
+summary: I have a limited edition Masters of Cinema SteelBook edition of Silent Running. I'm not a big collector of films, but Silent Running is special. This particular edition has been beautifully transferred and includes the The Making of Silent Running documentary.
 tags:
 - essays
 - environment
