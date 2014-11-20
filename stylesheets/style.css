@@ -1,0 +1,140 @@
+body {
+  background-color: #1F1812;
+  color: #fff;
+  padding-left: 10px;
+}
+
+a {
+  color: #fff;
+}
+
+a:hover {
+  color: #c90707;
+}
+
+li a.icon {
+  text-decoration: none;
+}
+
+p, li {
+  line-height: 38px;
+}
+
+header, p, section {
+  width: 600px;
+}
+
+header, section {
+  margin: 0 auto;
+}
+
+section {
+  padding-top: 20px;
+}
+
+h1, h2, p, ul { padding-left: 0 }
+
+h1 {
+  width: 100%;
+  font-size: 84px;
+  font-family: 'Lato', helvetica, sans-serif;
+  font-weight: 100;
+  margin: 0;
+  white-space: nowrap;
+}
+
+h2 {
+  width: 100%;
+  font-size: 62px;
+  font-family: 'Lato', helvetica, sans-serif;
+  font-weight: 100;
+  margin: 0;
+}
+
+h1, h2 {
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+ul {
+  list-style-type: none;
+  width: 200px;
+}
+
+li .fa {
+  width: 24px;
+}
+
+li hr {
+  border: 0;
+  height: 1px;
+  background-color: #aaa;
+}
+
+p, li {
+  font-size: 22px;
+  font-family: 'Merriweather', serif;
+}
+
+/* Light theme */
+body.light {
+  background-color: #FCFAF2;
+}
+
+body.light hr {
+  background-color: #999;
+}
+
+body.light a, body.light h1, body.light h2, body.light p {
+  color: #333;
+}
+
+body.light a:hover {
+  color: #c90707;
+}
+
+/* Animation */
+p, li, h1, h2 {
+  -webkit-animation: fadein 2s;
+  -moz-animation: fadein 2s;
+  -ms-animation: fadein 2s;
+  -o-animation: fadein 2s;
+  animation: fadein 2s;
+}
+
+h2 { -webkit-animation-delay: 0.5s; -moz-animation-delay: 0.5s; -ms-animation-delay: 0.5s; -o-animation-delay: 0.5s; animation-delay: 0.5s; }
+p, li { -webkit-animation-delay: 1s; -moz-animation-delay: 1s; -ms-animation-delay: 1s; -o-animation-delay: 1s; animation-delay: 1s; }
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Response styles */
+
+@media only screen and (max-width: 768px) {
+  body { padding: 10px }
+  h1, h2 {
+    font-size: 52px;
+  }
+
+  header, p, section {
+    width: 100%;
+    max-width: 700px;
+  }
+}
